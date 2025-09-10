@@ -1,4 +1,4 @@
-# Intro Image Analysis Lab Course
+# Methods in Cell Analysis and Laboratory Automation: Image Analysis Fundamentals
 
 This website hosts materials for the Image Analysis module of the lab course held by the Single Cell Unit at the D-BSSE of ETH Zurich.
 
