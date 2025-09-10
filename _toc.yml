@@ -1,0 +1,8 @@
+format: jb-book
+root: README
+chapters:
+- file: notebooks/00_intro
+- file: book/download_repo.md
+- file: book/install_python.md
+- file: book/setup_environment.md
+- file: notebooks/01_image_handling_basics
