@@ -1,16 +1,15 @@
-# Optional: Installing Python
+# Installing Python
 
 ## Overview
 
-Day 1 of this course introduced python and jupyter notebooks. This part of the course will focus on practical image processing with Python. To run the jupyter notebooks used in this course, you can use a python installation
-- on your computer or
-- on the virtual BAND computers provided with this course.
+To run the Python jupyter notebooks used in this course, you need to install Python locally on your computer.
 
-For both of these options, we recommend using `conda` to manage your python environment. If not already done, you can install conda following the instructions below.
+We recommend using `conda` to manage your python environment. If not already done, you can install conda following the instructions below.
 
 
     ```{admonition} What is conda?
-    `conda` is a very commonly used environment and package manager which makes python and related software packages available on your computer.
+    `conda` is a very commonly used environment and package manager which makes python and related software packages available on your computer. Confusingly, there are different "distributions" of conda, the two most common being `Anaconda` and `Miniconda`. Here we will use `Miniconda`, which is a minimal conda installer that includes the conda package manager and Python. It is available for Windows, Mac OS and Linux. To confuse things even more, we will actually install `Miniforge`, which is `Miniconda` configured to only install python packages from the open-source community-driven conda-forge channel. This is generally a good idea, as it avoids potential issues with package compatibility and licensing that can arise when using the default channels.
+    ```
 
 
 ## Instructions
@@ -18,7 +17,7 @@ For both of these options, we recommend using `conda` to manage your python envi
 Select the installation instructions for your operating system and processor from the tabs below.
 
 ````{tab-set}
-```{tab-item} Linux (e.g. BAND)
+```{tab-item} Linux
 1. In your web browser, navigate to this [download page](https://github.com/conda-forge/miniforge#miniforge).
 2. Scroll down to the "Miniforge3" header of the "Downloads" section. Click the link to download link for `Miniforge3-Linux-x86_64`.
 3. Open your terminal application
@@ -33,7 +32,7 @@ Select the installation instructions for your operating system and processor fro
     bash Miniforge-Linux-x86_64.sh
     ```
 
-6. After installation, you will be asked if you would like to initialize your terminal with "conda init". For a local installation, you enter "yes" here and the conda command will be available every time you open a terminal. In this course, we work on virtual BAND computers, and in this case we enter "no".
+6. After installation, you will be asked if you would like to initialize your terminal with "conda init". For a local installation, you enter "yes" here and the conda command will be available every time you open a terminal.
 
 7. To verify your installation worked, close your Terminal window and open a new one. You should see `(base)` to the left of your prompt.
 
