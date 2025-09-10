@@ -1,6 +1,7 @@
 # Book settings
 title: "SCU Lab course: Image Analysis"
 author: Marvin Albert
+copyright: "2025 ETH Zurich"
 logo: 'logo.webp'
 execute:
   execute_notebooks: "off"
