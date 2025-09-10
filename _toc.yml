@@ -2,9 +2,11 @@ format: jb-book
 root: book/landing.md
 chapters:
 - file: book/course_schedule.md
+- file: book/download_example_data.md
 - file: book/software_setup.md
   sections:
   #- file: book/download_repo.md
+  - file: book/install_fiji.md
   - file: book/install_python.md
   - file: book/setup_environment.md
 - file: book/notebooks.md
