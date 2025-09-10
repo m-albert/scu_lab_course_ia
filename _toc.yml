@@ -1,5 +1,5 @@
 format: jb-book
-root: README
+root: book/landing.md
 chapters:
 - file: notebooks/00_intro
 #- file: book/download_repo.md
