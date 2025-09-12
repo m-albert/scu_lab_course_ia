@@ -13,3 +13,4 @@ chapters:
   sections:
   - file: notebooks/01_image_handling_basics
 - file: book/python_cheatsheet.md
+- file: book/further_reading.md
