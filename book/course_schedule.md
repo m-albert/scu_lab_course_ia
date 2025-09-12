@@ -1,5 +1,7 @@
 # Course schedule
 
+All courses take place in Room BSS E 21 from 9:00 to 18:00.
+
 ## Day 0: Intro
 
 - Lecture: Introduction to Image Analysis
