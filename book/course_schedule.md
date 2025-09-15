@@ -1,6 +1,6 @@
 # Course schedule
 
-All courses take place in Room BSS E 21 from 9:00 to 18:00.
+All courses take place in Room BSS E 21 from 9:00 to 17:30.
 
 ## Day 0: Intro
 
@@ -22,7 +22,7 @@ All courses take place in Room BSS E 21 from 9:00 to 18:00.
 
 - Image processing using Python
   - Goal 1: Load, process, and analyze images in Python
-  - Goal 2: Applying DL-based image segmentation
+  - Goal 2: Apply DL-based image segmentation
 
 - Plotting and data analysis in Python
 

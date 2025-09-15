@@ -7,9 +7,9 @@ To run the Python jupyter notebooks used in this course, you need to install Pyt
 We recommend using `conda` to manage your python environment. If not already done, you can install conda following the instructions below.
 
 
-    ```{admonition} What is conda?
-    `conda` is a very commonly used environment and package manager which makes python and related software packages available on your computer. Confusingly, there are different "distributions" of conda, the two most common being `Anaconda` and `Miniconda`. Here we will use `Miniconda`, which is a minimal conda installer that includes the conda package manager and Python. It is available for Windows, Mac OS and Linux. To confuse things even more, we will actually install `Miniforge`, which is `Miniconda` configured to only install python packages from the open-source community-driven conda-forge channel. This is generally a good idea, as it avoids potential issues with package compatibility and licensing that can arise when using the default channels.
-
+```{admonition} What is conda?
+`conda` is a very commonly used environment and package manager which makes python and related software packages available on your computer. Confusingly, there are different "distributions" of conda, the two most common being `Anaconda` and `Miniconda`. Here we will use `Miniconda`, which is a minimal conda installer that includes the conda package manager and Python. It is available for Windows, Mac OS and Linux. To confuse things even more, we will actually install `Miniforge`, which is `Miniconda` configured to only install python packages from the open-source community-driven conda-forge channel. This is generally a good idea, as it avoids potential issues with package compatibility and licensing that can arise when using the default channels.
+```
 
 ## Instructions
 
@@ -99,8 +99,7 @@ Select the installation instructions for your operating system and processor fro
     ```bash
     conda init
     ```
-
-```
+    ```
 
 ```{tab-item} Windows
 1. In your web browser, navigate to this [download page](https://github.com/conda-forge/miniforge#miniforge).

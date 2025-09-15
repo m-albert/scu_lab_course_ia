@@ -6,3 +6,4 @@ It's installed by simply extracting the compressed zip archive and placing the r
 
 ```{admonition} Multiple Fiji installations
 Several instances of Fiji can coexist and run independently on a computer. This can be useful e.g. when different versions of Fiji plugins are needed for different applications.
+```
