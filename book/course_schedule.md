@@ -13,16 +13,19 @@ All courses take place in Room BSS E 21 from 9:00 to 18:00.
 
 - Recap Image Analysis Basics
 - Introduction to ImageJ/Fiji
-  - Inspection and processing of images
-  - Automation with macros
+  - Goal: Load, process, and analyze images interactively
+- Automation with Fiji macros
+  - Goal: Reproducibility and automation
 - Introduction to Python and Jupyter Notebooks
-  - Slides
-  - Make sure installation worked
 
 ## Day 2:
+
 - Image processing using Python
-- Using DL-based cell segmentation
-- Extracting image features
-- Plotting / data analysis in Python
-- Exercise: Segmentation, cell counting and feature extraction in Python
+  - Goal 1: Load, process, and analyze images in Python
+  - Goal 2: Applying DL-based image segmentation
+
+- Plotting and data analysis in Python
+
+- Challenge: Cell counting and feature extraction in Python
+
 - Discussion of homework: Analysing data acquired on the self-built microscopes
