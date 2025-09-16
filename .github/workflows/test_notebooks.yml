@@ -36,4 +36,5 @@ jobs:
         run: |
           conda info
           conda list
+          conda activate lab_course_ia
           pytest tests/test_imports.py
