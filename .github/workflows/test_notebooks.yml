@@ -33,6 +33,7 @@ jobs:
 
       # this runs the platform-specific tests declared in tox.ini
       - name: Run tests
+        shell: bash -l {0}
         run: |
-          mamba activate labcourse-ia
+          conda activate labcourse-ia
           pytest tests/test_imports.py
