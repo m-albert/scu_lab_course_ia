@@ -1,4 +1,4 @@
-name: lab_course_ia
+name: ia
 channels:
   - conda-forge
 dependencies:
