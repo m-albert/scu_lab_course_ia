@@ -10,10 +10,10 @@ chapters:
   - file: book/install_python.md
   - file: book/setup_environment.md
 - file: book/fiji/intro.md
-#  sections:
-#  - file: book/fiji/practical_basics.md
-#  - file: book/fiji/practical_filtering_thresholding.md
-#  - file: book/fiji/practical_macro.md
+  sections:
+  - file: book/fiji/practical_basics.md
+  - file: book/fiji/practical_filtering_thresholding.md
+  - file: book/fiji/practical_macro.md
 - file: book/notebooks.md
 #  sections:
 #  - file: notebooks/01_image_handling_basics
