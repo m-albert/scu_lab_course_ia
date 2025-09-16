@@ -35,6 +35,8 @@ jobs:
 
       # this runs the platform-specific tests declared in tox.ini
       - name: Run tests
-        run: pytest tests/test_imports.py
+        run: |
+          conda activate lab_course_ia
+          pytest tests/test_imports.py
         env:
           PLATFORM: ${{ matrix.platform }}
