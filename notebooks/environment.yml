@@ -1,4 +1,4 @@
-name: ia
+name: labcourse-ia
 channels:
   - conda-forge
 dependencies:
@@ -14,3 +14,5 @@ dependencies:
   - tqdm
   - stackview
   - pytest
+  # add cellpose < 4
+  - cellpose<4

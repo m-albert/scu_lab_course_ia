@@ -4,3 +4,5 @@ def test_imports():
     """
     import stackview
     import skimage
+    from cellpose import models
+    

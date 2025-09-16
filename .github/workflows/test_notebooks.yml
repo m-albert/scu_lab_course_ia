@@ -29,11 +29,11 @@ jobs:
           environment-file: notebooks/environment.yml
           miniforge-version: latest
           auto-activate-base: false
-          activate-environment: ia
+          activate-environment: labcourse-ia
 
       # this runs the platform-specific tests declared in tox.ini
       - name: Run tests
         run: |
           source $CONDA/etc/profile.d/conda.sh
-          conda activate ia
+          conda activate labcourse-ia
           pytest tests/test_imports.py
