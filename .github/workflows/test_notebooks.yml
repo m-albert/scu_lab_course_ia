@@ -21,13 +21,17 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.11']
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: lab_course_ia
           environment-file: notebooks/environment.yml
+          use-mamba: true
+          auto-activate-base: false
 
       # this runs the platform-specific tests declared in tox.ini
       - name: Run tests
