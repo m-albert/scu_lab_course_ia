@@ -28,11 +28,12 @@ jobs:
         with:
           environment-file: notebooks/environment.yml
           miniforge-version: latest
+          auto-activate-base: false
+          activate-environment: lab_course_ia
 
       # this runs the platform-specific tests declared in tox.ini
       - name: Run tests
         run: |
-          conda activate lab_course_ia
+          conda info
+          conda list
           pytest tests/test_imports.py
-        env:
-          PLATFORM: ${{ matrix.platform }}
