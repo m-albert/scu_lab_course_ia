@@ -5,9 +5,10 @@ All courses take place in Room BSS E 21 from 9:00 to 17:30.
 ## Day 0: Intro
 
 - Lecture: Introduction to Image Analysis
-- Homework:
+- Practical course preparation:
+  - Download example data
   - Download and install Fiji / ImageJ
-  - Download and set up the Python environment (see [software setup](software_setup.md))
+  - Download and set up the Python environment
 
 ## Day 1:
 
