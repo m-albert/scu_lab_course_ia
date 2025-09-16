@@ -98,13 +98,12 @@ Select the installation instructions for your operating system and processor fro
 
     ```bash
     conda init
-    ```
-    ```
+```
 
 ```{tab-item} Windows
 1. In your web browser, navigate to this [download page](https://github.com/conda-forge/miniforge#miniforge).
 2. Scroll down to the "Miniforge" header of the "Downloads" section. Click the link to download link for `Miniforge-Windows-x86_64`.
 3. Find the file you downloaded (Miniforge-Windows-x86_64.exe) and double click to execute it. Follow the instructions to complete the installation.
-4. Once the installation has completed, you can verify it was correctly installed by searching for the "miniforge prompt" in your Start menu.
+4. Once the installation has completed, you can verify it was correctly installed by searching for the "Miniforge Prompt" in your Start menu.
 ```
 ````
