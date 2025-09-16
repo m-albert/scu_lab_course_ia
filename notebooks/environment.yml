@@ -16,3 +16,4 @@ dependencies:
   - pytest
   # add cellpose < 4
   - cellpose<4
+  - nd2

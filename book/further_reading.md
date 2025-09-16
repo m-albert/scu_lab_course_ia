@@ -2,6 +2,7 @@
 
 ## General Image Analysis
 - Basics [overview](https://bioimagebook.github.io/index.html)
+- Introductory lecture [video](https://www.ibiology.org/techniques/introduction-to-bioimage-analysis/)
 
 ## Fiji
 

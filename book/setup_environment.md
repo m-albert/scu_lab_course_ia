@@ -12,27 +12,40 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 	- **Linux**: Open your terminal application
 
 
-2. Navigate to the `notebooks` subdirectory of the Image Analysis Lab Course materials you downloaded.
+1. Install git if you don't have it already. Git is a version control system that we will use to download the course materials.
+
+	```
+	conda install -c conda-forge git
+	```
+
+1. Use git to download the course materials from GitHub. This will create a new directory called `scu_lab_course_ia` in your current directory.
 
 	```bash
-	cd lab_course_ia_materials/notebooks
+	git clone https://github.com/m-abert/scu_lab_course_ia.git
 	```
 
 
-3. The file `environment.yml` contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `lab_course_ia`. Create this environment from the file by entering the following command.
+1. Navigate to the `notebooks` subdirectory of the Image Analysis Lab Course materials you downloaded.
+
+	```bash
+	cd scu_lab_course_ia/notebooks
+	```
+
+
+1. The file `environment.yml` contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by entering the following command.
 
 	```bash
 	conda env create --file environment.yml
 	```
 
-4. Once the environment setup has finished, activate the environment. If you successfully activated the environment, you should now see `(lab_course_ia)` to the left of your command prompt.
+1. Once the environment setup has finished, activate the environment. If you successfully activated the environment, you should now see `(labcourse-ia)` to the left of your command prompt.
 
 	```bash
-	conda activate lab_course_ia
+	conda activate labcourse-ia
 	```
 
 
-5. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser.
+1. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser.
 
 	```bash
 	jupyter-lab
@@ -41,16 +54,16 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 
 ## Launching the notebooks
 
-Open your terminal and navigate to the `notebooks` subdirectory of the `lab_course_ia_materials` directory you downloaded.
+Open your terminal and navigate to the `notebooks` subdirectory of the `scu_lab_course_ia` directory you downloaded.
 
 ```
-cd lab_course_ia_materials/notebooks
+cd scu_lab_course_ia/notebooks
 ```
 
-Now activate your `lab_course_ia` conda environment you created in the installation step.
+Now activate your `labcourse-ia` conda environment you created in the installation step.
 
 ```
-conda activate lab_course_ia
+conda activate labcourse-ia
 ```
 
 To start the Jupyter Notebook server, enter
@@ -60,3 +73,11 @@ jupyter-lab
 ```
 
 Jupyter Notebook will open in a browser window and you will see the course notebooks.
+
+## Download pretrained cellpose models
+
+In this course we will use the [cellpose](https://www.cellpose.org/) package for cell segmentation. Cellpose uses pretrained deep learning models for segmentation, which take some time to download the first time you run cellpose. To avoid waiting for the models to download while working through the notebooks, you can download them now by running the following command in your terminal.
+
+```bash
+python -c "from cellpose import models; _=models.Cellpose(gpu=False, model_type='cyto')"
+```
