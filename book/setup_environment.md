@@ -32,10 +32,10 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 	```
 
 
-1. The file `environment.yml` contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by entering the following command.
+1. The file `environment.yml` (`notebooks` folder) contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by entering the following command.
 
 	```bash
-	conda env create --file environment.yml
+	conda env create -f https://git.bsse.ethz.ch/scu_courses_public/scu_lab_course_ia/-/raw/main/notebooks/environment.yml
 	```
 
 1. Once the environment setup has finished, activate the environment. If you successfully activated the environment, you should now see `(labcourse-ia)` to the left of your command prompt.

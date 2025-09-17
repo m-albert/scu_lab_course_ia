@@ -17,3 +17,5 @@ dependencies:
   # add cellpose < 4
   - cellpose<4
   - nd2
+  - pip:
+      - iaf --extra-index-url https://ia-res.ethz.ch/pypi
