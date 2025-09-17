@@ -17,6 +17,7 @@ dependencies:
   # add cellpose < 4
   - cellpose<4
   - nd2
+  - pyimagej
   - pip:
     - --extra-index-url https://ia-res.ethz.ch/pypi
     - iaf==0.5.0
