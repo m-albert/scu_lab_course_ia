@@ -2,7 +2,7 @@
 title: "Methods in Cell Analysis and Laboratory Automation: Image Analysis"
 author: Marvin Albert
 copyright: "2025 ETH Zurich"
-logo: 'MCALA_logo.svg'
+logo: '.logo.svg'
 execute:
   execute_notebooks: "off"
 parse:
