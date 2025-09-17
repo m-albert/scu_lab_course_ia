@@ -1,0 +1,20 @@
+image: continuumio/miniconda3:latest
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script: 
+  - conda create -n project python='3.10'
+  - conda init bash
+  - source ~/.bashrc    # <- !!!
+  - conda activate project 
+  - pip install jupyter-book ipykernel
+  - jupyter-book build . --config _config.yml --toc _toc.yml --all
+  - mkdir public
+  - mv ./_build/html/* public/
+  - rm -r ./_build
+  artifacts:
+    paths:
+      - public
