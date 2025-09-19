@@ -51,12 +51,5 @@ To start the Jupyter Notebook server, enter
 jupyter-lab
 ```
 
-Jupyter Notebook will open in a browser window and you will see the course notebooks.
+Jupyter Notebook will open in a browser window. If this worked, you can close the browser window again and stop the notebook server by going back to your terminal and pressing `CTRL-C` twice. Possibly, you will be asked to confirm that you want to shut down the server by entering `y` and pressing `ENTER`.
 
-## Download pretrained cellpose models
-
-In this course we will use the [cellpose](https://www.cellpose.org/) package for cell segmentation. Cellpose uses pretrained deep learning models for segmentation, which take some time to download the first time you run cellpose. To avoid waiting for the models to download while working through the notebooks, you can download them now by running the following command in your terminal.
-
-```bash
-python -c "from cellpose import models; _=models.Cellpose(gpu=False, model_type='cyto')"
-```
