@@ -8,25 +8,26 @@ All courses take place in Room BSS E 21 from 9:00 to 17:30.
 - Practical course preparation:
   - Download example data
   - Download and install Fiji / ImageJ
-  - Download and set up the Python environment
+  - Download and install Python
+  - Setup the Python environment used in the course
 
 ## Day 1:
 
 - Recap Image Analysis Basics
-- Introduction to ImageJ/Fiji
-  - Goal: Load, process, and analyze images interactively
-- Automation with Fiji macros
-  - Goal: Reproducibility and automation
-- Introduction to Python and Jupyter Notebooks
+- Using ImageJ/Fiji for image analysis
+  - Load, process, and analyze images interactively
+  - Automation with macros
+- Using Python for image analysis
+  - Introduction to Python and Jupyter Notebooks
+  - Load, process, and analyze images in Python
+
 
 ## Day 2:
 
-- Image processing using Python
-  - Goal 1: Load, process, and analyze images in Python
-  - Goal 2: Apply DL-based image segmentation
+- Using Python for image analysis
+  - Applying DL-based image segmentation
+  - Plotting and statistical analysis
 
-- Plotting and data analysis in Python
+- Challenge: Analysing a drug screening dataset
 
-- Challenge: Cell counting and feature extraction in Python
-
-- Discussion of homework: Analysing data acquired on the self-built microscopes
+- Discussion of homework: Analysing data acquired on the DIY microscopes

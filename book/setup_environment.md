@@ -11,27 +11,6 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 	- **Mac OS**: Open Terminal (you can search for it in spotlight - cmd + space)
 	- **Linux**: Open your terminal application
 
-
-1. Install git if you don't have it already. Git is a version control system that we will use to download the course materials.
-
-	```
-	conda install -c conda-forge git
-	```
-
-1. Use git to download the course materials from GitHub. This will create a new directory called `scu_lab_course_ia` in your current directory.
-
-	```bash
-	git clone https://github.com/m-abert/scu_lab_course_ia.git
-	```
-
-
-1. Navigate to the `notebooks` subdirectory of the Image Analysis Lab Course materials you downloaded.
-
-	```bash
-	cd scu_lab_course_ia/notebooks
-	```
-
-
 1. The file `environment.yml` (`notebooks` folder) contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by entering the following command.
 
 	```bash
@@ -72,12 +51,5 @@ To start the Jupyter Notebook server, enter
 jupyter-lab
 ```
 
-Jupyter Notebook will open in a browser window and you will see the course notebooks.
+Jupyter Notebook will open in a browser window. If this worked, you can close the browser window again and stop the notebook server by going back to your terminal and pressing `CTRL-C` twice. Possibly, you will be asked to confirm that you want to shut down the server by entering `y` and pressing `ENTER`.
 
-## Download pretrained cellpose models
-
-In this course we will use the [cellpose](https://www.cellpose.org/) package for cell segmentation. Cellpose uses pretrained deep learning models for segmentation, which take some time to download the first time you run cellpose. To avoid waiting for the models to download while working through the notebooks, you can download them now by running the following command in your terminal.
-
-```bash
-python -c "from cellpose import models; _=models.Cellpose(gpu=False, model_type='cyto')"
-```
