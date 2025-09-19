@@ -11,27 +11,6 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 	- **Mac OS**: Open Terminal (you can search for it in spotlight - cmd + space)
 	- **Linux**: Open your terminal application
 
-
-1. Install git if you don't have it already. Git is a version control system that we will use to download the course materials.
-
-	```
-	conda install -c conda-forge git
-	```
-
-1. Use git to download the course materials from GitHub. This will create a new directory called `scu_lab_course_ia` in your current directory.
-
-	```bash
-	git clone https://github.com/m-abert/scu_lab_course_ia.git
-	```
-
-
-1. Navigate to the `notebooks` subdirectory of the Image Analysis Lab Course materials you downloaded.
-
-	```bash
-	cd scu_lab_course_ia/notebooks
-	```
-
-
 1. The file `environment.yml` (`notebooks` folder) contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by entering the following command.
 
 	```bash
