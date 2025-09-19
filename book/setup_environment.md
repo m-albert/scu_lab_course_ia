@@ -30,26 +30,4 @@ Here we're assuming you have already installed Miniforge and have opened a termi
 	jupyter-lab
 	```
 
-
-## Launching the notebooks
-
-Open your terminal and navigate to the `notebooks` subdirectory of the `scu_lab_course_ia` directory you downloaded.
-
-```
-cd scu_lab_course_ia/notebooks
-```
-
-Now activate your `labcourse-ia` conda environment you created in the installation step.
-
-```
-conda activate labcourse-ia
-```
-
-To start the Jupyter Notebook server, enter
-
-```bash
-jupyter-lab
-```
-
 Jupyter Notebook will open in a browser window. If this worked, you can close the browser window again and stop the notebook server by going back to your terminal and pressing `CTRL-C` twice. Possibly, you will be asked to confirm that you want to shut down the server by entering `y` and pressing `ENTER`.
-
