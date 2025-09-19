@@ -5,7 +5,7 @@ This section covers extracting quantitative features from images and visualizing
 
 ## Extracting the area of rice from an image
 
-Lets suppose we want to find the average size of rice. As a proxy we could use the area individual rice conrns cover on an image in pixel units. If we knew the pixel size we could in principle convert this area to actual SI units.
+Lets suppose we want to find the average size of rice. As a proxy we could use the area individual rice grains cover on an image in pixel units. If we knew the pixel size we could in principle convert this area to actual SI units.
 
 We first load an image
 
@@ -13,7 +13,7 @@ We first load an image
 I = imread("illustrations/rice_clean.tif")
 ```
 
-Then we need to detect the rice objects. For this we can use thresholding as learned previously. Additionally we clean the binary image and obtain a labeled mask.
+Then we need to detect the rice grains. For this we can use thresholding as learned previously. Additionally we clean the binary image and obtain a labeled mask.
 
 ```Python
 threshold = threshold_otsu(I)
@@ -64,10 +64,10 @@ for i, dose in enumerate(df_loaded):
 plt.savefig('rice_feature.png', dpi=300) 
 plt.show()
 
-print(f'The average rice area is {round(np.nanmean(df_loaded), 2)} \u00B1 {round(np.nanstd(df_loaded), 2)}.')
+print(f'The average rice grain area is {round(np.nanmean(df_loaded), 2)} \u00B1 {round(np.nanstd(df_loaded), 2)}.')
 ```
 ```
-The average rice area is 185.06 ± 48.66.
+The average rice grain area is 185.06 ± 48.66.
 ```
 
 <img src="../illustrations/rice_feature.png" width="600px" />
