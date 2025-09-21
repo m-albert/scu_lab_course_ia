@@ -1,6 +1,6 @@
 # Book settings
 title: "Methods in Cell Analysis and Laboratory Automation: Image Analysis"
-author: Marvin Albert
+author: Marvin Albert and Andreas Cuny. Large part of the content was adapted with permission from teaching material developed by Aaron Ponti.
 copyright: "2025 ETH Zurich"
 logo: '.logo.svg'
 execute:
