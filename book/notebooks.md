@@ -1,4 +1,4 @@
-# Python Notebooks
+# Image processing and analysis with Python
 
 Slides:
 

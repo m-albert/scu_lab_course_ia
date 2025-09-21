@@ -1,4 +1,4 @@
-# Interactive image processing with Fiji
+# Image processing with Fiji
 
 ![Fiji](./illustrations/fiji_logo.jpg){width=100px}
 
