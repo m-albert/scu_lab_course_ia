@@ -85,11 +85,11 @@ $ pip install scipy
 
 **Current documentation**: [https://ia-res.ethz.ch/docs/iaf/index.html](https://ia-res.ethz.ch/docs/iaf/index.html)
 
-# Basic concepts of image analysis
+## Basic concepts of image analysis
 
 In the following sections, we will look at fundamental concepts and tools of image processing and analysis using the libraries presented in the previous section. You can follow along on the Jupyter notebook `code/python/notebooks/basic_concepts.ipynb`.
 
-##  Data types
+###  Data types
 
 Images are addressed in computer memory as two- or three-dimensional arrays of pixel intensities. The third dimension may have different interpretations depending on the context. For example, for standard **RGB** images, the third dimension encodes the image's **R**(ed), **G**(reen), and **B**(lue) channels. However, in a microscopy experiment, the third dimension could store the emission intensity of fluorophores, the various planes of a three-dimensional acquisition, or a series of acquisitions in a time series.[^n-dim].
 
@@ -137,7 +137,7 @@ c == a
 True
 ```
 
-### Limitations of bit representations
+#### Limitations of bit representations
 
 Operations on data types that cause values to overflow the boundaries of the data type that encodes them can be surprising and quite disruptive. Consider the following:
 
@@ -193,7 +193,7 @@ g = g.astype(np.uint8)  # Cast back
 array([ 0, 10, 15], dtype=uint8)
 ```
 
-## Image reading and writing
+### Image reading and writing
 
 For standard image file formats like `.tif` and `.png`, we can use the [`imread()`](https://scikit-image.org/docs/dev/api/skimage.io.html#skimage.io.imread) function from `scikit-image`, as in the following example:
 
@@ -278,7 +278,7 @@ The `reader` objects exposes metadata information via properties:
 
 Please notice that if a file contains more than one series, the reader will iterate over series, and `iter_axis` will be `"v"`. Otherwise, the reader will iterate over time points, and `iter_axis` will be `"t"`. `"v"` and `"t"` are the only iteration axes supported. In both cases, the `geometry` property will indicate the dimensionality of the **array** returned by the iterator (*e.g.*, if `geometry` is `"czyx"`, the retuned data will be a multi-channel 3D stack of images, with the first dimension being the channel `c` and the second the plane `z`).
 
-## Colors
+### Colors
 
 In this course, we will focus on gray-value images that represent the intensity of some signal (for instance, fluorescence emission). The only information stored in such an image is the intensity of the original signal at each pixel position. By default, intensity images are displayed as gray-scale images with black pixels mapped to the intensity 0 and white pixels mapped to $255$ (for 8-bit images) or $65535$ (for 16-bit images). 
 
@@ -299,7 +299,7 @@ In contrast to composite images, **RGB images** use a weighted sum of the three 
 
 <img src="../illustrations/rgb_image_r_g_b.png" width="600px" />
 
-## Histogram and histogram operations
+### Histogram and histogram operations
 
 Many fluorescence microscopy images tend to be predominantly background. The signal of interest is confined to smaller patches of brighter pixels. In the `FITC` image below, only cell membranes are fluorescently labeled, the signal is of low contrast, and details are difficult to appreciate.
 
