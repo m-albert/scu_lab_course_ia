@@ -327,9 +327,9 @@ It is common to apply a **linear stretch** to the image intensities (a point ope
 [^twelve_bits]: 12 bits correspond to 1.5 bytes. That is 4 bits of every second byte must be split among the neighbor bytes to calculate the correct intensity of the pixel they encode it. While this is certainly possible, it adds computational complexity and is avoided by *wasting* 4 bits for every pixel.
 
 The simplest variant of linear stretch shifts the image towards zero by subtracting the minimum value and then stretches the histogram to cover the whole extent of the image's dynamic range. This operation can be done without loss of information if the range used to rescale the image contains all intensities in the starting image. For a 16-bit image, this would be:
-$$
+```{math}
 I_{s} = 65535 \cdot \frac{I - \textrm{min}(I)}{\textrm{max}(I)-\textrm{min}(I)}
-$$
+```
 In `scikit-image`, this can be easily done as follows[^normalizing_explicitly]:
 
 [^normalizing_explicitly]: As an exercise, try implementing it using `NumPy` operations only.

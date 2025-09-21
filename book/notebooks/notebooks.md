@@ -2,7 +2,14 @@
 
 ## Slides
 
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTjFGkAJlinn0i7l95FD2-UzcEkNPQYVl47ElIoGik6YnKugjEG2Tci4l-EN9OwpT3AH6r_ogCj82lI/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 */">
+  <iframe 
+    src="https://docs.google.com/presentation/d/e/2PACX-1vTjFGkAJlinn0i7l95FD2-UzcEkNPQYVl47ElIoGik6YnKugjEG2Tci4l-EN9OwpT3AH6r_ogCj82lI/pubembed?start=false&loop=false&delayms=3000" 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+    allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"
+    >
+  </iframe>
+</div>
 
 ## Launching the notebooks
 

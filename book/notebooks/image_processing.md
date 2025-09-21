@@ -13,7 +13,8 @@ Images are filtered in the spatial domain by the convolution operation with a ke
 ### Average filter
 
 We will start by running an average filter on the `actin.tif` image by defining our own $5x5$ kernel. We need a filter with homogeneous weights that sum up to 1.0.
-$$
+
+```{math}
 h = \frac{1}{25}\cdot
 \begin{bmatrix}
     1 & 1 & 1 & 1 & 1 \\
@@ -30,7 +31,8 @@ h = \frac{1}{25}\cdot
     \frac{1}{25} & \frac{1}{25} & \frac{1}{25} & \frac{1}{25} & \frac{1}{25}\\
     \frac{1}{25} & \frac{1}{25} & \frac{1}{25} & \frac{1}{25} & \frac{1}{25}
 \end{bmatrix}
-$$
+```
+
 In Python (using `NumPy`), we can define the kernel as follows:
 
 ```python
@@ -71,9 +73,9 @@ The results are shown in the figure below. Notice how kernels with larger suppor
 ### Gaussian filter
 
 In contrast to the average filter, the Gaussian filter is better at preserving features of a given scale (or size). The support of the Gaussian kernel smoothly decays with the distance from the center pixel. The weights of the Gaussian kernel are calculated as follows:
-$$
+```{math}
 G=e^{-\frac{x^{2}+y^{2}}{2\sigma^{2}}}
-$$
+```
 We can discretize the Gaussian filter explicitely:
 
 ```python
@@ -136,9 +138,9 @@ The Laplacian is a discretization of the second-order derivative of the image an
     -1 & 8 & -1 \\
     -1 & -1 & -1
 \end{bmatrix}$. Notice that these kernels are the negative of the correct discretization of the Laplacian, to avoid flipping the image intensities. Similarly to the first derivative filters above, the Laplacian is often used for edge, but also for blob detection. Since it is highly sensitive to noise, it is usually combined with a smoothing step by a Gaussian kernel. The combined Laplacian of Gaussian kernel can be pre-calculated as follows:
-$$
+```{math}
 \textrm{LoG}=-\frac{1}{\pi\sigma^{4}}\left[1-\frac{x^{2}+y^{2}}{2\sigma^{2}}\right]e^{-\frac{x^{2}+y^{2}}{2\sigma^{2}}}
-$$
+```
 
 To discretize and apply the LoG we make use of the [`gaussian_laplace()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_laplace.html) function from `scipy.ndimage` (again, notice below the `-1.0` to flip the sign of the Laplacian).
 
@@ -158,15 +160,15 @@ The Laplacian of Gaussian is more robust to noise that the simple Laplacian and 
 Non-linear filters cannot be implemented by the convolution operator since, as their name implies, they do not perform any linear operation (*i.e.*, additions and multiplications) on the pixel neighborhood. For specific applications, however, non-linear filters may display higher performance than linear filters. To investigate this, we will use two versions of a reasonably high-SNR image that we perturb with either **salt & pepper** noise (to simulate a camera with *dead* or *hot pixels*) or **Gaussian** noise (to simulate a camera with important dark or read-out noise). We use the **peak SNR** value (in dB) as a single number to represent the difference in quality between the original image and either the noisy or filtered version. 
 
 The pSNR is defined as:
-$$
+```{math}
 \textrm{pSNR}=20 \cdot \log_{10}{\textrm{MAX}_{I}}-10 \cdot \log_{10}{\textrm{MSE}}
-$$
+```
 
 where:
 
-$$
-\textrm{MSE}=\frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}\left[I(i, j	-K(i, j)\right]^2
-$$
+```{math}
+\textrm{MSE}=\frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}\left[I(i, j)	-K(i, j)\right]^2
+```
 
 
 and $\textrm{MAX}_{I}$ is the maximum possible value of the data range of image $I$ ($255$ for 8-bit and $65535$ for 16-bit images).

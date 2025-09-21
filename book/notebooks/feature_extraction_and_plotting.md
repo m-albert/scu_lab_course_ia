@@ -327,7 +327,7 @@ The value of SSE for the optimal solution (77.85933573338627) is slightly lower 
 
 The model we want to fit this time is `y = a * exp(b * x) + e`, where `x` and `y` are given and `a` and `b` are the parameters of our model that we want to estimate. The term `e` accounts for deviations between the model and the noisy data.
 
-These are the parameters for this part of the demo. We want to study cell proliferation, and we assume we measured cell counts (or biomass) at regulat intervals of 4 hours for 48 hours. An accepted model of cell proliferation is as simple exponential of the form: $$M(t)=M(0)e^{\lambda t}$$
+These are the parameters for this part of the demo. We want to study cell proliferation, and we assume we measured cell counts (or biomass) at regulat intervals of 4 hours for 48 hours. An accepted model of cell proliferation is as simple exponential of the form: $M(t)=M(0)e^{\lambda t}$
 
 To simulate some data we use:
 

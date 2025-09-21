@@ -8,7 +8,7 @@ In the microscopy practical session, you acquired images of three distinct fluor
 
 To quantify the transfection efficiency, we can segment all nuclei in the DAPI channel and analyze their intensity in the GFP channel. By calculating the ratio of GFP-positive nuclei to the total number of nuclei, we can estimate the transfection efficiency. Unfortunately, due to the limitations of the manual fluorescence microscope, the resulting channels are not perfectly aligned and therefore cannot be directly used to quantify the co-localization of the green and blue channels.
 
-The `iaf` library offers the [`iaf.reg.multi_image_alignment()`](https://ia-res.ethz.ch/docs/iaf/reg/index.html#iaf.reg.multi_image_alignment) function to align any number of channels that can be used to correct for this misalignment. As an example, the three channels shown in the snapshot above can successfully be registered as shown below.
+The `iaf` library offers the [`iaf.reg.multi_image_alignment()`](https://ia-res.ethz.ch/docs/iaf/reg/index.html#iaf.reg.multi_image_alignment) function to align any number of channels that can be used to correct for this misalignment. As an example, it can be used to successfully register the three channels shown below.
 
 ![Example result of `iaf.reg.multi_image_alignment()`](illustrations/alignment.png)
 

@@ -1,5 +1,12 @@
 # Introduction to Image Analysis
 
-Materials for the practical course will available here on Monday 22/09/2025.
+## Intro slides
 
-<!-- <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSEcFHiZWwX_K9qrdIAhIWCl3J-TtQ2pW4j61vbrfLTt_-QvQ-QscHbD5yqgeElFw/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="640" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe> -->
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 */">
+  <iframe 
+    src="https://docs.google.com/presentation/d/e/2PACX-1vR6p4kWk2au8G2CDoo1jEeSZAfBmIYGfXx591k0Ng9Vk8PuOx93zqR_ibrNWtgveg/pubembed?start=false&loop=false&delayms=3000" 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+    allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"
+    >
+  </iframe>
+</div>
