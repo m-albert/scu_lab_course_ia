@@ -1,4 +1,4 @@
-# Segmentation Using Machine & Deep Learning
+# 4. Segmentation Using Machine Learning
 
 This section shows how Python can be used for machine learning based cell segmentation.
 
