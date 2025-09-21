@@ -5,7 +5,7 @@ This section introduces core Python syntax, data types, and control flow you'll 
 
 ## Hello World!
 
-The first program in any programming language is always the **Hello, World!** program ([https://en.wikipedia.org/wiki/%22Hello,_World!%22_program](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program)). It is a simple program that outputs the text `Hello, World!` on the screen[^run_from_file]:
+The first program in any programming language is always the [**Hello, World!**](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program. It is a simple program that outputs the text `Hello, World!` on the screen[^run_from_file]:
 
 [^run_from_file]: You can also type `print("Hello, World!")` into your text editor of choice, save it as `hello_world.py`, and run it from your Anaconda Prompt or terminal with `python hello_world.py`. This is anyway how you would run larger applications. **Careful**: please make sure to use an editor that saves as **plain text** (Visual Studio Code, Notepad, Notepad++, vim, ...): applications like TextEdit, Wordpad, or Microsoft Word, that save in a Rich Text format, will create files that the Python interpreter cannot understand. 
 
@@ -1040,9 +1040,9 @@ In [15]: from my_module import My_Class as MC
 In [16]: import my_module as mmod
 ```
 
-# Essential third-party libraries 
+## Essential third-party libraries 
 
-## NumPy
+### NumPy
 
 NumPy ([https://numpy.org](https://numpy.org)) adds support for high-performance multi-dimensional arrays to Python, along with a large collection of high-level mathematical functions to operate on these arrays. NumPy is open-source software and has many contributors. Almost all scientific libraries for Python use NumPy arrays as their back-end data structure, rendering them all fully compatible with each other. The QuickStart tutorial ([https://numpy.org/doc/stable/user/quickstart.html](https://numpy.org/doc/stable/user/quickstart.html)) gently introduces the fundamental aspects of NumPy. Here, we will look at some of those basics.
 
@@ -1311,7 +1311,7 @@ In [38]: a[a >= 16]
 Out [38]: array([16, 17, 18, 19])
 ```
 
-## Pandas
+### Pandas
 
 **pandas** ([https://pandas.pydata.org](https://pandas.pydata.org)) is a library for Python for data manipulation and analysis. In particular, it offers data structures and operations for manipulating numerical tables and time series.
 
@@ -1596,7 +1596,7 @@ In [25]: df.to_csv("filename.csv", index=False)
 
 By default, `to_csv()` will save the DataFrame's index as an additional column to the `.csv` file. In most cases, however, this behavior is not necessary and can be disabled by passing the argument `index=False` to the function. Please note that `DataFrameGroupBy` objects created by the `.groupby()` method (such as `df_by_species` above) cannot be directly saved using `to_csv()`.
 
-## Matplotlib
+### Matplotlib
 
 Matplotlib ([https://matplotlib.org/](https://matplotlib.org/)) is a (large) plotting library for Python that can create publication-quality figures. The gallery ([https://matplotlib.org/stable/gallery/index.html](https://matplotlib.org/stable/gallery/index.html)) gives a nice overview of the types of plots that can be generated with Matplotlib. 
 
