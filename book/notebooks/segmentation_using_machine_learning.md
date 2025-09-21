@@ -1,8 +1,14 @@
 # Segmentation Using Machine & Deep Learning
 
-This section shows how Python can be used for machine and deep learning based cell segmentation.
+This section shows how Python can be used for machine learning based cell segmentation.
 
-## Segmentation using Machine learning
+Machine learning based segmentation can be performed using "shallow" machine learning methods such as random forests, support vector machines, etc. These methods typically require feature engineering and are suitable for smaller datasets. Deep learning based segmentation, on the other hand, leverages neural networks with multiple layers to automatically learn features from data. Deep learning methods often require larger datasets and more computational resources but can achieve higher accuracy and generalization.
+
+![ML vs DL](../illustrations/shallow_vs_deep_learning.png)
+
+
+
+## Segmentation using "shallow" machine learning
 
 Earlier we learned about the tool **Weka**, in Fiji/ImageJ which is a powerful plugin called "Trainable Weka Segmentation" that integrates the Weka machine learning toolkit with ImageJ/Fiji for image segmentation purposes. It allows users to perform pixel-based classification and segmentation of microscopy or other types of images by training machine learning classifiers directly on image data.
 
