@@ -1,41 +1,54 @@
 format: jb-book
 root: book/landing.md
-chapters:
-- file: book/course_schedule.md
-- file: book/image_analysis_intro.md
-- file: book/computer_setup.md
-  sections:
-  - file: book/download_example_data.md
-  - file: book/install_fiji.md
-  - file: book/install_python.md
-  - file: book/setup_environment.md
-- file: book/fiji/intro.md
-  sections:
-  - file: book/fiji/practical_basics.md
-  - file: book/fiji/practical_filtering_thresholding.md
-  - file: book/fiji/practical_macro.md
-  - file: book/fiji/practical_segmentation_using_machine_learning.md
-  - file: book/fiji/cheat_sheet_basics.md
-  - file: book/fiji/cheat_sheet_macros.md
-- file: book/notebooks.md
-  sections:
-  - file: book/notebooks/python_basics.md
+
+parts:
+- caption: Course Information
+  chapters:
+  - file: book/course_schedule.md
+  - file: book/image_analysis_intro.md
+  - file: book/setup/computer_setup.md
     sections:
-    - file: notebooks/ex_python_basics.ipynb
-  - file: book/notebooks/image_handling.md
+    - file: book/setup/download_example_data.md
+    - file: book/setup/install_fiji.md
+    - file: book/setup/install_python.md
+    - file: book/setup/setup_environment.md
+- caption: Course materials
+  chapters:
+  - file: book/fiji/intro.md
     sections:
-    - file: notebooks/ex_image_handling.ipynb
-  - file: book/notebooks/image_processing.md
+    - file: book/fiji/fiji_manual.md
+    - file: book/fiji/practical_basics.md
+    - file: book/fiji/practical_filtering_thresholding.md
+    - file: book/fiji/practical_macro.md
+    - file: book/fiji/practical_segmentation_using_machine_learning.md
+    - file: book/fiji/cheat_sheet_basics.md
+    - file: book/fiji/cheat_sheet_macros.md
+  - file: book/notebooks/notebooks.md
     sections:
-    - file: notebooks/ex_image_processing.ipynb
-  - file: book/notebooks/segmentation_using_machine_learning.md
-    sections:
-    - file: notebooks/ex_segmentation_using_shallow_learning.ipynb
-    - file: notebooks/ex_segmentation_using_deep_learning.ipynb
-  - file: book/notebooks/feature_extraction_and_plotting.md
-    sections:
-    - file: notebooks/ex_feature_extraction_and_plotting.ipynb
-  - file: book/python_cheatsheet.md
-- file: book/challenge.md
-- file: book/homework.md
-- file: book/further_reading.md
+    - file: book/notebooks/python_basics.md
+      sections:
+      - file: notebooks/ex_python_basics.ipynb
+    - file: book/notebooks/image_handling.md
+      sections:
+      - file: notebooks/ex_image_handling.ipynb
+    - file: book/notebooks/image_processing.md
+      sections:
+      - file: notebooks/ex_image_processing.ipynb
+    - file: book/notebooks/segmentation_using_machine_learning.md
+      sections:
+      - file: notebooks/ex_segmentation_using_shallow_learning.ipynb
+      - file: notebooks/ex_segmentation_using_deep_learning.ipynb
+    - file: book/notebooks/feature_extraction_and_plotting.md
+      sections:
+      - file: notebooks/ex_feature_extraction_and_plotting.ipynb
+    - file: book/notebooks/python_cheatsheet.md
+
+- caption: Independent Exercises
+  chapters:
+  - file: book/challenge.md
+  - file: book/homework.md
+
+- caption: Further info
+  chapters:
+  - file: book/acknowledgements.md
+  - file: book/further_reading.md
