@@ -17,16 +17,16 @@ Earlier we learned about the tool **Weka**, in Fiji/ImageJ which is a powerful p
 
 ### Installation
 
-To install `pyimagj` using `conda`, use:
+To install `pyimagej` using `conda`, use:
 
 ```bash
-$ conda install pyimagj
+$ conda install pyimagej
 ```
 
-To install `pyimagj` using `pip`, use:
+To install `pyimagej` using `pip`, use:
 
 ```bash
-$ pip install pyimagj
+$ pip install pyimagej
 ```
 
 ## Working with ImageJ in Python
