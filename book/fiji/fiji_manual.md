@@ -38,31 +38,6 @@ Many of the examples in this section are taken (with permission) or are heavily 
 - **User guides**: [https://imagej.net/User_Guides](https://imagej.net/User_Guides)
 - **Tutorials**: [https://imagej.net/Category:Tutorials](https://imagej.net/Category:Tutorials)
 
-
-## Initial setup
-
-Before we start, we need to configure Fiji so that we all have consistent behavior. First, pick the `Edit > Options > Colors` menu item and set the foreground, background and selection colors as shown below:
-
-```{figure} ./images_fiji_manual/color_options.png
-:height: 150px
-:align: center
-
-Color settings
-
-```
-
-Then, go to `Edit > Options > Startup` and choose `Black background ` from the pull-down menu at the bottom. The following text will be added: `setOption("BlackBackground", "true")`.
-
-```{figure} ./images_fiji_manual/binary_options_startup.png
-:height: 300px
-:align: center
-
-Set black background option at startup
-
-```
-
-Please restart Fiji before continuing.
-
 ## The user interface
 
 ```{figure} ./images_fiji_manual/fiji.png
