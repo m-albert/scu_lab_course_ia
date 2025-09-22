@@ -300,6 +300,16 @@ The `show_label()` function assigns different colors to the different objects. T
 
 ## Watershed segmentation
 
+
+Watershed principle recap:
+
+<img src="../illustrations/watershed_principle.png" width="500px" />
+
+Applying watershed on the distance transform of a segmentation mask allows us to separate objects that are close to each other or even touching.
+
+<img src="../illustrations/watershed_distance_transform.png" width="500px" />
+
+
 Sometimes, even if the segmentation works mostly fine, we still find that some of the objects are fused.
 
 <img src="../illustrations/watershed_initial_bw_mask.png" width="300px" />
