@@ -11,7 +11,7 @@ After downloading, extract the zip file and keep the ".nd2" file.
 Download here: <a href="../../_static/image_data_and_practice_code.zip" download>Link</a>.
 
 Zip file contains:
-- `image_data`: Image data used in exercises
+- `data`: Image data used in exercises
 - `code`: Exercise notebooks for further practice
 - Python.pdf: Python manual
 - Good_Practices.pdf: Good practices for image analysis
