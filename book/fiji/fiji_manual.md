@@ -32,10 +32,6 @@ Fiji is released as open source under the GNU General Public License.
 
 Many of the examples in this section are taken (with permission) or are heavily inspired by **Cameron Nowell**'s awesome **Fiji Training Notes** (Monash University, Melbourne).
 
-**Download link**: [https://goo.gl/ioB06O](https://goo.gl/ioB06O)
-
-**Demo images** (large!): [https://goo.gl/wWrwsc](https://goo.gl/wWrwsc)
-
 ## Documentation
 
 - **Getting started guide**: [https://imagej.net/Getting_Started](https://imagej.net/Getting_Started)
