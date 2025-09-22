@@ -37,9 +37,7 @@ def test_pyimagej():
     # Initialize ImageJ with Fiji (can take minutes to initialize) 
     ij = imagej.init('sc.fiji:fiji')
 
-    img = imread('illustrations/blobs.gif')
-
-    img = ij.io().open('illustrations/blobs.gif')
+    img = ij.io().open('../illustrations/blobs.gif')
 
     # Convert to ImagePlus (Java class) for compatibility with WekaSegmentation
     imp = ij.py.to_imageplus(img)
@@ -49,7 +47,7 @@ def test_pyimagej():
     weka = WekaSegmentation(imp)
 
     # Load pre-trained classifier model (change to your .model file path)
-    classifier_path = r'illustrations/classifier.model'
+    classifier_path = r'../illustrations/classifier.model'
     weka.loadClassifier(classifier_path)
 
     # Apply the classifier to image, arguments: (ImagePlus, threads=0 auto, getProbabilities=False)
