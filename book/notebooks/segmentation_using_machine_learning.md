@@ -208,7 +208,3 @@ mask_uint8  = mask_uint8  * 255
 
 imsave('blobs_ml_segmetation_mask.png', binary_image)
 ```
-
-## Segmentation using Deep learning
-
-TBA
