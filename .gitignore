@@ -1,3 +1,4 @@
 _build
 *.pyc
 .DS_Store
+_static/image_data_and_practice_code.zip

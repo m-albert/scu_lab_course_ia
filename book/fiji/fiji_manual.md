@@ -515,6 +515,73 @@ Segmentation with the Li algorithm
 
 Hit `Apply` to create a black and white mask that we can later use for analysis (in a later section).
 
+### Pre-processing for segmentation
+
+In case the threshold-based segmentation does not perform well, one can try to pre-process the image with some of the filters we have seen before. For instance, a Gaussian filter can help reduce noise in the image and make the objects more homogeneous.
+
+Open the image `data/fiji/segmentation/Nuclei_patchy.tif`.
+
+```{figure} ./images_fiji_manual/Nuclei_patchy.png
+:width: 400px
+:align: center
+
+Nuclei_patchy.tif image
+```
+
+If you try to segment this image with a threshold, you will see that the segmentation is not very good.
+
+```{figure} ./images_fiji_manual/Nuclei_patchy_thresh.png
+:width: 400px
+:align: center
+
+Thresholded Nuclei_patchy.tif image
+
+```
+
+However, after filtering the image with a Gaussian filter with $\sigma = 2$ pixels, the segmentation improves significantly.
+
+```{figure} ./images_fiji_manual/Nuclei_patchy_gauss_thresh.png
+:width: 400px
+:align: center
+
+Filtered and thresholded Nuclei_patchy.tif image
+
+```
+
+### Post-processing of segmentation results
+
+After thresholding, one can use morphological operations to clean up the segmentation. For instance, one can use `Process > Binary > Open` to remove small objects from the binary mask. An opening consists of an erosion followed by a dilation. The erosion removes small objects, and the dilation restores the shape of the remaining objects.
+One can also use `Process > Binary > Close` to close small holes in the objects. A closing consists of a dilation followed by an erosion. The dilation closes small holes, and the erosion restores the shape of the objects.
+
+
+### Machine-learning based segmentation
+
+For more complex segmentation tasks, or when finding the right filters to preprocess an image before segmentation becomes difficult, one can use machine-learning based approaches. Fiji offers the **Trainable Weka Segmentation** tool that allows one to train a classifier based on a few user-provided annotations. 
+
+```{figure} ./images_fiji_manual/weka.png
+:width: 100%
+:align: center
+
+The Trainable Weka Segmentation tool
+
+```
+
+Load the image `data/fiji/machine_learning/er_01.tif` and open the Weka tool from `Plugins > Segmentation > Trainable Weka Segmentation`. 
+
+You can use any of the available tools to annotate a few pixels of the image as belonging to the **background** class (class 1) and a few pixels as belonging to the **ER** class (class 2). 
+
+Press the `Train classifier` button to train a model based on your annotations. The result of the classification of the entire image will be shown, and you can toggle between the segmentation and the original image by pressing the "Toggle overlay" button. Segmentation results can be improved in an iterative process by adding more annotations and retraining the classifier. Once you are satisfied with the result, you can create a binary mask by pressing the `Create result` button.
+
+The trained model can be saved and reloaded later to segment other images of the same type. Sometimes it is useful to train a model based on a few images. This can be achieved by using the "Save data" and "Load data" buttons to include annotations from multiple images in the training set.
+
+```{figure} ./images_fiji_manual/er_01_weka.png
+:width: 50%
+:align: center
+
+Given the difficulty of the segmentation task, the Weka tool performs quite well! The result can be post-processed with morphological operations to clean it up a bit.
+
+```
+
 ### Local maxima detection
 
 Sometimes, we only need to count objects in the image and do not need a precise segmentation of their boundaries.
@@ -560,6 +627,7 @@ Once you are satisfied, hit `OK`.
 Find Maxima results
 
 ```
+
 
 ## Morphology
 
