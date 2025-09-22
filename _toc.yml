@@ -17,10 +17,10 @@ parts:
   - file: book/fiji/intro.md
     sections:
     - file: book/fiji/fiji_manual.md
-    # - file: book/fiji/practical_basics.md
-    # - file: book/fiji/practical_filtering_thresholding.md
-    # - file: book/fiji/practical_macro.md
-    # - file: book/fiji/practical_segmentation_using_machine_learning.md
+    - file: book/fiji/practical_basics.md
+    - file: book/fiji/practical_filtering_thresholding.md
+    - file: book/fiji/practical_macro.md
+    - file: book/fiji/practical_segmentation_using_machine_learning.md
     - file: book/fiji/cheat_sheet_basics.md
     - file: book/fiji/cheat_sheet_macros.md
   - file: book/notebooks/notebooks.md

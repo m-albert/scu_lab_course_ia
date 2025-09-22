@@ -1,9 +1,8 @@
-# P1.1: Fiji basics
+# E1: Fiji basics
 
 ## Preparation
 
-1. Download this image to your computer.
-1. Open the file in Fiji.
+1. Open `data/fiji/segmentation/1894_G3_5.tif` in Fiji.
 
 ## Practical task
 
