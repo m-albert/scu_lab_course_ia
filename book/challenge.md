@@ -22,7 +22,7 @@ The dataset is the file `plate01.zip` which you downloaded [earlier](./download_
 
 ## Your task
 
-1. Segment the cells in each image and export the results to a csv file. For this, you can use either write a **Fiji macro** or a **Jupyter notebook**. In case you choose the latter, you can use the provided notebook `notebooks/challenge.ipynb` as a starting point.
+1. Segment the cells in each image and export the results to a csv file. For this, you can use either write a **Fiji macro** or a **Jupyter notebook**.
 
 1. In a **Jupyter Notebook**, load the csv file and calculate the **dose-response curve** (i.e. number of cells per well vs drug concentration). Create a plot of the dose-response curve and determine the **IC50** (the concentration at which the drug inhibits cell proliferation by 50%).
 
