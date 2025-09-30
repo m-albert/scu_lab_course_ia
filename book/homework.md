@@ -47,6 +47,6 @@ Histogram of GFP intensities in the nuclei
 
 Please upload a **zip archive** with your **family names as part of the file name** to [https://u.ethz.ch/ZiBOJ](https://u.ethz.ch/ZiBOJ) containing the **Jupyter notebook(s)** with the code that implements all requested tasks and the corresponding results. You don't need to submit any of the acquired images.
 
-**Deadline** for submission is **Sunday of the second week following the microscopy block**. In case of mistakes in your solution, you will be required to resubmit your work for corrections or completion, possibly more than once.
+**Deadline** for submission is **Sunday of the second week following the microscopy block**. You may be required to resubmit your work for corrections or completion.
 
 **Have fun!**
