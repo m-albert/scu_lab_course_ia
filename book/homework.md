@@ -34,8 +34,10 @@ Please mind that you are expected to work **in pairs** and that all the code you
 4. Find a good approach to separate the positive from the negative nuclei and count the positive ones. You should expect to find an intensity distribution similar to this one (the function [iaf.stats.prepare_histogram()](https://ia-res.ethz.ch/docs/iaf/stats/index.html#iaf.stats.prepare_histogram) can be used to calculate an histogram with optimal bin size):
 
 ```{figure} illustrations/populations.png
-:width: 300px
+:width: 400px
 :align: center
+
+Histogram of GFP intensities in the nuclei
 ```
 
 
