@@ -10,7 +10,12 @@ To quantify the transfection efficiency, we can segment all nuclei in the DAPI c
 
 The `iaf` library offers the [`iaf.reg.multi_image_alignment()`](https://ia-res.ethz.ch/docs/iaf/reg/index.html#iaf.reg.multi_image_alignment) function to align any number of channels that can be used to correct for this misalignment. As an example, it can be used to successfully register the three channels shown below.
 
-![Example result of `iaf.reg.multi_image_alignment()`](illustrations/alignment.png)
+```{figure} illustrations/alignment.png
+:width: 90%
+:align: center
+
+Example result of `iaf.reg.multi_image_alignment()`
+```
 
 ## Data you will use 
 
@@ -28,7 +33,11 @@ Please mind that you are expected to work **in pairs** and that all the code you
 
 4. Find a good approach to separate the positive from the negative nuclei and count the positive ones. You should expect to find an intensity distribution similar to this one (the function [iaf.stats.prepare_histogram()](https://ia-res.ethz.ch/docs/iaf/stats/index.html#iaf.stats.prepare_histogram) can be used to calculate an histogram with optimal bin size):
 
-   ![Populations](illustrations/populations.png){width=300px}
+```{figure} illustrations/populations.png
+:width: 300px
+:align: center
+```
+
 
 5. Return the **transfection efficiency** as the ratio of positive nuclei to the total number of extracted nuclei.
 
