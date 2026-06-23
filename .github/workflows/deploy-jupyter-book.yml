@@ -14,20 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Pixi
+        uses: prefix-dev/setup-pixi@v0.9.6
         with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install jupyter-book
+          pixi-version: v0.70.2
+          cache: true
+          environments: docs
 
       - name: Build Jupyter Book
         run: |
-          jupyter-book clean .
-          jupyter-book build .
+          pixi run -e docs book-clean
+          pixi run -e docs book
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

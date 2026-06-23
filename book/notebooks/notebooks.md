@@ -19,11 +19,10 @@ You can open the notebooks in your web browser using JupyterLab, which provides 
 
 To launch the notebooks, follow these steps:
 
-1. Open a terminal ("Miniforge Prompt" if you're on Windows).
-1. Navigate to the directory that contains or will contain the notebooks.
-1. Activate the conda environment you created during the installation step.
-1. Start the Jupyter Notebook server by running the following command:
+1. Open a terminal.
+1. Navigate to the course folder that contains the `pixi.toml` file.
+1. Start JupyterLab by running the following command:
 
    ```bash
-   jupyter lab
+   pixi run jupyter lab
    ```

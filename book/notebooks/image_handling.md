@@ -27,16 +27,10 @@ scikit-image is available free of charge under a very permissive license: [https
 
 ### Installation
 
-To install `scikit-image` using `conda`, use:
+The course Pixi environment already includes `scikit-image`. If you are maintaining your own Pixi workspace, install it with:
 
 ```bash
-$ conda install scikit-image
-```
-
-To install `scikit-image` using `pip`, use:
-
-```bash
-$ pip install scikit-image
+pixi add scikit-image
 ```
 
 ## scipy.ndimage
@@ -57,16 +51,10 @@ $ pip install scikit-image
 
 ### Installation
 
-To install `SciPy` using `conda`, use:
+The course Pixi environment already includes `SciPy`. If you are maintaining your own Pixi workspace, install it with:
 
 ```bash
-$ conda install scipy
-```
-
-To install `SciPy` using `pip`, use:
-
-```bash
-$ pip install scipy
+pixi add scipy
 ```
 
 ## iaf

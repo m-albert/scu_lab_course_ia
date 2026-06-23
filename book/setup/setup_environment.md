@@ -1,33 +1,46 @@
-# Setting up a python environment
+# Setting up a Python environment
 
-Running the notebooks in this course requires a python environment with the necessary packages installed. This section explains how to set up the right environment using `conda` and the `environment.yml` file provided with this course.
+Running the notebooks in this course requires a Python environment with the necessary packages installed. This section explains how to set up the course environment using Pixi.
 
-## Setting up your conda environment
+## Setting up your Pixi environment
 
-Here we're assuming you have already installed Miniforge and have opened a terminal window. If you haven't done that yet, please follow the instructions [here](install_python.md).
+Here we're assuming you have already installed Pixi and have opened a terminal window. If you haven't done that yet, please follow the instructions [here](install_python.md).
 
 1. Open your terminal.
-	- **Windows**: Open the "Miniforge Prompt" from your start menu
-	- **Mac OS**: Open Terminal (you can search for it in spotlight - cmd + space)
-	- **Linux**: Open your terminal application
+   - **Windows**: Open PowerShell
+   - **Mac OS**: Open Terminal (you can search for it in spotlight - cmd + space)
+   - **Linux**: Open your terminal application
 
-1. The file `environment.yml` (`notebooks` folder) contains the dependencies needed to run the notebooks, and it specifies a `conda` environment named `labcourse-ia`. Create this environment from the file by copy pasting the following command (for convenvience, the environment file was made available online):
+1. Navigate to the course folder. This is the folder that contains the `pixi.toml` and `pixi.lock` files.
 
-	```bash
-	conda env create -f https://gist.githubusercontent.com/m-albert/9d3d6af1051b35c92d1c7a56bd193560/raw/ac8c0aa071073794d2ec7f8ca31755917a5f4e9f/labcourse-ia-environment.yml
-	```
+   ```bash
+   cd path/to/scu_lab_course_ia
+   ```
 
-1. Once the environment setup has finished, activate the environment. If you successfully activated the environment, you should now see `(labcourse-ia)` to the left of your command prompt.
+1. Install the environment:
 
-	```bash
-	conda activate labcourse-ia
-	```
+   ```bash
+   pixi install
+   ```
 
+   The first installation can take several minutes because Pixi downloads Python, scientific packages, Java, and JupyterLab.
 
-1. Test that your notebook installation is working. We will be using notebook for interactive analysis. Enter the command below and it should launch jupyter notebook book in a web browser.
+1. Test that your notebook installation is working. Enter the command below and it should launch JupyterLab in a web browser.
 
-	```bash
-	jupyter-lab
-	```
+   ```bash
+   pixi run jupyter lab
+   ```
 
-Jupyter Notebook will open in a browser window. If this worked, you can close the browser window again and stop the notebook server by going back to your terminal and pressing `CTRL-C` twice. Possibly, you will be asked to confirm that you want to shut down the server by entering `y` and pressing `ENTER`.
+JupyterLab will open in a browser window. If this worked, you can close the browser window again and stop the notebook server by going back to your terminal and pressing `CTRL-C` twice. Possibly, you will be asked to confirm that you want to shut down the server by entering `y` and pressing `ENTER`.
+
+You do not need to activate the environment manually. Use `pixi run` from the course folder whenever you want to run a command inside the course environment.
+
+## Optional: using a Pixi shell
+
+If you want to run several commands in the course environment, you can start an interactive Pixi shell:
+
+```bash
+pixi shell
+```
+
+While this shell is active, commands such as `python`, `pytest`, or `jupyter lab` use the course environment directly. Type `exit` to leave the shell and return to your normal terminal.

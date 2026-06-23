@@ -7,7 +7,7 @@ This section introduces core Python syntax, data types, and control flow you'll 
 
 The first program in any programming language is always the [**Hello, World!**](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program. It is a simple program that outputs the text `Hello, World!` on the screen[^run_from_file]:
 
-[^run_from_file]: You can also type `print("Hello, World!")` into your text editor of choice, save it as `hello_world.py`, and run it from your Anaconda Prompt or terminal with `python hello_world.py`. This is anyway how you would run larger applications. **Careful**: please make sure to use an editor that saves as **plain text** (Visual Studio Code, Notepad, Notepad++, vim, ...): applications like TextEdit, Wordpad, or Microsoft Word, that save in a Rich Text format, will create files that the Python interpreter cannot understand. 
+[^run_from_file]: You can also type `print("Hello, World!")` into your text editor of choice, save it as `hello_world.py`, and run it from your terminal with `python hello_world.py`. This is anyway how you would run larger applications. **Careful**: please make sure to use an editor that saves as **plain text** (Visual Studio Code, Notepad, Notepad++, vim, ...): applications like TextEdit, Wordpad, or Microsoft Word, that save in a Rich Text format, will create files that the Python interpreter cannot understand. 
 
 ```python
 In [1]: print("Hello, World!")
@@ -914,7 +914,7 @@ When we import a module, Python looks for it in several locations:
 
 - The directory where the script runs or the current directory in an interactive session (*e.g.*, Python or IPython).
 - Directories listed in the `PYTHONPATH` environment variable.
-- Installation-dependent directories or (conda) virtual environments.
+- Installation-dependent directories or local virtual environments.
 
 #### Interacting with a module
 
@@ -1722,4 +1722,3 @@ matplotlib.use('TkAgg') # Or any of the other backends
 ```
 
 before any plots are created.
-

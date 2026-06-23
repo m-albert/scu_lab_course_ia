@@ -3,6 +3,15 @@ title: "Methods in Cell Analysis and Laboratory Automation: Image Analysis"
 author: Marvin Albert and Andreas Cuny. Large part of the content was adapted with permission from teaching material developed by Aaron Ponti.
 copyright: "2025 ETH Zurich"
 logo: '.logo.svg'
+exclude_patterns:
+  - _build
+  - .pixi
+  - .pytest_cache
+  - .git
+  - .ipynb_checkpoints
+  - notebooks/tests/*
+  - notebooks/*solution*.ipynb
+  - notebooks/image_handling.ipynb
 execute:
   execute_notebooks: "off"
 parse:
