@@ -51,10 +51,13 @@ test_pyimagej_full = "pytest notebooks/tests/pyimagej_full.py"
 [feature.docs.dependencies]
 python = "3.11.*"
 jupyter-book = "<2"
+jupyter_server = "*"
+jupyterlite-xeus = ">=4.5,<5"
 
 [feature.docs.tasks]
 book-clean = "jupyter-book clean . --all"
 book = "jupyter-book build . --config _config.yml --toc _toc.yml --all"
+lite = "jupyter lite build --force --config jupyter_lite_config.json --XeusAddon.environment_file=jupyterlite-xeus-environment.yml"
 
 [environments]
 docs = { features = ["docs"], no-default-feature = true }

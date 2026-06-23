@@ -2,6 +2,9 @@
 
 This section covers how to load, inspect, and manage image data in Python using common scientific libraries.
 
+You can run the teaching notebook directly in your browser with the Xeus Python kernel:
+<a href="../../lite/lab/index.html?path=image_handling.ipynb">open the image handling notebook in JupyterLite</a>.
+
 
 Among Python's most comprehensive, high-performance, and high-quality image processing libraries, we can count **scikit-image**, **scipy.ndimage**, **OpenCV**, **SimpleITK**, **Mahotas**, and **Pillow**. These libraries have a significant overlap in functionality but, depending on the specific application, each may be more performant or offer more and better algorithms than the others. In our course, we will predominantly use **scikit-image**, since it implements almost all algorithms we need to solve our image processing tasks and has excellent documentation, making it an ideal learning tool. However, we will complement it with scipy.ndimage and the small **iaf** library, which implements various commodity functions that simplify tasks that may be more complex to perform in scikit-image (and other libraries). In this section, we will give some information about scikit-image, scipy.ndimage and iaf. You can find more information on the other libraries in Appendix B.
 

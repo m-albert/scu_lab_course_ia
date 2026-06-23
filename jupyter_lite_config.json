@@ -1,0 +1,13 @@
+{
+  "LiteBuildConfig": {
+    "contents": [
+      "notebooks/image_handling.ipynb",
+      "notebooks/ex_image_handling.ipynb",
+      "notebooks/illustrations"
+    ],
+    "extra_ignore_contents": [
+      ".*\\.DS_Store$"
+    ],
+    "output_dir": "_build/html/lite"
+  }
+}

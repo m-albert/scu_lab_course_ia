@@ -21,10 +21,11 @@ jobs:
           cache: true
           environments: docs
 
-      - name: Build Jupyter Book
+      - name: Build Jupyter Book and JupyterLite
         run: |
           pixi run -e docs book-clean
           pixi run -e docs book
+          pixi run -e docs lite
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
