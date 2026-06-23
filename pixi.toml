@@ -46,6 +46,7 @@ iaf = "==0.5.0"
 
 [tasks]
 test = "pytest notebooks/tests/test_imports.py"
+test_pyimagej_full = "pytest notebooks/tests/pyimagej_full.py"
 
 [feature.docs.dependencies]
 python = "3.11.*"
