@@ -1,0 +1,19 @@
+version: 1
+
+project:
+  title: "Methods in Cell Analysis and Laboratory Automation: Image Analysis"
+  authors:
+    - name: Marvin Albert
+    - name: Andreas Cuny
+  copyright: "2025 ETH Zurich"
+  jupyter:
+    lite: true
+    kernelName: python
+  toc:
+    - file: notebooks/lite/python_basics_lite.md
+
+site:
+  title: "Methods in Cell Analysis and Laboratory Automation: Image Analysis"
+  options:
+    favicon: favicon.ico
+    logo: .logo.svg

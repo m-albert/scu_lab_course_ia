@@ -2,6 +2,9 @@
 
 This section introduces core Python syntax, data types, and control flow you'll use throughout the course.
 
+You can run a browser-executable version of these examples directly on the page:
+<a href="../../myst/">open the Python basics in-page computation page</a>.
+
 
 ## Hello World!
 

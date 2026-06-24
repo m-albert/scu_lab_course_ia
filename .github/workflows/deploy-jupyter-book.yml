@@ -26,6 +26,7 @@ jobs:
           pixi run -e docs book-clean
           pixi run -e docs book
           pixi run -e docs lite
+          MYST_BASE_URL="/${{ github.event.repository.name }}/myst" pixi run -e docs myst-lite
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

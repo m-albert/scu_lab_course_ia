@@ -10,6 +10,7 @@ exclude_patterns:
   - .git
   - .ipynb_checkpoints
   - notebooks/tests/*
+  - notebooks/lite/*
   - notebooks/*solution*.ipynb
   - notebooks/image_handling.ipynb
 execute:
