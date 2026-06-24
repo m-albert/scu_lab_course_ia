@@ -1,0 +1,17 @@
+name: image-handling-xeus
+channels:
+  - https://repo.prefix.dev/emscripten-forge-4x
+  - https://repo.prefix.dev/conda-forge
+dependencies:
+  - xeus-python
+  - numpy
+  - matplotlib
+  - scipy
+  - scikit-image
+  - pillow
+  - imageio
+  - tifffile
+  - ipywidgets
+  - ipycanvas
+  - stackview
+  - ipympl
