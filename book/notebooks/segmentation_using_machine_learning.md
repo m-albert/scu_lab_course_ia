@@ -23,16 +23,10 @@ Earlier we learned about the tool **Weka**, in Fiji/ImageJ which is a powerful p
 
 ### Installation
 
-To install `pyimagej` using `conda`, use:
+The course Pixi environment already includes `pyimagej`, Java, and Maven. If you are maintaining your own Pixi workspace, install them with:
 
 ```bash
-$ conda install pyimagej
-```
-
-To install `pyimagej` using `pip`, use:
-
-```bash
-$ pip install pyimagej
+pixi add pyimagej openjdk=11.* maven
 ```
 
 ### Working with ImageJ in Python

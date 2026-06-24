@@ -1,4 +1,4 @@
-image: continuumio/miniconda3:latest
+image: ghcr.io/prefix-dev/pixi:0.70.2
 
 stages:
   - deploy
@@ -6,12 +6,8 @@ stages:
 pages:
   stage: deploy
   script: 
-  - conda create -n project python='3.10'
-  - conda init bash
-  - source ~/.bashrc    # <- !!!
-  - conda activate project 
-  - pip install jupyter-book ipykernel
-  - jupyter-book build . --config _config.yml --toc _toc.yml --all
+  - pixi run -e docs book-clean
+  - pixi run -e docs book
   - mkdir public
   - mv ./_build/html/* public/
   - rm -r ./_build
