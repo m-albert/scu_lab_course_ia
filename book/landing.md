@@ -4,6 +4,8 @@
 
 This website hosts materials for the Image Analysis module of the lab course held by the Single Cell Unit at the D-BSSE of ETH Zurich.
 
+**Edition: 2026**
+
 ## Instructors
 
 - **Marvin Albert** - Staff of the Single Cell Facility, D-BSSE, ETH Zurich

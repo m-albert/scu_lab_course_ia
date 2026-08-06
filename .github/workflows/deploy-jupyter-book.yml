@@ -3,7 +3,8 @@ name: Deploy Jupyter Book to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - "2026"
+  workflow_dispatch:
 
 jobs:
   build-deploy:

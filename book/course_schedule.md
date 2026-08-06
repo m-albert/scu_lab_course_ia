@@ -4,7 +4,7 @@ Days 1 and 2 take place in *Room BSS E 21 from 9:00 to 17:30*.
 
 ## Day 0: Intro
 
-*Friday, 19.9.2025*
+*Friday, 18.9.2026*
 
 - Lecture: Introduction to Image Analysis
 - Practical course preparation:
@@ -15,7 +15,7 @@ Days 1 and 2 take place in *Room BSS E 21 from 9:00 to 17:30*.
 
 ## Day 1:
 
-*Monday, 22.9.2025*
+*Monday, 21.9.2026*
 
 - Recap Image Analysis Basics
 - Using ImageJ/Fiji for image analysis
@@ -28,7 +28,7 @@ Days 1 and 2 take place in *Room BSS E 21 from 9:00 to 17:30*.
 
 ## Day 2:
 
-*Tuesday, 23.9.2025*
+*Tuesday, 22.9.2026*
 
 - Using Python for image analysis
   - Applying DL-based image segmentation
