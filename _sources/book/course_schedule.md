@@ -1,39 +1,39 @@
-# Course schedule
+# Schedule
 
-Days 1 and 2 take place in *Room BSS E 21 from 9:00 to 17:30*.
+Two days, in *Room BSS E 21*, 9:00–17:30 with a break from 12:30 to 14:00.
 
-## Day 0: Intro
+## Before the course
 
-*Friday, 18.9.2026*
+Everything in [Setup](setup/index.md), and the
+[Python primer](../notebooks/00_python_basics.ipynb). The primer needs no data,
+so it can be done anywhere; the environment install cannot, so do not leave it
+to the first day.
 
-- Lecture: Introduction to Image Analysis
-- Practical course preparation:
-  - Download example data
-  - Download and install Fiji / ImageJ
-  - Download and install Python
-  - Setup the Python environment used in the course
+## Day 1: Image analysis basics
 
-## Day 1:
+| | |
+|---|---|
+| Fiji practical | Lecture, then [Fiji](fiji/index.md): intensities, channels, thresholding, cleaning up a binary image, measuring objects, and pixel classification with Weka |
+| Python notebooks | The same analysis in Python: [image handling](../notebooks/01_image_handling.ipynb) and [image processing](../notebooks/02_image_processing.ipynb) |
 
-*Monday, 21.9.2026*
+The Python notebooks deliberately repeat the Fiji practical on the same images.
+Fiji is faster to start; Python is the tool of choice when there are four hundred
+images, or when the analysis has to be described exactly six months later.
 
-- Recap Image Analysis Basics
-- Using ImageJ/Fiji for image analysis
-  - Load, process, and analyze images interactively
-  - Automation with macros
-- Using Python for image analysis
-  - Introduction to Python and Jupyter Notebooks
-  - Load, process, and analyze images in Python
+## Day 2: Workflows and analysis
 
+| | |
+|---|---|
+| Python notebooks | [Machine learning for segmentation](../notebooks/03_ml_segmentation.ipynb), [measuring how good a segmentation is](../notebooks/04_segmentation_metrics.ipynb), [features](../notebooks/05_features.ipynb) and [curve fitting](../notebooks/06_curve_fitting.ipynb) |
+| Challenge | A drug dose-response screen, start to finish |
 
-## Day 2:
+## After the course
 
-*Tuesday, 22.9.2026*
+The homework, using images you acquire yourself on the microscope you build in
+the microscopy module.
 
-- Using Python for image analysis
-  - Applying DL-based image segmentation
-  - Plotting and statistical analysis
+## How the material is written
 
-- Challenge: Analysing a drug screening dataset
-
-- Discussion of homework: Analysing data acquired on the DIY microscopes
+Each topic has a **walkthrough** to work through together, and an **exercise**
+to do afterwards. The exercises have laddered hints: take the first one before
+the second.

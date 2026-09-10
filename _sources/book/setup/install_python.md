@@ -1,33 +1,54 @@
-# Installing Python
+# Install Python
 
-## Overview
+You do **not** need to install Python itself, and you should not install Anaconda
+for this course. We use [pixi](https://pixi.sh), which reads the environment
+description in the repository and creates exactly the right environment, the same
+on every machine.
 
-To run the Python jupyter notebooks used in this course, you need to install Python locally on your computer.
+## 1. Install pixi
 
-We use `pixi` to install Python and the packages needed for the course. Pixi creates the course environment from the `pixi.toml` and `pixi.lock` files in this repository, so everyone uses the same tested package versions.
+**macOS / Linux**: in a terminal:
 
-```{admonition} What is Pixi?
-`pixi` is an environment and package manager for scientific software. In this course it installs Python, JupyterLab, image-analysis packages, Java, and the remaining tools needed by the notebooks.
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
 ```
 
-## Instructions
+**Windows**: in PowerShell:
 
-Select the installation instructions for your operating system from the tabs below.
-
-````{tab-set}
-```{tab-item} Linux and macOS
-1. Open your terminal application.
-1. Install Pixi by running `curl -fsSL https://pixi.sh/install.sh | sh`.
-1. Close the terminal window and open a new one.
-1. Check that Pixi is available by running `pixi --version`.
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm -useb https://pixi.sh/install.ps1 | iex"
 ```
 
-```{tab-item} Windows
-1. Open PowerShell.
-1. Install Pixi by running `powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"`.
-1. Close PowerShell and open it again.
-1. Check that Pixi is available by running `pixi --version`.
-```
-````
+Then **close the terminal and open a new one**, so the change to your PATH takes
+effect, and check:
 
-If the installer is blocked on your computer, you can also install Pixi using a system package manager such as Homebrew, Winget, or Scoop. The official installation page lists these alternatives.
+```bash
+pixi --version
+```
+
+## 2. Install git
+
+Check whether you already have it with `git --version`. If not:
+
+- **macOS**: `xcode-select --install`
+- **Windows**: [git-scm.com/download/win](https://git-scm.com/download/win)
+- **Linux**: your package manager, e.g. `sudo apt install git`
+
+Or let pixi do it: `pixi global install git`.
+
+## 3. Get the course material
+
+```bash
+git clone https://github.com/m-albert/scu_lab_course_ia_test.git
+cd scu_lab_course_ia_test
+```
+
+```{warning}
+Use a plain `git clone`, **not** `git clone --recurse-submodules`. The repository
+references a `solutions/` submodule that only instructors can read. If you clone
+with `--recurse-submodules` you will see an error about *"Could not read from
+remote repository"*: **your clone is still fine**: the notebooks and data are
+all there, and `solutions/` is simply left empty. Nothing in the course needs it.
+```
+
+Next: [set up the environment](setup_environment.md).

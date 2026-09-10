@@ -1,0 +1,1646 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python Basics &#8212; Methods in Cell Analysis and Laboratory Automation: Image Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/00_python_basics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exercise: Python Basics" href="00_python_basics_ex.html" />
+    <link rel="prev" title="Download the example data" href="../book/setup/download_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../book/landing.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/.logo.svg" class="logo__image only-light" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
+    <img src="../_static/.logo.svg" class="logo__image only-dark pst-js-only" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../book/landing.html">
+                    Image Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course information</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/course_schedule.html">Schedule</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/setup/index.html">Setup</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/setup/install_fiji.html">Install Fiji</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/setup/install_python.html">Install Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/setup/setup_environment.html">Set up the environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/setup/download_data.html">Download the example data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Python Basics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="00_python_basics_ex.html">Exercise: Python Basics</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Image Analysis Basics with Fiji</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/fiji/index.html">Fiji practical</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/e1_basics.html">E1: Fiji basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/e2_registration.html">E2: Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/e3_segmentation.html">E3: Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/e4_weka.html">E4: Segmentation using machine learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/e5_macros.html">E5: Macros <em>(optional)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/fun/how_wide_is_a_filament.html">How wide is a filament?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/fiji/fun/spot_the_artifact.html">Spot the artifact</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/fiji/cheat_sheet_basics.html">Cheat sheet: Fiji basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/fiji/cheat_sheet_macros.html">Cheat sheet: Fiji macros</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Workflows in Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_image_handling.html">Basic image handling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_image_handling_ex.html">Exercise: image handling</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_image_processing.html">Image processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="02_image_processing_ex.html">Exercise: image processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ml_segmentation.html">Machine learning for segmentation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="03_ml_segmentation_ex.html">Exercise: machine learning for segmentation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_segmentation_metrics.html">Quality control: Segmentation metrics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="04_segmentation_metrics_ex.html">Exercise: measuring a segmentation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_features.html">Feature extraction and measurements</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_detective_game_ex.html">Exercise: the detective game</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_curve_fitting.html">Data Analysis: curve fitting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="06_curve_fitting_ex.html">Exercise: a growth curve from real images</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/challenge.html">Challenge: a drug dose-response curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/homework.html">Homework: quantifying transfection efficiency</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/vocabulary.html">Vocabulary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/further_reading.html">Further reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/00_python_basics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Python Basics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-notebook-works">1. How a notebook works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">2. Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-values-f-strings">3. Showing values: f-strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-and-tuples">4. Lists and tuples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unpacking">Unpacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">5. Dictionaries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-something-to-everything-loops">6. Doing something to everything: loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-decisions">7. Making decisions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">8. Functions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-with-defaults">Arguments with defaults</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-people-s-code">9. Using other people’s code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays">10. NumPy arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing-an-array">11. Indexing and slicing an array</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asking-a-question-of-every-pixel-at-once">12. Asking a question of every pixel at once</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarising-an-array">13. Summarising an array</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">14. Plotting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#several-panels-side-by-side">Several panels side by side</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-paths">15. File paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">16. Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python-basics">
+<h1>Python Basics<a class="headerlink" href="#python-basics" title="Link to this heading">#</a></h1>
+<p><strong>Duration</strong> ~90 min  ·  <strong>Session</strong> Day 0, at home</p>
+<p>This notebook exists so that nobody spends the course fighting the language
+instead of learning the image analysis.</p>
+<p>It is <strong>not</strong> a general Python course. It teaches exactly the pieces the course
+notebooks use, in the order you will meet them, and stops. If you have written
+Python before, skim it in ten minutes and check you recognise everything in the
+recap at the bottom.</p>
+<p><strong>You do not need any course data for this notebook.</strong> Everything here makes its
+own numbers up, so you can work through it before you have downloaded anything.</p>
+<p><strong>How to use it</strong>: read a cell, run it, then change something and run it again.
+Reading code teaches you far less than breaking it does.</p>
+<section id="how-a-notebook-works">
+<h2>1. How a notebook works<a class="headerlink" href="#how-a-notebook-works" title="Link to this heading">#</a></h2>
+<p>A notebook is a list of <strong>cells</strong>. This one is a text cell. The one below is a
+code cell.</p>
+<p>Click the code cell and press <strong>Shift+Enter</strong> to run it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result appears underneath. A cell shows you the value of its <strong>last line</strong>
+automatically, which is handy, but only works for the last line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<p>Only <code class="docutils literal notranslate"><span class="pre">6</span></code> appeared. If you want to see more than one thing, ask for it with
+<code class="docutils literal notranslate"><span class="pre">print</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Cells share their memory, and they run in <strong>the order you run them</strong>, not the
+order they appear on the page. If something behaves strangely, the usual cause is
+cells run out of order: fix it with <em>Kernel ▸ Restart and Run All</em>.</p>
+</div>
+</section>
+<section id="variables">
+<h2>2. Variables<a class="headerlink" href="#variables" title="Link to this heading">#</a></h2>
+<p>A variable is a name for a value. <code class="docutils literal notranslate"><span class="pre">=</span></code> means <em>“give this name to this value”</em>, not
+“is equal to”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diameter</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">"nucleus"</span>
+<span class="n">is_bright</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">diameter</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_bright</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+nucleus
+True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Three kinds of value there, and Python tracks the difference:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>type</p></th>
+<th class="head"><p>what it is</p></th>
+<th class="head"><p>examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>whole number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">12</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>number with a decimal point</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">12.5</span></code>, <code class="docutils literal notranslate"><span class="pre">0.02</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>text, in quotes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;nucleus&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>true or false</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">type()</span></code> tells you which one you have. You will use this more than you expect,
+usually when something is not behaving.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">diameter</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mf">12.5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">is_bright</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Names can be reused, and the value can change:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">5</span>      <span class="c1"># take the old value, add 5, store it back</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+
+<span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>             <span class="c1"># shorthand for exactly the same thing</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15
+16
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="showing-values-f-strings">
+<h2>3. Showing values: f-strings<a class="headerlink" href="#showing-values-f-strings" title="Link to this heading">#</a></h2>
+<p>You will print numbers constantly: object counts, thresholds, measurements. The
+comfortable way is an <strong>f-string</strong>: an <code class="docutils literal notranslate"><span class="pre">f</span></code> before the quotes, and any expression
+in <code class="docutils literal notranslate"><span class="pre">{curly</span> <span class="pre">braces}</span></code> gets replaced by its value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="mi">39</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"found </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> objects"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"the annotation says </span><span class="si">{</span><span class="n">truth</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"we are </span><span class="si">{</span><span class="n">truth</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">count</span><span class="si">}</span><span class="s2"> short"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>found 34 objects
+the annotation says 39
+we are 5 short
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can control how numbers are shown by adding <code class="docutils literal notranslate"><span class="pre">:</span></code> and a format after the
+expression. This matters when a raw float prints as <code class="docutils literal notranslate"><span class="pre">0.6842105263157895</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fraction</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">truth</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"plain      : </span><span class="si">{</span><span class="n">fraction</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"2 decimals : </span><span class="si">{</span><span class="n">fraction</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"percentage : </span><span class="si">{</span><span class="n">fraction</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"padded     : </span><span class="si">{</span><span class="n">count</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> objects"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plain      : 0.8717948717948718
+2 decimals : 0.87
+percentage : 87.2%
+padded     :    34 objects
+</pre></div>
+</div>
+</div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>format</p></th>
+<th class="head"><p>means</p></th>
+<th class="head"><p>example output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:.2f</span></code></p></td>
+<td><p>2 decimal places</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.87</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:.1%</span></code></p></td>
+<td><p>as a percentage</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">87.2%</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:5d</span></code></p></td>
+<td><p>whole number, padded to 5 characters</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&amp;nbsp;&amp;nbsp;&amp;nbsp;34</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The padding one is what lines numbers up into neat columns in the course
+notebooks.</p>
+</section>
+<section id="lists-and-tuples">
+<h2>4. Lists and tuples<a class="headerlink" href="#lists-and-tuples" title="Link to this heading">#</a></h2>
+<p>A <strong>list</strong> holds several values in order. Square brackets, commas between.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">areas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">236</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">1305</span><span class="p">,</span> <span class="mi">390</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span><span class="si">}</span><span class="s2"> values"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"first : </span><span class="si">{</span><span class="n">areas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"third : </span><span class="si">{</span><span class="n">areas</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"last  : </span><span class="si">{</span><span class="n">areas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[236, 512, 480, 1305, 390]
+5 values
+first : 236
+third : 480
+last  : 390
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Counting starts at zero.</strong> <code class="docutils literal notranslate"><span class="pre">areas[0]</span></code> is the first item. This is the single most
+common source of off-by-one confusion, and <code class="docutils literal notranslate"><span class="pre">[-1]</span></code> for “the last one” is worth
+memorising.</p>
+<p>You can take a <strong>slice</strong>, a range of items, with <code class="docutils literal notranslate"><span class="pre">start:stop</span></code>. The stop is <em>not</em>
+included.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">areas</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>    <span class="c1"># items 0, 1, 2  -  not 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">areas</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>     <span class="c1"># same thing, from the beginning</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">areas</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>     <span class="c1"># from item 2 to the end</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[236, 512, 480]
+[236, 512, 480]
+[480, 1305, 390]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lists can be changed after they are made:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">areas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">875</span><span class="p">)</span>          <span class="c1"># add one to the end</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span><span class="si">}</span><span class="s2">, smallest: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span><span class="si">}</span><span class="s2">, total: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[236, 512, 480, 1305, 390, 875]
+largest: 1305, smallest: 236, total: 3798
+</pre></div>
+</div>
+</div>
+</div>
+<p>A <strong>tuple</strong> is the same idea with round brackets, and cannot be changed
+afterwards. You mostly meet tuples as <em>the shape of an image</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">348</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows, </span><span class="si">{</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(348, 512)
+348 rows, 512 columns
+</pre></div>
+</div>
+</div>
+</div>
+<section id="unpacking">
+<h3>Unpacking<a class="headerlink" href="#unpacking" title="Link to this heading">#</a></h3>
+<p>If you know how many items there are, you can name them all at once. This is
+everywhere in the course notebooks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">shape</span>          <span class="c1"># instead of shape[0] and shape[1]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rows</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># It works for any matching number of names and values.</span>
+<span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"values run from </span><span class="si">{</span><span class="n">low</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">high</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>348 x 512
+values run from 0 to 255
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dictionaries">
+<h2>5. Dictionaries<a class="headerlink" href="#dictionaries" title="Link to this heading">#</a></h2>
+<p>A <strong>dictionary</strong> stores values under names rather than positions. Curly braces,
+<code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">value</span></code> pairs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurement</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"area"</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">88.4</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">:</span> <span class="s2">"nucleus 7"</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">measurement</span><span class="p">[</span><span class="s2">"area"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">measurement</span><span class="p">[</span><span class="s2">"label"</span><span class="p">])</span>
+
+<span class="n">measurement</span><span class="p">[</span><span class="s2">"perimeter"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">91.2</span>      <span class="c1"># add a new entry</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">measurement</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>512
+nucleus 7
+{'area': 512, 'intensity': 88.4, 'label': 'nucleus 7', 'perimeter': 91.2}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use a dictionary when the things have names, and a list when they have an order.
+In the course you will mostly meet dictionaries as a way to keep several results
+side by side:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"threshold"</span><span class="p">:</span> <span class="n">threshold_labels</span><span class="p">,</span> <span class="s2">"Cellpose"</span><span class="p">:</span> <span class="n">cellpose_labels</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="doing-something-to-everything-loops">
+<h2>6. Doing something to everything: loops<a class="headerlink" href="#doing-something-to-everything-loops" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">areas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">236</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">1305</span><span class="p">,</span> <span class="mi">390</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">areas</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"this object covers </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2"> pixels"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>this object covers 236 pixels
+this object covers 512 pixels
+this object covers 480 pixels
+this object covers 1305 pixels
+this object covers 390 pixels
+</pre></div>
+</div>
+</div>
+</div>
+<p>Read it as <em>“for each item in <code class="docutils literal notranslate"><span class="pre">areas</span></code>, call it <code class="docutils literal notranslate"><span class="pre">area</span></code>, and do the indented
+part”</em>.</p>
+<p><strong>The indentation is the syntax.</strong> Python has no braces or <code class="docutils literal notranslate"><span class="pre">end</span></code> keyword; the
+indented lines are the body of the loop, and the first unindented line is after
+it. Four spaces is the convention, and Jupyter inserts them for you when you
+press Tab.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">areas</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="mi">450</span><span class="p">:</span>
+        <span class="n">big</span> <span class="o">+=</span> <span class="mi">1</span>              <span class="c1"># this line is inside BOTH the loop and the if</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">big</span><span class="si">}</span><span class="s2"> objects are larger than 450 px"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 objects are larger than 450 px
+</pre></div>
+</div>
+</div>
+</div>
+<p>Two loop helpers you will see constantly:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">enumerate</span></code></strong> gives you the position as well as the item;</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">zip</span></code></strong> walks two lists side by side.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">position</span><span class="p">,</span> <span class="n">area</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">areas</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"object </span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2"> px"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>object 0: 236 px
+object 1: 512 px
+object 2: 480 px
+object 3: 1305 px
+object 4: 390 px
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"debris"</span><span class="p">,</span> <span class="s2">"clump"</span><span class="p">,</span> <span class="s2">"nucleus"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">area</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">areas</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">area</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> px"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nucleus    236 px
+nucleus    512 px
+debris     480 px
+clump     1305 px
+nucleus    390 px
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="making-decisions">
+<h2>7. Making decisions<a class="headerlink" href="#making-decisions" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mi">450</span>
+
+<span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">areas</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">verdict</span> <span class="o">=</span> <span class="s2">"too small - probably noise"</span>
+    <span class="k">elif</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="n">verdict</span> <span class="o">=</span> <span class="s2">"too big - probably two objects merged"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">verdict</span> <span class="o">=</span> <span class="s2">"plausible"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">area</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> px  -&gt;  </span><span class="si">{</span><span class="n">verdict</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  236 px  -&gt;  plausible
+  512 px  -&gt;  plausible
+  480 px  -&gt;  plausible
+ 1305 px  -&gt;  too big - probably two objects merged
+  390 px  -&gt;  plausible
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">if</span></code> … <code class="docutils literal notranslate"><span class="pre">elif</span></code> … <code class="docutils literal notranslate"><span class="pre">else</span></code>. Only the <strong>first</strong> matching branch runs.</p>
+<p>The comparisons available are the ones you would expect: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>,
+<code class="docutils literal notranslate"><span class="pre">==</span></code> for “is equal to”, and <code class="docutils literal notranslate"><span class="pre">!=</span></code> for “is not equal to”. Note the double equals:
+a single <code class="docutils literal notranslate"><span class="pre">=</span></code> assigns, and writing <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">area</span> <span class="pre">=</span> <span class="pre">450</span></code> is an error rather than a
+comparison.</p>
+</section>
+<section id="functions">
+<h2>8. Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<p>A function is a named piece of code you can run again with different inputs.
+Define it once with <code class="docutils literal notranslate"><span class="pre">def</span></code>, then call it as often as you like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">area</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Say whether an object's area is plausible for a nucleus."""</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"too small"</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"too big"</span>
+    <span class="k">return</span> <span class="s2">"plausible"</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">describe</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">describe</span><span class="p">(</span><span class="mi">512</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">describe</span><span class="p">(</span><span class="mi">1305</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>too small
+plausible
+too big
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>everything indented under <code class="docutils literal notranslate"><span class="pre">def</span></code> is the function’s body;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span></code> hands a value back to whoever called it, and stops the function;</p></li>
+<li><p>the text in triple quotes is a <strong>docstring</strong>: a note to your future self.</p></li>
+</ul>
+<section id="arguments-with-defaults">
+<h3>Arguments with defaults<a class="headerlink" href="#arguments-with-defaults" title="Link to this heading">#</a></h3>
+<p>A function can have arguments with a default value, which you may leave out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">smallest</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">largest</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&lt;</span> <span class="n">smallest</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"too small"</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="n">largest</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"too big"</span>
+    <span class="k">return</span> <span class="s2">"plausible"</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">describe</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>                  <span class="c1"># uses the defaults</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">describe</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">smallest</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>     <span class="c1"># overrides one of them</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>too small
+plausible
+</pre></div>
+</div>
+</div>
+</div>
+<p>Naming the argument when you call it, <code class="docutils literal notranslate"><span class="pre">smallest=20</span></code>, is a <strong>keyword argument</strong>.
+The library functions in this course have a lot of these, and naming them makes
+the call readable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gaussian</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You would have no idea what <code class="docutils literal notranslate"><span class="pre">gaussian(image,</span> <span class="pre">2,</span> <span class="pre">True)</span></code> meant six months later.</p>
+</section>
+</section>
+<section id="using-other-people-s-code">
+<h2>9. Using other people’s code<a class="headerlink" href="#using-other-people-s-code" title="Link to this heading">#</a></h2>
+<p>Almost nothing you need is written from scratch. You <strong>import</strong> it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>              <span class="c1"># the whole library, under a short nickname</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">threshold_otsu</span>   <span class="c1"># one specific function</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Two forms:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code>: everything, reached as <code class="docutils literal notranslate"><span class="pre">np.something</span></code>. The <code class="docutils literal notranslate"><span class="pre">as</span> <span class="pre">np</span></code> is a
+universal convention; do not invent your own.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">x</span> <span class="pre">import</span> <span class="pre">y</span></code>: pull one name out, so you can write <code class="docutils literal notranslate"><span class="pre">y(...)</span></code> directly.</p></li>
+</ul>
+<p>Put your imports in the first code cell of a notebook, so a reader can see the
+dependencies at a glance.</p>
+</section>
+<section id="numpy-arrays">
+<h2>10. NumPy arrays<a class="headerlink" href="#numpy-arrays" title="Link to this heading">#</a></h2>
+<p>This is the one that matters. <strong>An image is a NumPy array</strong>, a grid of numbers,
+and every image operation in this course is an array operation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># A tiny 4x5 "image", made by hand.</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[10 12 11 10 13]
+ [11 90 95 12 11]
+ [10 92 98 11 12]
+ [12 11 10 13 11]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"shape:"</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>      <span class="c1"># (rows, columns)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"dtype:"</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>      <span class="c1"># what kind of number</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"size :"</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>       <span class="c1"># how many values in total</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shape: (4, 5)
+dtype: int64
+size : 20
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">shape</span></code> is <code class="docutils literal notranslate"><span class="pre">(rows,</span> <span class="pre">columns)</span></code>: <strong>height first</strong>. Nearly everyone gets this the
+wrong way round at least once.</p>
+<p>Useful ways to make an array without typing it out:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>            <span class="c1"># filled with 0</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1"># 0 up to (not including) 10, in steps of 2</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>        <span class="c1"># 5 values evenly spaced from 0 to 1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0. 0. 0.]
+ [0. 0. 0.]]
+
+[0 2 4 6 8]
+
+[0.   0.25 0.5  0.75 1.  ]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="indexing-and-slicing-an-array">
+<h2>11. Indexing and slicing an array<a class="headerlink" href="#indexing-and-slicing-an-array" title="Link to this heading">#</a></h2>
+<p>Same rules as lists, but with a row and a column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"one pixel      :"</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>      <span class="c1"># row 1, column 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"a whole row    :"</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"a whole column :"</span><span class="p">,</span> <span class="n">image</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>      <span class="c1"># ':' means 'all of them'</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>one pixel      : 95
+a whole row    : [11 90 95 12 11]
+a whole column : [11 95 98 10]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A rectangle: rows 1 to 2, columns 1 to 2. This is cropping.</span>
+<span class="n">crop</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">crop</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"shape:"</span><span class="p">,</span> <span class="n">crop</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[90 95]
+ [92 98]]
+shape: (2, 2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="asking-a-question-of-every-pixel-at-once">
+<h2>12. Asking a question of every pixel at once<a class="headerlink" href="#asking-a-question-of-every-pixel-at-once" title="Link to this heading">#</a></h2>
+<p>This is the idea that makes array code short, and it is worth slowing down for.</p>
+<p>Compare the whole array to a number, and you get back <strong>an array of <code class="docutils literal notranslate"><span class="pre">True</span></code> and
+<code class="docutils literal notranslate"><span class="pre">False</span></code></strong>: one answer per pixel. No loop needed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bright</span> <span class="o">=</span> <span class="n">image</span> <span class="o">&gt;</span> <span class="mi">50</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bright</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[False False False False False]
+ [False  True  True False False]
+ [False  True  True False False]
+ [False False False False False]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>An image with only two values like this is called a <strong>binary image</strong>, and it is
+exactly what thresholding produces. When you use one to <em>select</em> pixels from
+another image, as below, it is usually called a <strong>mask</strong>: same array, different
+role.</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">True</span></code> counts as 1 and <code class="docutils literal notranslate"><span class="pre">False</span></code> as 0, you can immediately ask how many
+pixels passed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"bright pixels    :"</span><span class="p">,</span> <span class="n">bright</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"fraction bright  :"</span><span class="p">,</span> <span class="n">bright</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"as a percentage : </span><span class="si">{</span><span class="n">bright</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bright pixels    : 4
+fraction bright  : 0.2
+as a percentage : 20.0%
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also use a mask to pull out just those values, or to change them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"the bright values:"</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">bright</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"their average    :"</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">bright</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">copy</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>          <span class="c1"># work on a copy, not the original</span>
+<span class="n">copy</span><span class="p">[</span><span class="n">bright</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>             <span class="c1"># set every bright pixel to zero</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">copy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the bright values: [90 95 92 98]
+their average    : 93.75
+[[10 12 11 10 13]
+ [11  0  0 12 11]
+ [10  0  0 11 12]
+ [12 11 10 13 11]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">=</span> <span class="pre">image</span></code> does <strong>not</strong> make a copy: it gives the same array a second name,
+and changing one changes the other. Use <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> when you mean a copy.</p>
+</div>
+</section>
+<section id="summarising-an-array">
+<h2>13. Summarising an array<a class="headerlink" href="#summarising-an-array" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"smallest : </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"largest  : </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"average  : </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"total    : </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"spread   : </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>smallest : 10
+largest  : 98
+average  : 27.8
+total    : 555
+spread   : 33.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>These are <strong>methods</strong>: functions that belong to the array, called with a dot
+after it. You will use <code class="docutils literal notranslate"><span class="pre">.max()</span></code> more than any other, usually to ask how many
+objects a label image contains.</p>
+</section>
+<section id="plotting">
+<h2>14. Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">35</span><span class="p">],</span> <span class="s2">"o-"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"time (min)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"cells"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"a growth curve"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b9ceeeb97a2001b144761816b9a2cb3784777fd70389fb471cbdd8bd4d31b162.png" src="../_images/b9ceeeb97a2001b144761816b9a2cb3784777fd70389fb471cbdd8bd4d31b162.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># An array can be drawn as an image.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"our tiny image"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fcde1a363c6d875c6f2be90ed1e41891adde1efbf41b91b2e5f1fa8aaa93b330.png" src="../_images/fcde1a363c6d875c6f2be90ed1e41891adde1efbf41b91b2e5f1fa8aaa93b330.png" />
+</div>
+</div>
+<section id="several-panels-side-by-side">
+<h3>Several panels side by side<a class="headerlink" href="#several-panels-side-by-side" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> makes a figure with several panels. It hands back <strong>two</strong> things:
+the figure and the panels, which is why you see that tuple unpacking from
+section 4 again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"original"</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"mask"</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"histogram"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4cc9bde149d529d3bc991e12e1b573d4568312353bc83fe9080a6725533f3929.png" src="../_images/4cc9bde149d529d3bc991e12e1b573d4568312353bc83fe9080a6725533f3929.png" />
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">axes</span></code> is a list of panels, so <code class="docutils literal notranslate"><span class="pre">axes[0]</span></code> is the first. <code class="docutils literal notranslate"><span class="pre">.ravel()</span></code> flattens the 2D
+image into a plain list of values, which is what a histogram needs.</p>
+<p>A pattern you will see often is <code class="docutils literal notranslate"><span class="pre">zip</span></code> from section 6, used to pair panels with
+things to draw in them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="s2">"original"</span><span class="p">,</span> <span class="s2">"mask"</span><span class="p">,</span> <span class="s2">"histogram"</span><span class="p">]):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="file-paths">
+<h2>15. File paths<a class="headerlink" href="#file-paths" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">folder</span> <span class="o">/</span> <span class="s2">"2h_1_nuclei.tif"</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"name only:"</span><span class="p">,</span> <span class="n">filename</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"does it exist here?"</span><span class="p">,</span> <span class="n">filename</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>data/bbbc020/images/2h_1_nuclei.tif
+name only: 2h_1_nuclei.tif
+does it exist here? False
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> between path pieces reads oddly at first, but it builds the right kind of
+path on every operating system: no worrying about <code class="docutils literal notranslate"><span class="pre">/</span></code> versus <code class="docutils literal notranslate"><span class="pre">\</span></code>.</p>
+<p>In the course notebooks <code class="docutils literal notranslate"><span class="pre">DATA</span></code> is already defined for you, so you will write
+<code class="docutils literal notranslate"><span class="pre">DATA</span> <span class="pre">/</span> <span class="pre">&quot;bbbc020&quot;</span> <span class="pre">/</span> <span class="pre">&quot;images&quot;</span> <span class="pre">/</span> <span class="pre">&quot;2h_1_nuclei.tif&quot;</span></code>.</p>
+</section>
+<section id="tables">
+<h2>16. Tables<a class="headerlink" href="#tables" title="Link to this heading">#</a></h2>
+<p>Once you have measured objects you will have a table, and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is the tool
+for those. You only need a little of it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"area"</span><span class="p">:</span> <span class="p">[</span><span class="mi">236</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">1305</span><span class="p">,</span> <span class="mi">390</span><span class="p">,</span> <span class="mi">875</span><span class="p">],</span>
+    <span class="s2">"roundness"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.91</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.42</span><span class="p">,</span> <span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">],</span>
+    <span class="s2">"kind"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"clump"</span><span class="p">,</span> <span class="s2">"nucleus"</span><span class="p">,</span> <span class="s2">"clump"</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+      <th>roundness</th>
+      <th>kind</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>236</td>
+      <td>0.91</td>
+      <td>nucleus</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>512</td>
+      <td>0.88</td>
+      <td>nucleus</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>480</td>
+      <td>0.95</td>
+      <td>nucleus</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1305</td>
+      <td>0.42</td>
+      <td>clump</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>390</td>
+      <td>0.89</td>
+      <td>nucleus</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>875</td>
+      <td>0.55</td>
+      <td>clump</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s2">"area"</span><span class="p">])</span>            <span class="c1"># one column</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>              <span class="c1"># (rows, columns)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s2">"area"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>     <span class="c1"># columns behave like arrays</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     236
+1     512
+2     480
+3    1305
+4     390
+5     875
+Name: area, dtype: int64
+
+(6, 3)
+
+633.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Filtering uses the same mask idea as section 12: a condition on a column gives
+<code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code> per row, and the table keeps the <code class="docutils literal notranslate"><span class="pre">True</span></code> ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s2">"area"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">450</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">big</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   area  roundness     kind
+1   512       0.88  nucleus
+2   480       0.95  nucleus
+3  1305       0.42    clump
+5   875       0.55    clump
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split into groups and summarise each one.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"kind"</span><span class="p">)[</span><span class="s2">"area"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kind
+clump      1090.0
+nucleus     435.0
+Name: area, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>That is genuinely most of what the course needs from pandas: make a table, look
+at a column, filter rows, group and summarise.</p>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<p><strong>The things to recognise.</strong> If you can read all of these, you are ready.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">34</span>                              <span class="c1"># a variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"found </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> objects"</span><span class="p">)</span>         <span class="c1"># an f-string</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fraction</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>                <span class="c1"># formatted to 1 decimal, as a percentage</span>
+
+<span class="n">areas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">236</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">480</span><span class="p">]</span>                 <span class="c1"># a list</span>
+<span class="n">areas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">areas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                     <span class="c1"># first and last</span>
+<span class="n">rows</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>             <span class="c1"># unpacking a tuple</span>
+
+<span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">areas</span><span class="p">:</span>                      <span class="c1"># a loop</span>
+    <span class="k">if</span> <span class="n">area</span> <span class="o">&gt;</span> <span class="mi">450</span><span class="p">:</span>                       <span class="c1"># a decision - note the indentation</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">area</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">areas</span><span class="p">):</span> <span class="o">...</span>     <span class="c1"># position as well as item</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">area</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">areas</span><span class="p">):</span> <span class="o">...</span> <span class="c1"># two lists side by side</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">smallest</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>        <span class="c1"># a function with a default</span>
+    <span class="k">return</span> <span class="s2">"too small"</span> <span class="k">if</span> <span class="n">area</span> <span class="o">&lt;</span> <span class="n">smallest</span> <span class="k">else</span> <span class="s2">"fine"</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>                       <span class="c1"># a library, nicknamed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">threshold_otsu</span>
+
+<span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">dtype</span>                 <span class="c1"># (rows, columns) and the number type</span>
+<span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>                              <span class="c1"># one pixel</span>
+<span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>                          <span class="c1"># a crop</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">image</span> <span class="o">&gt;</span> <span class="mi">50</span>                        <span class="c1"># a question asked of every pixel</span>
+<span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">mask</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                  <span class="c1"># how many, what fraction</span>
+<span class="n">image</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                       <span class="c1"># average of just those pixels</span>
+<span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                             <span class="c1"># how many objects</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>           <span class="c1"># several panels</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>
+
+<span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="s2">"x.tif"</span>    <span class="c1"># a file path</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s2">"area"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                     <span class="c1"># a column</span>
+<span class="n">table</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s2">"area"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">450</span><span class="p">]</span>               <span class="c1"># filtered rows</span>
+<span class="n">table</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"kind"</span><span class="p">)[</span><span class="s2">"area"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>   <span class="c1"># grouped summary</span>
+</pre></div>
+</div>
+<p>Anything unfamiliar? Go back to that section and change the code until it makes
+sense.</p>
+<p>Next: <code class="docutils literal notranslate"><span class="pre">00_python_basics_ex</span></code> to practise, and then the course proper.</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../book/setup/download_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Download the example data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="00_python_basics_ex.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exercise: Python Basics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-notebook-works">1. How a notebook works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">2. Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-values-f-strings">3. Showing values: f-strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-and-tuples">4. Lists and tuples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unpacking">Unpacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">5. Dictionaries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-something-to-everything-loops">6. Doing something to everything: loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-decisions">7. Making decisions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">8. Functions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments-with-defaults">Arguments with defaults</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-other-people-s-code">9. Using other people’s code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays">10. NumPy arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing-an-array">11. Indexing and slicing an array</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asking-a-question-of-every-pixel-at-once">12. Asking a question of every pixel at once</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarising-an-array">13. Summarising an array</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">14. Plotting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#several-panels-side-by-side">Several panels side by side</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-paths">15. File paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">16. Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Marvin Albert and Andreas Cuny. Large parts of the content were adapted with permission from teaching material developed by Aaron Ponti.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 ETH Zurich.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
