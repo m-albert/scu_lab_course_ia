@@ -148,8 +148,8 @@
       
     
     
-    <img src="../_static/.logo.svg" class="logo__image only-light" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
-    <img src="../_static/.logo.svg" class="logo__image only-dark pst-js-only" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="Methods in Cell Analysis and Laboratory Automation: Image Analysis - Home"/>
   
   
 </a></div>
@@ -384,12 +384,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-experiment">The experiment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-properties-of-the-data-to-account-for">Two properties of the data to account for</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-ways-to-approach-it">Two ways to approach it</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track-a-starting-from-the-images">Track A: starting from the images</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track-b-starting-from-the-counts">Track B: starting from the counts</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-through-it">Working through it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-details">Challenge details</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints">Hints</a></li>
 </ul>
             </nav>
@@ -501,11 +496,8 @@ fraction of each well, while the 10,240 figure refers to the whole well. Relatin
 the two requires the field-of-view area and the well area.</p>
 </div>
 </section>
-<section id="two-ways-to-approach-it">
-<h2>Two ways to approach it<a class="headerlink" href="#two-ways-to-approach-it" title="Link to this heading">#</a></h2>
-<p>The dataset is large. Both routes lead to a dose-response curve.</p>
-<section id="track-a-starting-from-the-images">
-<h3>Track A: starting from the images<a class="headerlink" href="#track-a-starting-from-the-images" title="Link to this heading">#</a></h3>
+<section id="challenge-details">
+<h2>Challenge details<a class="headerlink" href="#challenge-details" title="Link to this heading">#</a></h2>
 <p>Segment the cells in each of the 40 fields, export the counts, and analyse them.
 Either tool works:</p>
 <ul class="simple">
@@ -514,25 +506,9 @@ Either tool works:</p>
 <code class="docutils literal notranslate"><span class="pre">iaf.io.readers.NikonND2Reader</span></code> opens an ND2 file series by series.</p></li>
 </ul>
 <p>The data is <code class="docutils literal notranslate"><span class="pre">plate01.nd2</span></code>; see <a class="reference internal" href="setup/download_data.html"><span class="std std-doc">Download the example data</span></a>.</p>
-</section>
-<section id="track-b-starting-from-the-counts">
-<h3>Track B: starting from the counts<a class="headerlink" href="#track-b-starting-from-the-counts" title="Link to this heading">#</a></h3>
-<p>If the download is unavailable, the per-field counts are already in the
-repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">/</span><span class="n">challenge</span><span class="o">/</span><span class="n">plate01_summary</span><span class="o">.</span><span class="n">csv</span>
-</pre></div>
-</div>
-<p>This is the result of running a segmentation over all 40 fields: one row per
-field, in acquisition order, with a <code class="docutils literal notranslate"><span class="pre">Count</span></code> column. The analysis after
-segmentation can be done entirely from it.</p>
-<p>Both properties described above still apply on this track, as does the fitting.</p>
-</section>
-</section>
-<section id="working-through-it">
-<h2>Working through it<a class="headerlink" href="#working-through-it" title="Link to this heading">#</a></h2>
 <p>A complete analysis involves:</p>
 <ol class="arabic simple">
-<li><p><strong>the counts per well</strong>, from either track;</p></li>
+<li><p><strong>the counts per well</strong>;</p></li>
 <li><p><strong>the plate arranged correctly</strong>: 4 replicates × 10 concentrations, with the
 snake pattern accounted for;</p></li>
 <li><p><strong>a dose-response plot</strong>: cells per well against concentration, showing the
@@ -700,12 +676,7 @@ systematically, what its images look like;</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-experiment">The experiment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-properties-of-the-data-to-account-for">Two properties of the data to account for</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-ways-to-approach-it">Two ways to approach it</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track-a-starting-from-the-images">Track A: starting from the images</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#track-b-starting-from-the-counts">Track B: starting from the counts</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-through-it">Working through it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-details">Challenge details</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints">Hints</a></li>
 </ul>
   </nav></div>
