@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/05_features';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Exercise: the detective game" href="05_detective_game_ex.html" />
+    <link rel="next" title="Data Analysis: curve fitting" href="06_curve_fitting.html" />
     <link rel="prev" title="Exercise: measuring a segmentation" href="04_segmentation_metrics_ex.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -216,8 +216,7 @@
 <li class="toctree-l2"><a class="reference internal" href="04_segmentation_metrics_ex.html">Exercise: measuring a segmentation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Feature extraction and measurements</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="05_detective_game_ex.html">Exercise: the detective game</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Feature extraction and measurements</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="06_curve_fitting.html">Data Analysis: curve fitting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -413,39 +412,44 @@ analysis stops being about images and becomes ordinary data analysis.</p>
 <li><p>measuring one channel through another channel’s binary image</p></li>
 <li><p>comparing a measured population between conditions</p></li>
 </ul>
-<p><strong>Data</strong>: <code class="docutils literal notranslate"><span class="pre">data/bbbc020/</span></code>, the nuclei and cells segmented so far.</p>
+<p><strong>Data</strong>: <code class="docutils literal notranslate"><span class="pre">data/bbbc020/</span></code>, the nuclei and cells segmented so far. These images depict bone-marrow derived macrophages from C57BL/6 mice. Based on this experiment, the role of toll-like receptor 4 (TLR 4), Myd88 and MAPK for macrophage spreading was investigated. DAPI labels the nuclei and CD11b/APC the cell surface.</p>
 <section id="from-labels-to-a-table">
 <h2>1. From labels to a table<a class="headerlink" href="#from-labels-to-a-table" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-
+<span class="kn">import</span><span class="w"> </span><span class="nn">tifffile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">tifffile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">course</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">show</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2gray</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">iaf.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">show_labels</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.measure</span><span class="w"> </span><span class="kn">import</span> <span class="n">regionprops_table</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">course</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">show</span>
 
-<span class="n">FIELD</span> <span class="o">=</span> <span class="s2">"2h_1"</span>
-<span class="n">nuclei</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FIELD</span><span class="si">}</span><span class="s2">_nuclei.tif"</span><span class="p">)</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"gt"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FIELD</span><span class="si">}</span><span class="s2">_nuclei_labels.tif"</span><span class="p">)</span>
+<span class="n">cells</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="s2">"jw-24h 2_c1.TIF"</span><span class="p">)</span>
+<span class="n">nuclei</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="s2">"jw-24h 2_c5.TIF"</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"gt"</span> <span class="o">/</span> <span class="s2">"jw-24h 2_c5 [1].tif"</span><span class="p">)</span>
 
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Cell intensities (raw data, ch1=CD11b/APC)"</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">nuclei</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Nuceli intensities (raw data, ch5=DAPI)"</span><span class="p">)</span>
+<span class="n">show_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Nuceli GT labels"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"label image:"</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">"|"</span><span class="p">,</span> <span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">"objects"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>label image: (348, 512) uint16 | 39 objects
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>label image: (1040, 1388) uint32 | 36 objects
 </pre></div>
 </div>
+<img alt="../_images/f293d7560d7ee36ba3b89e57cedfa7695971cfe59d5fc2da867590163c7a280c.png" src="../_images/f293d7560d7ee36ba3b89e57cedfa7695971cfe59d5fc2da867590163c7a280c.png" />
 </div>
 </div>
-<p>We are using the <em>annotated</em> labels here rather than our own segmentation, so
+<p>We are using the <em>annotated</em> labels (ground truth) here rather than our own segmentation, so
 that the measurements are not confounded by segmentation error. In practice this
-would be the output of a segmentation pipeline.</p>
+would be the output of a segmentation pipeline or manual / expert ground truth.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">regionprops_table</span><span class="p">(</span>
@@ -460,7 +464,7 @@ would be the output of a segmentation pipeline.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(39, 6)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(36, 6)
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -493,47 +497,47 @@ would be the output of a segmentation pipeline.</p>
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>1306.0</td>
-      <td>135.982756</td>
-      <td>0.579911</td>
-      <td>0.973900</td>
-      <td>0.802211</td>
+      <td>2683.0</td>
+      <td>211.296465</td>
+      <td>0.750343</td>
+      <td>0.926450</td>
+      <td>0.750490</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2</td>
-      <td>321.0</td>
-      <td>84.627417</td>
-      <td>0.948399</td>
-      <td>0.966867</td>
-      <td>0.767943</td>
+      <td>5070.0</td>
+      <td>269.965512</td>
+      <td>0.635670</td>
+      <td>0.986381</td>
+      <td>0.804762</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
-      <td>478.0</td>
-      <td>92.662951</td>
-      <td>0.874902</td>
-      <td>0.979508</td>
-      <td>0.781046</td>
+      <td>2519.0</td>
+      <td>204.752309</td>
+      <td>0.811341</td>
+      <td>0.937128</td>
+      <td>0.659597</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
-      <td>822.0</td>
-      <td>103.840620</td>
-      <td>0.302381</td>
-      <td>0.977408</td>
-      <td>0.828629</td>
+      <td>4832.0</td>
+      <td>288.308658</td>
+      <td>0.827851</td>
+      <td>0.933720</td>
+      <td>0.683645</td>
     </tr>
     <tr>
       <th>4</th>
       <td>5</td>
-      <td>617.0</td>
-      <td>93.941125</td>
-      <td>0.773015</td>
-      <td>0.967085</td>
-      <td>0.824866</td>
+      <td>2806.0</td>
+      <td>200.545202</td>
+      <td>0.641503</td>
+      <td>0.980776</td>
+      <td>0.769189</td>
     </tr>
   </tbody>
 </table>
@@ -618,67 +622,67 @@ than <code class="docutils literal notranslate"><span class="pre">area</span></c
   <tbody>
     <tr>
       <th>count</th>
-      <td>39.00</td>
-      <td>39.00</td>
-      <td>39.00</td>
-      <td>39.00</td>
-      <td>39.00</td>
+      <td>36.00</td>
+      <td>36.00</td>
+      <td>36.00</td>
+      <td>36.00</td>
+      <td>36.00</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>591.64</td>
-      <td>90.78</td>
-      <td>0.65</td>
-      <td>0.97</td>
-      <td>0.81</td>
+      <td>2740.83</td>
+      <td>203.27</td>
+      <td>0.75</td>
+      <td>0.96</td>
+      <td>0.75</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>202.77</td>
-      <td>14.01</td>
-      <td>0.17</td>
-      <td>0.01</td>
-      <td>0.04</td>
+      <td>1282.39</td>
+      <td>42.80</td>
+      <td>0.13</td>
+      <td>0.02</td>
+      <td>0.06</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>144.00</td>
-      <td>50.73</td>
-      <td>0.25</td>
-      <td>0.97</td>
-      <td>0.72</td>
+      <td>320.00</td>
+      <td>104.35</td>
+      <td>0.41</td>
+      <td>0.92</td>
+      <td>0.63</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>505.50</td>
-      <td>84.53</td>
-      <td>0.58</td>
-      <td>0.97</td>
-      <td>0.78</td>
+      <td>2078.75</td>
+      <td>179.99</td>
+      <td>0.67</td>
+      <td>0.96</td>
+      <td>0.70</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>562.00</td>
-      <td>90.77</td>
-      <td>0.66</td>
+      <td>2430.00</td>
+      <td>197.32</td>
+      <td>0.77</td>
       <td>0.97</td>
-      <td>0.80</td>
+      <td>0.75</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>668.00</td>
-      <td>96.36</td>
-      <td>0.75</td>
-      <td>0.98</td>
+      <td>2979.00</td>
+      <td>221.53</td>
       <td>0.82</td>
+      <td>0.98</td>
+      <td>0.79</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>1306.00</td>
-      <td>135.98</td>
-      <td>0.95</td>
+      <td>5610.00</td>
+      <td>288.31</td>
       <td>0.99</td>
-      <td>0.89</td>
+      <td>0.99</td>
+      <td>0.85</td>
     </tr>
   </tbody>
 </table>
@@ -697,15 +701,14 @@ than <code class="docutils literal notranslate"><span class="pre">area</span></c
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d090fbf8cee41cacfe89669f069a266278f6be3747fc606f27818027eee99e68.png" src="../_images/d090fbf8cee41cacfe89669f069a266278f6be3747fc606f27818027eee99e68.png" />
+<img alt="../_images/ffba74c008ab8725e7905d44ada945e409803e068770b486d4c61d97c4200c97.png" src="../_images/ffba74c008ab8725e7905d44ada945e409803e068770b486d4c61d97c4200c97.png" />
 </div>
 </div>
 <p>Look at the spread. <code class="docutils literal notranslate"><span class="pre">area</span></code> ranges over a factor of nine, while <code class="docutils literal notranslate"><span class="pre">solidity</span></code> sits
-between 0.97 and 0.99 for every single nucleus, because nuclei are convex blobs
+between 0.93 and 0.98 for every single nucleus, because nuclei are convex blobs
 and solidity measures exactly that.</p>
 <p><strong>A feature with no variance carries no information.</strong> Solidity is useless for
-telling these nuclei apart. It will be extremely useful in the exercise, where
-the objects are not all convex.</p>
+telling these nuclei apart.</p>
 </section>
 <section id="intensity-features">
 <h2>3. Intensity features<a class="headerlink" href="#intensity-features" title="Link to this heading">#</a></h2>
@@ -715,11 +718,9 @@ each object. Pass it as <code class="docutils literal notranslate"><span class="
 comes from one channel, the numbers from another.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cells</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FIELD</span><span class="si">}</span><span class="s2">_cells.tif"</span><span class="p">)</span>
-
-<span class="n">both</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">regionprops_table</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">both</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">regionprops_table</span><span class="p">(</span>
     <span class="n">labels</span><span class="p">,</span>
-    <span class="n">intensity_image</span><span class="o">=</span><span class="n">cells</span><span class="p">,</span>
+    <span class="n">intensity_image</span> <span class="o">=</span> <span class="n">rgb2gray</span><span class="p">(</span><span class="n">cells</span><span class="p">),</span>
     <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"area"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">,</span> <span class="s2">"intensity_max"</span><span class="p">,</span> <span class="s2">"intensity_min"</span><span class="p">),</span>
 <span class="p">))</span>
 <span class="n">both</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -756,84 +757,84 @@ comes from one channel, the numbers from another.</p>
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>1306.0</td>
-      <td>89.003828</td>
-      <td>164.0</td>
-      <td>27.0</td>
+      <td>2683.0</td>
+      <td>0.351108</td>
+      <td>0.542185</td>
+      <td>0.265634</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2</td>
-      <td>321.0</td>
-      <td>26.330218</td>
-      <td>34.0</td>
-      <td>19.0</td>
+      <td>5070.0</td>
+      <td>0.199823</td>
+      <td>0.392993</td>
+      <td>0.098248</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
-      <td>478.0</td>
-      <td>58.673640</td>
-      <td>120.0</td>
-      <td>42.0</td>
+      <td>2519.0</td>
+      <td>0.144074</td>
+      <td>0.261995</td>
+      <td>0.076415</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
-      <td>822.0</td>
-      <td>80.172749</td>
-      <td>172.0</td>
-      <td>59.0</td>
+      <td>4832.0</td>
+      <td>0.146022</td>
+      <td>0.243801</td>
+      <td>0.076415</td>
     </tr>
     <tr>
       <th>4</th>
       <td>5</td>
-      <td>617.0</td>
-      <td>173.572123</td>
-      <td>255.0</td>
-      <td>83.0</td>
+      <td>2806.0</td>
+      <td>0.234752</td>
+      <td>0.593128</td>
+      <td>0.149192</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Every row is one nucleus, and <code class="docutils literal notranslate"><span class="pre">intensity_mean</span></code> is <strong>how much CD11b sits inside
-that nucleus’s outline</strong>.</p>
+<p>Every row is one nucleus, and <code class="docutils literal notranslate"><span class="pre">intensity_mean</span></code> is <strong>how much CD11b/APC signal of the cell surface belongs to inside
+that nucleus’s segmentation mask</strong>.</p>
 <p>That is the shape of a very large fraction of all quantitative microscopy: use a
 reliable channel to find the objects, then measure the channel of interest inside
-them. The homework is exactly this: nuclei from DAPI, signal from GFP.</p>
+them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The same objects, measured in each channel.</span>
 <span class="n">in_nuclei</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">regionprops_table</span><span class="p">(</span>
-    <span class="n">labels</span><span class="p">,</span> <span class="n">intensity_image</span><span class="o">=</span><span class="n">nuclei</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">)</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">intensity_image</span><span class="o">=</span><span class="n">rgb2gray</span><span class="p">(</span><span class="n">nuclei</span><span class="p">),</span> <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">)</span>
 <span class="p">))</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"intensity_mean"</span><span class="p">:</span> <span class="s2">"dapi"</span><span class="p">})</span>
 
-<span class="n">in_cells</span> <span class="o">=</span> <span class="n">both</span><span class="p">[[</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"intensity_mean"</span><span class="p">:</span> <span class="s2">"cd11b"</span><span class="p">})</span>
+<span class="n">in_cells</span> <span class="o">=</span> <span class="n">both</span><span class="p">[[</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"intensity_mean"</span><span class="p">:</span> <span class="s2">"cd11b_apc"</span><span class="p">})</span>
 
 <span class="n">merged</span> <span class="o">=</span> <span class="n">in_nuclei</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">in_cells</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"label"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">merged</span><span class="p">[[</span><span class="s2">"dapi"</span><span class="p">,</span> <span class="s2">"cd11b"</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged</span><span class="p">[[</span><span class="s2">"dapi"</span><span class="p">,</span> <span class="s2">"cd11b_apc"</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">dapi</span><span class="p">,</span> <span class="n">merged</span><span class="o">.</span><span class="n">cd11b</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"mean DAPI in nucleus"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"mean CD11b in nucleus"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">merged</span><span class="o">.</span><span class="n">dapi</span><span class="p">,</span> <span class="n">merged</span><span class="o">.</span><span class="n">cd11b_apc</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"mean DAPI in nucleus mask"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"mean CD11b/APC in nucleus mask"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"same objects, two channels"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dapi     114.2
-cd11b     69.8
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dapi         0.03
+cd11b_apc    0.26
 </pre></div>
 </div>
-<img alt="../_images/9f73bb5f6b4041124a439bd68609d624006dad85b32524381e81c225ab55f9b9.png" src="../_images/9f73bb5f6b4041124a439bd68609d624006dad85b32524381e81c225ab55f9b9.png" />
+<img alt="../_images/d597c37c4af251cb2bd935f2f5c6a1951b5770bf3a85ad6742e627a3f5478586.png" src="../_images/d597c37c4af251cb2bd935f2f5c6a1951b5770bf3a85ad6742e627a3f5478586.png" />
 </div>
 </div>
 <p>Same nuclei, two different numbers each, and no particular relationship between
-them, which is what one would hope, since DAPI brightness and CD11b expression
-have no reason to track each other.</p>
+them, which is what one would hope, since DAPI brightness and CD11b/APC expression
+have no reason to track each other. Remember DAPI stains the nucleus and CD11b/APC the cell surface.</p>
 <p><strong>A strong diagonal in this plot would need explaining.</strong> It is
 usually a sign of bleed-through between channels, or of an autofluorescent
 sample, and it would invalidate any claim that the two measurements are
@@ -841,18 +842,17 @@ independent.</p>
 </section>
 <section id="measuring-across-a-whole-experiment">
 <h2>4. Measuring across a whole experiment<a class="headerlink" href="#measuring-across-a-whole-experiment" title="Link to this heading">#</a></h2>
-<p>One field is an anecdote. The value of doing this in code is that the same six
-lines run over every image in the experiment.</p>
+<p>The value of doing this in Python code is that we can automate the signal quantification and run over every image in the experiment of a time course.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">measure_field</span><span class="p">(</span><span class="n">field</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Every annotated nucleus in one field, measured in both channels."""</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"gt"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">_nuclei_labels.tif"</span><span class="p">)</span>
-    <span class="n">cells</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">_cells.tif"</span><span class="p">)</span>
+    <span class="n">nuclei</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">_nuclei.tif"</span><span class="p">)</span>
 
     <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">regionprops_table</span><span class="p">(</span>
         <span class="n">labels</span><span class="p">,</span>
-        <span class="n">intensity_image</span><span class="o">=</span><span class="n">cells</span><span class="p">,</span>
+        <span class="n">intensity_image</span><span class="o">=</span><span class="n">nuclei</span><span class="p">,</span>
         <span class="n">properties</span><span class="o">=</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"area"</span><span class="p">,</span> <span class="s2">"eccentricity"</span><span class="p">,</span> <span class="s2">"extent"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">),</span>
     <span class="p">))</span>
     <span class="n">table</span><span class="p">[</span><span class="s2">"field"</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span>
@@ -940,7 +940,7 @@ carried along.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"condition"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
     <span class="n">nuclei</span><span class="o">=</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span>
     <span class="n">median_area</span><span class="o">=</span><span class="p">(</span><span class="s2">"area"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">),</span>
-    <span class="n">median_cd11b</span><span class="o">=</span><span class="p">(</span><span class="s2">"intensity_mean"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">),</span>
+    <span class="n">median_dapi</span><span class="o">=</span><span class="p">(</span><span class="s2">"intensity_mean"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">summary</span>
 </pre></div>
@@ -967,7 +967,7 @@ carried along.</p>
       <th></th>
       <th>nuclei</th>
       <th>median_area</th>
-      <th>median_cd11b</th>
+      <th>median_dapi</th>
     </tr>
     <tr>
       <th>condition</th>
@@ -981,31 +981,31 @@ carried along.</p>
       <th>15min</th>
       <td>72</td>
       <td>629.5</td>
-      <td>70.9</td>
+      <td>97.3</td>
     </tr>
     <tr>
       <th>1h</th>
       <td>61</td>
       <td>595.0</td>
-      <td>60.4</td>
+      <td>110.5</td>
     </tr>
     <tr>
       <th>24h</th>
       <td>42</td>
       <td>574.5</td>
-      <td>61.0</td>
+      <td>143.2</td>
     </tr>
     <tr>
       <th>2h</th>
       <td>78</td>
       <td>540.5</td>
-      <td>58.9</td>
+      <td>112.8</td>
     </tr>
     <tr>
       <th>Kontrolle</th>
       <td>56</td>
       <td>487.0</td>
-      <td>71.3</td>
+      <td>122.6</td>
     </tr>
   </tbody>
 </table>
@@ -1018,7 +1018,7 @@ carried along.</p>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span> <span class="ow">in</span> <span class="p">[</span>
     <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"area"</span><span class="p">,</span> <span class="s2">"nucleus area (px)"</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"intensity_mean"</span><span class="p">,</span> <span class="s2">"mean CD11b in nucleus"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"intensity_mean"</span><span class="p">,</span> <span class="s2">"mean DAPI in nucleus"</span><span class="p">),</span>
 <span class="p">]:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">population</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">population</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="n">c</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">order</span><span class="p">]</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tick_labels</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
@@ -1030,15 +1030,15 @@ carried along.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/34ac9e3da11b7accf4ffcd959196531c94c48835f4acf7ca47ff4a8329e155a1.png" src="../_images/34ac9e3da11b7accf4ffcd959196531c94c48835f4acf7ca47ff4a8329e155a1.png" />
+<img alt="../_images/9a880bd3816668c612d12c52ac6dd8c7fd54f49ecb0ee5a34daaba863c2b544d.png" src="../_images/9a880bd3816668c612d12c52ac6dd8c7fd54f49ecb0ee5a34daaba863c2b544d.png" />
 </div>
 </div>
 <p>A box plot shows the whole distribution rather than just its middle, which
 matters here: the boxes overlap heavily. Whatever difference exists between
-conditions is small compared with the spread <em>within</em> each condition.</p>
+conditions is small compared with the spread <em>within</em> each condition. However, there is a trend that the average DAPI signal in the nuclei increases with time</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Conclusions from this need care. Each condition here is two or three fields from
+<p>Conclusions from this need care. Each condition here is one field from
 one experiment, and the nuclei within a field are not independent observations:
 they share a dish, a staining, a focus setting. Treating 300 nuclei as 300
 independent samples would badly overstate the confidence.</p>
@@ -1052,13 +1052,13 @@ most common statistical error in quantitative microscopy.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A quick way to see which features differ between two conditions: compare the</span>
 <span class="c1"># separation between group medians with the spread inside the groups.</span>
-<span class="n">control</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">population</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">"Kontrolle"</span><span class="p">]</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">population</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">"15min"</span><span class="p">]</span>
 <span class="n">late</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">population</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">"24h"</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'feature'</span><span class="si">:</span><span class="s2">16s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'control'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'24h'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'difference'</span><span class="si">:</span><span class="s2">&gt;11s</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'feature'</span><span class="si">:</span><span class="s2">16s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'15min'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'24h'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'difference'</span><span class="si">:</span><span class="s2">&gt;11s</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">48</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"area"</span><span class="p">,</span> <span class="s2">"eccentricity"</span><span class="p">,</span> <span class="s2">"extent"</span><span class="p">,</span> <span class="s2">"intensity_mean"</span><span class="p">]:</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">late</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">start</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">late</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
     <span class="n">pooled_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">var</span><span class="p">())</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">effect</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">pooled_sd</span> <span class="k">if</span> <span class="n">pooled_sd</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">column</span><span class="si">:</span><span class="s2">16s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">9.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">9.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">effect</span><span class="si">:</span><span class="s2">11.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -1066,12 +1066,12 @@ most common statistical error in quantitative microscopy.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>feature            control       24h  difference
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>feature              15min       24h  difference
 ------------------------------------------------
-area                487.00    574.50        0.44
-eccentricity          0.73      0.76        0.34
-extent                0.80      0.79       -0.21
-intensity_mean       71.30     61.01       -0.37
+area                629.50    574.50       -0.15
+eccentricity          0.66      0.76        0.65
+extent                0.80      0.79       -0.43
+intensity_mean       97.26    143.24        1.07
 </pre></div>
 </div>
 </div>
@@ -1079,10 +1079,14 @@ intensity_mean       71.30     61.01       -0.37
 <p>That last column is the difference in means expressed in standard deviations:
 an <strong>effect size</strong>. It is far more informative than a p-value on its own, because
 it says <em>how big</em> the difference is rather than only whether it is
-detectable. A rule of thumb: 0.2 is small, 0.5 moderate, 0.8 large.</p>
+detectable. Crucially, standardizing the difference allows you to directly compare
+completely different measurements (like pixel area versus intensity) on the exact same scale.
+A rule of thumb: 0.2 is small, 0.5 moderate, 0.8 large.</p>
 <p>Notice that the features disagree about which condition differs and by how much.
 That is normal, and it is why picking a feature after seeing the result is such a
-dangerous habit: with enough features, something always looks significant.</p>
+dangerous habit: with enough features, something always looks significant.
+Good experimental design defines the question before looking at the results,
+preventing researchers from cherry-picking data that matches their assumptions.</p>
 </section>
 <section id="recap">
 <h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
@@ -1108,15 +1112,13 @@ dangerous habit: with enough features, something always looks significant.</p>
 </tbody>
 </table>
 </div>
-<p>And the habits:</p>
+<p>Take home:</p>
 <ul class="simple">
 <li><p>keep <code class="docutils literal notranslate"><span class="pre">field</span></code> and <code class="docutils literal notranslate"><span class="pre">condition</span></code> columns so pooled measurements stay traceable;</p></li>
 <li><p>a feature with no variance carries no information;</p></li>
 <li><p>the unit of replication is the experiment, not the cell;</p></li>
 <li><p>report an effect size, not just a difference.</p></li>
 </ul>
-<p>Next: <code class="docutils literal notranslate"><span class="pre">05_detective_game_ex</span></code>, which presents two kinds of object mixed together,
-to be told apart from shape alone.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -1162,11 +1164,11 @@ to be told apart from shape alone.</p>
       </div>
     </a>
     <a class="right-next"
-       href="05_detective_game_ex.html"
+       href="06_curve_fitting.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Exercise: the detective game</p>
+        <p class="prev-next-title">Data Analysis: curve fitting</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

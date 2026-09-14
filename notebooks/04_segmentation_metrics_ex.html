@@ -60,8 +60,6 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04_segmentation_metrics_ex';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -218,8 +216,7 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Exercise: measuring a segmentation</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="05_features.html">Feature extraction and measurements</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="05_detective_game_ex.html">Exercise: the detective game</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_features.html">Feature extraction and measurements</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="06_curve_fitting.html">Data Analysis: curve fitting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -382,12 +379,10 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-implement-iou-and-dice">Task 1: implement IoU and Dice</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-build-two-segmentations-to-compare">Task 2: build two segmentations to compare</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-score-them-on-pixels">Task 3: score them on pixels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-score-them-on-objects">Task 4: score them on objects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-how-strict-should-the-matching-be">Task 5: how strict should the matching be?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-finish-early">If you finish early</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-build-two-segmentations-to-compare">Task 1: build two segmentations to compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-score-them-on-pixels">Task 2: score them on pixels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-score-them-on-objects">Task 3: score them on objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-how-strict-should-the-matching-be">Task 4: how strict should the matching be?</a></li>
 </ul>
             </nav>
         </div>
@@ -402,10 +397,10 @@
   <section class="tex2jax_ignore mathjax_ignore" id="exercise-measuring-a-segmentation">
 <h1>Exercise: measuring a segmentation<a class="headerlink" href="#exercise-measuring-a-segmentation" title="Link to this heading">#</a></h1>
 <p><strong>Duration</strong> ~35 min  ·  <strong>Session</strong> Day 2, Python notebooks</p>
-<p>You will implement the metrics yourself and use them to settle the question the
+<p>You will use relevant metrics to settle the question the
 last exercise left open: which segmentation was actually best?</p>
-<p><strong>Data</strong>: <code class="docutils literal notranslate"><span class="pre">data/bbbc020/</span></code> field <code class="docutils literal notranslate"><span class="pre">15min_3</span></code>. This field is used deliberately: it
-is the <strong>only</strong> one in the dataset where every cell was outlined by the
+<p><strong>Data</strong>: <code class="docutils literal notranslate"><span class="pre">data/bbbc020/</span></code> field <code class="docutils literal notranslate"><span class="pre">jw-24h</span> <span class="pre">3_c1</span></code>. This field is used deliberately: it
+is one dataset where every cell was outlined by the
 annotator. Scoring against a partly-annotated field punishes a method for finding
 cells that are really there.</p>
 <div class="cell docutils container">
@@ -423,63 +418,15 @@ cells that are really there.</p>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">course</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATA</span><span class="p">,</span> <span class="n">show</span>
 
-<span class="n">FIELD</span> <span class="o">=</span> <span class="s2">"15min_3"</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FIELD</span><span class="si">}</span><span class="s2">_cells.tif"</span><span class="p">)</span>
-<span class="n">truth</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"gt"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">FIELD</span><span class="si">}</span><span class="s2">_cells_labels.tif"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"annotated cells:"</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"images"</span> <span class="o">/</span> <span class="s2">"jw-24h 3_c1.tif"</span><span class="p">)</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">tifffile</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">DATA</span> <span class="o">/</span> <span class="s2">"bbbc020"</span> <span class="o">/</span> <span class="s2">"gt"</span> <span class="o">/</span> <span class="s2">"jw-24h 3_c1 [1].tif"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"annotated cells:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">truth</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 </div>
-<section id="task-1-implement-iou-and-dice">
-<h2>Task 1: implement IoU and Dice<a class="headerlink" href="#task-1-implement-iou-and-dice" title="Link to this heading">#</a></h2>
-<div class="math notranslate nohighlight">
-\[\text{IoU} = \frac{|A \cap B|}{|A \cup B|}
-\qquad
-\text{Dice} = \frac{2|A \cap B|}{|A| + |B|}\]</div>
-<p>Write both, then check them on the shapes provided: you can work those answers
-out by hand, which is the point of testing on them.</p>
-<details>
-<summary>Hint 1: intersection and union of boolean arrays</summary>
-<p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">&amp;</span> <span class="pre">b).sum()</span></code> and <code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">|</span> <span class="pre">b).sum()</span></code>. Convert label images to boolean with <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">0</span></code>
-first, so the same function works on masks and on label images.</p>
-</details>
-<details>
-<summary>Hint 2: don't divide by zero</summary>
-<p>If both inputs are empty the union is 0. Return 0.0 rather than crashing.</p>
-</details><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- your turn ---</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">iou</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span>
-    <span class="o">...</span>   <span class="c1"># TODO</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">dice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span>
-    <span class="o">...</span>   <span class="c1"># TODO</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="nb">bool</span><span class="p">);</span> <span class="n">square</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">shifted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="nb">bool</span><span class="p">);</span> <span class="n">shifted</span><span class="p">[</span><span class="mi">40</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="nb">bool</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"identical        : IoU </span><span class="si">{</span><span class="n">iou</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">square</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Dice </span><span class="si">{</span><span class="n">dice</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">square</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (expect 1.000 / 1.000)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"half-overlapping : IoU </span><span class="si">{</span><span class="n">iou</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">shifted</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Dice </span><span class="si">{</span><span class="n">dice</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">shifted</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (expect 0.333 / 0.500)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"disjoint         : IoU </span><span class="si">{</span><span class="n">iou</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">empty</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Dice </span><span class="si">{</span><span class="n">dice</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="w"> </span><span class="n">empty</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   (expect 0.000 / 0.000)"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Your answer:</strong> the two squares overlap by exactly half, yet the two metrics
-report different numbers. Which is larger, and will that always be so?
-<em>(edit this cell)</em></p>
-</section>
-<section id="task-2-build-two-segmentations-to-compare">
-<h2>Task 2: build two segmentations to compare<a class="headerlink" href="#task-2-build-two-segmentations-to-compare" title="Link to this heading">#</a></h2>
+<section id="task-1-build-two-segmentations-to-compare">
+<h2>Task 1: build two segmentations to compare<a class="headerlink" href="#task-1-build-two-segmentations-to-compare" title="Link to this heading">#</a></h2>
 <p>A classical pipeline and Cellpose, both on this field.</p>
 <details>
 <summary>Hint</summary>
@@ -489,42 +436,43 @@ For Cellpose use <code class="docutils literal notranslate"><span class="pre">mo
 </details><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cellpose</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2gray</span>
 
 <span class="c1"># --- your turn ---</span>
-<span class="n">smoothed</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">mask</span> <span class="o">=</span> <span class="o">...</span>          <span class="c1"># TODO: threshold, fill holes, remove small objects</span>
-<span class="n">distance</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">classical</span> <span class="o">=</span> <span class="o">...</span>     <span class="c1"># TODO: watershed seeded from a distance cut-off</span>
-
-<span class="n">cellpose_labels</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="o">...</span>   <span class="c1"># TODO: run Cellpose</span>
+<span class="c1"># smoothed = ...</span>
+<span class="c1"># mask = ...          # TODO: threshold, fill holes, remove small objects</span>
+<span class="c1"># distance = ...</span>
+<span class="c1"># classical = ...     # TODO: watershed seeded from a distance cut-off</span>
+<span class="c1">#</span>
+<span class="c1"># cellpose_labels, _, _, _ = ...   # TODO: run Cellpose</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"classical"</span><span class="p">:</span> <span class="n">classical</span><span class="p">,</span> <span class="s2">"Cellpose"</span><span class="p">:</span> <span class="n">cellpose_labels</span><span class="p">}</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">10s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> objects   (annotated: </span><span class="si">{</span><span class="n">truth</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">10s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> objects   (annotated: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">truth</span><span class="p">))</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="task-3-score-them-on-pixels">
-<h2>Task 3: score them on pixels<a class="headerlink" href="#task-3-score-them-on-pixels" title="Link to this heading">#</a></h2>
-<p>Print IoU and Dice for both.</p>
+<section id="task-2-score-them-on-pixels">
+<h2>Task 2: score them on pixels<a class="headerlink" href="#task-2-score-them-on-pixels" title="Link to this heading">#</a></h2>
+<p>Print <strong>IoU</strong> and <strong>Dice</strong> for both.</p>
 <details>
 <summary>Hint</summary>
 <p>Your functions already accept label images, because they convert with <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">0</span></code>.</p>
 </details><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- your turn ---</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'method'</span><span class="si">:</span><span class="s2">12s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'IoU'</span><span class="si">:</span><span class="s2">&gt;7s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'Dice'</span><span class="si">:</span><span class="s2">&gt;7s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'objects'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># TODO</span>
+<span class="c1"># print(f"{'method':12s} {'IoU':&gt;7s} {'Dice':&gt;7s} {'objects':&gt;9s}")</span>
+<span class="c1"># for name, result in results.items():</span>
+<span class="c1">#     print(...)   # TODO</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="task-4-score-them-on-objects">
-<h2>Task 4: score them on objects<a class="headerlink" href="#task-4-score-them-on-objects" title="Link to this heading">#</a></h2>
+<section id="task-3-score-them-on-objects">
+<h2>Task 3: score them on objects<a class="headerlink" href="#task-3-score-them-on-objects" title="Link to this heading">#</a></h2>
 <p>Now the part the pixel scores cannot do. Complete <code class="docutils literal notranslate"><span class="pre">match_objects</span></code>, which pairs
 each predicted object with the ground-truth object it overlaps most and accepts
 the pairing when their IoU clears <code class="docutils literal notranslate"><span class="pre">min_iou</span></code>.</p>
@@ -555,13 +503,13 @@ claim the same cell.</p>
             <span class="k">continue</span>
 
         <span class="c1"># --- your turn ---</span>
-        <span class="n">best_score</span><span class="p">,</span> <span class="n">best_id</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="o">...</span><span class="p">:</span>               <span class="c1"># TODO: truth ids overlapping this prediction</span>
-            <span class="o">...</span>                      <span class="c1"># TODO: keep the best-scoring one</span>
-        
-        <span class="k">if</span> <span class="o">...</span><span class="p">:</span>                      <span class="c1"># TODO: accept if it clears min_iou and is unclaimed</span>
-            <span class="n">true_positives</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">matched_truth</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">best_id</span><span class="p">)</span>
+        <span class="c1"># best_score, best_id = 0.0, None</span>
+        <span class="c1"># for t in ...:               # TODO: truth ids overlapping this prediction</span>
+        <span class="c1">#     ...                      # TODO: keep the best-scoring one</span>
+        <span class="c1">#</span>
+        <span class="c1"># if ...:                      # TODO: accept if it clears min_iou and is unclaimed</span>
+        <span class="c1">#     true_positives += 1</span>
+        <span class="c1">#     matched_truth.add(best_id)</span>
 
     <span class="n">false_positives</span> <span class="o">=</span> <span class="n">prediction</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">true_positives</span>
     <span class="n">false_negatives</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">true_positives</span>
@@ -580,20 +528,21 @@ claim the same cell.</p>
 
 
 <span class="c1"># --- your turn ---</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="o">...</span>        <span class="c1"># TODO</span>
-    <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">scores</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>              <span class="c1"># TODO: one row per method</span>
+<span class="c1"># for name, result in results.items():</span>
+<span class="c1">#     tp, fp, fn = ...        # TODO</span>
+<span class="c1">#     p, r, f1 = scores(tp, fp, fn)</span>
+<span class="c1">#     print(...)              # TODO: one row per method</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Your answer:</strong> do the pixel scores and the object scores rank the two methods
 the same way? If they disagree, which would you report, and why does the answer
-depend on what you are trying to measure? <em>(edit this cell)</em></p>
+depend on what you are trying to measure?</p>
+<p><em>(edit this cell)</em></p>
 </section>
-<section id="task-5-how-strict-should-the-matching-be">
-<h2>Task 5: how strict should the matching be?<a class="headerlink" href="#task-5-how-strict-should-the-matching-be" title="Link to this heading">#</a></h2>
+<section id="task-4-how-strict-should-the-matching-be">
+<h2>Task 4: how strict should the matching be?<a class="headerlink" href="#task-4-how-strict-should-the-matching-be" title="Link to this heading">#</a></h2>
 <p>Recompute F1 at several matching thresholds and plot it.</p>
 <details>
 <summary>Hint</summary>
@@ -602,27 +551,21 @@ collect the F1 values, and use <code class="docutils literal notranslate"><span 
 </details><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- your turn ---</span>
-<span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">f1s</span> <span class="o">=</span> <span class="o">...</span>    <span class="c1"># TODO: F1 at each threshold</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"matching IoU threshold"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"F1"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># thresholds = [0.3, 0.5, 0.7, 0.9]</span>
+<span class="c1">#</span>
+<span class="c1"># plt.figure(figsize=(7, 4))</span>
+<span class="c1"># for name, result in results.items():</span>
+<span class="c1">#     f1s = ...    # TODO: F1 at each threshold</span>
+<span class="c1">#     plt.plot(...)</span>
+<span class="c1"># plt.xlabel("matching IoU threshold"); plt.ylabel("F1")</span>
+<span class="c1"># plt.ylim(0, 1); plt.legend(); plt.show()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Your answer:</strong> every curve falls as the threshold rises. What would it mean if
-one method’s curve fell much faster than another’s? <em>(edit this cell)</em></p>
-</section>
-<section id="if-you-finish-early">
-<h2>If you finish early<a class="headerlink" href="#if-you-finish-early" title="Link to this heading">#</a></h2>
-<p>Score the same two methods against <code class="docutils literal notranslate"><span class="pre">24h_2</span></code> instead: a field where only about
-83% of the cells were annotated, and compare the numbers with what you got here.</p>
-<p>The segmentations are just as good on that field. The scores are not. Being able
-to recognise that pattern is worth more than any single metric.</p>
+one method’s curve fell much faster than another’s?</p>
+<p><em>(edit this cell)</em></p>
 </section>
 </section>
 
@@ -692,12 +635,10 @@ to recognise that pattern is worth more than any single metric.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-implement-iou-and-dice">Task 1: implement IoU and Dice</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-build-two-segmentations-to-compare">Task 2: build two segmentations to compare</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-score-them-on-pixels">Task 3: score them on pixels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-score-them-on-objects">Task 4: score them on objects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-how-strict-should-the-matching-be">Task 5: how strict should the matching be?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-finish-early">If you finish early</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-build-two-segmentations-to-compare">Task 1: build two segmentations to compare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-score-them-on-pixels">Task 2: score them on pixels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-score-them-on-objects">Task 3: score them on objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-how-strict-should-the-matching-be">Task 4: how strict should the matching be?</a></li>
 </ul>
   </nav></div>
 
