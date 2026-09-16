@@ -1,0 +1,46 @@
+#!/bin/bash
+# .binder/start — container entrypoint wrapper (repo2docker / RRP).
+#
+# Runs the Jupyter server (passed in as "$@") inside the Pixi environment that
+# postBuild created at ~/pixi-env.
+#
+# CRITICAL: Pixi stores its environments in `.pixi/envs` NEXT TO the manifest,
+# and that location is not configurable. postBuild ran `pixi install` against
+# ~/pixi-env/pixi.toml, so the env is at ~/pixi-env/.pixi/envs/default.
+# Therefore --manifest-path here MUST be ~/pixi-env/pixi.toml — NOT the repo's
+# own pixi.toml. Pointing it at the repo makes Pixi find no installed env and
+# re-solve/re-install at container start (slow, needs the network, can fail).
+
+set -eu
+
+# pixi (and the Fiji/imagej symlinks) were installed under ~/.local/bin in
+# postBuild; that dir is not necessarily on PATH at runtime.
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# Locate the repository at runtime. RRP mounts it at ~/project; fall back to ~.
+# Only used for launcher discovery + working dir; the Pixi env path is fixed.
+if [ -n "${REPO_DIR:-}" ] && [ -f "${REPO_DIR}/pixi.toml" ]; then
+    REPO="${REPO_DIR}"
+elif [ -f "${HOME}/project/pixi.toml" ]; then
+    REPO="${HOME}/project"
+else
+    REPO="${HOME}"
+fi
+
+# jupyter-app-launcher loads every jp_app_launcher*.y[a]ml found *directly* in
+# the directory named by this variable. Our config is <repo>/.jupyter/, which
+# is NOT the dir JupyterLab starts in, so without this the "Course Book" tile
+# never appears. Keeping the config out of the start dir also means it is
+# loaded exactly once (no duplicate tiles).
+export JUPYTER_APP_LAUNCHER_PATH="${REPO}/.jupyter"
+
+# Where postBuild placed the pre-built book (serve_book.py checks this first).
+export COURSE_BOOK_HTML="${HOME}/course-book/html"
+
+# Start JupyterLab rooted at the repo so its file browser + relative launcher
+# paths resolve there.
+cd "${REPO}"
+
+# --frozen: use the already-installed, locked environment as-is; never touch
+# the network or re-solve at container start.
+exec pixi run --frozen --manifest-path "${HOME}/pixi-env/pixi.toml" "$@"
