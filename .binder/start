@@ -21,4 +21,10 @@ echo "  ${PIXI_ENV}"
 echo "Jupyter executable:"
 command -v jupyter
 
+PIXI_PROJECT_ROOT = "/home/jovyan/project"
+PYTHONPATH = "$PIXI_PROJECT_ROOT/notebooks"
+JUPYTER_CONFIG_PATH = "$PIXI_PROJECT_ROOT/.jupyter"
+# jupyter-app-launcher reads jp_app_launcher*.y[a]ml from this directory.
+JUPYTER_APP_LAUNCHER_PATH = "$PIXI_PROJECT_ROOT/.jupyter"
+
 exec "$@"
