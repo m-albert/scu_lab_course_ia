@@ -380,6 +380,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-segmentation-models">Download the segmentation models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyterlab">Start JupyterLab</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">1) Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
@@ -406,9 +407,15 @@
 </div>
 <p>That reads <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">pixi.lock</span></code> and builds the environment. It downloads
 around <strong>3.5 GB</strong> and takes anywhere from a few minutes to half an hour depending
-on your connection, so start it and go and do something else.</p>
-<p>You only ever run this once. If the environment description changes later,
-<code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">install</span></code> again and it will bring you up to date.</p>
+on your connection.</p>
+<section id="download-the-segmentation-models">
+<h2>Download the segmentation models<a class="headerlink" href="#download-the-segmentation-models" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>fetch-models
+</pre></div>
+</div>
+<p>The day 2 notebooks use pretrained cellpose models, which cellpose downloads
+(about 50 MB) the first time they are used. Using the command above we pre-download the models now.</p>
+</section>
 <section id="start-jupyterlab">
 <h2>Start JupyterLab<a class="headerlink" href="#start-jupyterlab" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>lab
@@ -524,6 +531,7 @@ missing, it belongs in <code class="docutils literal notranslate"><span class="p
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-segmentation-models">Download the segmentation models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyterlab">Start JupyterLab</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">1) Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
