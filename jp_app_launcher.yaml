@@ -1,19 +1,31 @@
 # Custom JupyterLab launcher entries (jupyter-app-launcher).
 #
-# Discovered three ways; we rely on the first two:
-#   * JUPYTER_APP_LAUNCHER_PATH points here (pixi [activation.env] locally,
-#     .binder/start on RRP);
-#   * jupyter-app-launcher also reads jp_app_launcher*.y[a]ml from the dir
-#     where JupyterLab was started (the repo root in both cases).
+# Location: <repo>/.jupyter/jp_app_launcher.yml
 #
-# The subprocess receives a free port in $PORT; `source` is polled for 120 s
+# Discovery: .binder/start exports
+#     JUPYTER_APP_LAUNCHER_PATH=<repo>/.jupyter
+# and jupyter-app-launcher loads every jp_app_launcher*.y[a]ml found *directly*
+# in that directory. (Locally, set the same variable via pixi
+# [activation.env].) Because .jupyter is NOT the directory JupyterLab starts
+# in, the entry is loaded exactly once — no duplicate tiles.
+#
+# The subprocess is given a free port in $PORT; `source` is polled for 120 s
 # and proxied through jupyter-server-proxy at <base_url>/proxy/<port>/.
 - title: Course Book
-  description: Build (if needed) and open the Course Book
+  description: Open the Course Book
   type: local-server
   cwd: .
   source: http://localhost:$PORT/
   args:
-    - python
-    - .course/scripts/serve_book.py
+    - bash
+    - -c
+    # local-server does not clearly define whether `cwd`/relative args resolve
+    # against this config file's directory or JupyterLab's cwd. To stay correct
+    # either way, cd into the directory that actually contains the script
+    # (repo root == $JUPYTER_APP_LAUNCHER_PATH/..) before running it. The other
+    # entries are fallbacks. serve_book.py itself uses only the stdlib and finds
+    # the repo root and the pre-built book by absolute paths, so it works from
+    # whatever directory it lands in — this just guarantees `python <path>`
+    # can locate the script. $PORT is inherited from the environment.
+    - 'for d in "$JUPYTER_APP_LAUNCHER_PATH/.." "$HOME/project" "$PWD" "$HOME"; do [ -f "$d/.course/scripts/serve_book.py" ] && { cd "$d"; break; }; done; exec python .course/scripts/serve_book.py'
   catalog: Course

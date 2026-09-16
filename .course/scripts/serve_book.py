@@ -10,9 +10,15 @@ Jupyter Book v1 (Sphinx) emits *relative* links, so serving _build/html behind
 that /proxy/<port>/ prefix needs no base-url rewriting.
 
 Uses only the standard library, so it runs in the default pixi env (which has
-no jupyter-book). If the book is not built yet it is built on demand with the
-`docs` pixi env; meanwhile an auto-refreshing placeholder is served so the
-launcher's poll succeeds immediately.
+no jupyter-book).
+
+Normal path: postBuild builds the book at image-build time and copies it to
+~/course-book/html (also exposed as $COURSE_BOOK_HTML). This script finds it
+there and serves it immediately, so the launcher's poll succeeds at once.
+
+Fallback (e.g. a local clone that was never pre-built): the book is built on
+demand with the `docs` pixi env, while an auto-refreshing placeholder is
+served so the launcher's poll still succeeds.
 """
 from __future__ import annotations
 
@@ -38,6 +44,22 @@ def find_repo_root() -> Path:
         if (cand / "pixi.toml").exists():
             return cand
     return here.parent
+
+
+def prebuilt_html_dirs(repo_root: Path) -> list[Path]:
+    """Candidate locations of an already-built book, most-preferred first.
+
+    postBuild copies the built HTML to ~/course-book/html (COURSE_BOOK_HTML),
+    a path that survives to runtime independently of where the repo is mounted.
+    repo_root/_build/html is the on-demand build target and the local-dev case.
+    """
+    dirs: list[Path] = []
+    env = os.environ.get("COURSE_BOOK_HTML")
+    if env:
+        dirs.append(Path(env))
+    dirs.append(Path.home() / "course-book" / "html")
+    dirs.append(repo_root / "_build" / "html")
+    return dirs
 
 
 def docs_jupyter_book(repo_root: Path):
@@ -122,25 +144,33 @@ class PlaceholderHandler(BaseHTTPRequestHandler):
 def main() -> int:
     port = int(os.environ.get("PORT", "8000"))
     repo_root = find_repo_root()
-    html_dir = repo_root / "_build" / "html"
 
     httpd = ThreadingHTTPServer((HOST, port), PlaceholderHandler)
     httpd.daemon_threads = True
 
-    def serve_static():
+    def serve_static(directory: Path) -> None:
         httpd.RequestHandlerClass = functools.partial(
-            SimpleHTTPRequestHandler, directory=str(html_dir))
+            SimpleHTTPRequestHandler, directory=str(directory))
 
-    if (html_dir / "index.html").exists():
-        serve_static()
-        print(f"Serving Course Book from {html_dir} on {HOST}:{port}", flush=True)
+    prebuilt = next(
+        (d for d in prebuilt_html_dirs(repo_root) if (d / "index.html").exists()),
+        None,
+    )
+
+    if prebuilt is not None:
+        serve_static(prebuilt)
+        print(f"Serving Course Book from {prebuilt} on {HOST}:{port}", flush=True)
     else:
+        # Not pre-built (e.g. local clone): build on demand into _build/html.
+        target = repo_root / "_build" / "html"
+
         def worker():
-            if build_book(repo_root) and (html_dir / "index.html").exists():
-                serve_static()
-                print(f"Course Book ready; serving {html_dir}", flush=True)
+            if build_book(repo_root) and (target / "index.html").exists():
+                serve_static(target)
+                print(f"Course Book ready; serving {target}", flush=True)
             else:
                 STATE["phase"] = "error"
+
         threading.Thread(target=worker, daemon=True).start()
         print(f"Building Course Book; placeholder on {HOST}:{port}", flush=True)
 
