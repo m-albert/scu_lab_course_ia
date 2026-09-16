@@ -440,12 +440,12 @@ For Cellpose use <code class="docutils literal notranslate"><span class="pre">mo
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2gray</span>
 
 <span class="c1"># --- your turn ---</span>
-<span class="c1"># smoothed = ...</span>
-<span class="c1"># mask = ...          # TODO: threshold, fill holes, remove small objects</span>
-<span class="c1"># distance = ...</span>
-<span class="c1"># classical = ...     # TODO: watershed seeded from a distance cut-off</span>
-<span class="c1">#</span>
-<span class="c1"># cellpose_labels, _, _, _ = ...   # TODO: run Cellpose</span>
+<span class="n">smoothed</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="o">...</span>          <span class="c1"># TODO: threshold, fill holes, remove small objects</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">classical</span> <span class="o">=</span> <span class="o">...</span>     <span class="c1"># TODO: watershed seeded from a distance cut-off</span>
+
+<span class="n">cellpose_labels</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="o">...</span>   <span class="c1"># TODO: run Cellpose</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"classical"</span><span class="p">:</span> <span class="n">classical</span><span class="p">,</span> <span class="s2">"Cellpose"</span><span class="p">:</span> <span class="n">cellpose_labels</span><span class="p">}</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -464,9 +464,9 @@ For Cellpose use <code class="docutils literal notranslate"><span class="pre">mo
 </details><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- your turn ---</span>
-<span class="c1"># print(f"{'method':12s} {'IoU':&gt;7s} {'Dice':&gt;7s} {'objects':&gt;9s}")</span>
-<span class="c1"># for name, result in results.items():</span>
-<span class="c1">#     print(...)   # TODO</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'method'</span><span class="si">:</span><span class="s2">12s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'IoU'</span><span class="si">:</span><span class="s2">&gt;7s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'Dice'</span><span class="si">:</span><span class="s2">&gt;7s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'objects'</span><span class="si">:</span><span class="s2">&gt;9s</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># TODO</span>
 </pre></div>
 </div>
 </div>
@@ -504,13 +504,13 @@ claim the same cell.</p>
             <span class="k">continue</span>
 
         <span class="c1"># --- your turn ---</span>
-        <span class="c1"># best_score, best_id = 0.0, None</span>
-        <span class="c1"># for t in ...:               # TODO: truth ids overlapping this prediction</span>
-        <span class="c1">#     ...                      # TODO: keep the best-scoring one</span>
-        <span class="c1">#</span>
-        <span class="c1"># if ...:                      # TODO: accept if it clears min_iou and is unclaimed</span>
-        <span class="c1">#     true_positives += 1</span>
-        <span class="c1">#     matched_truth.add(best_id)</span>
+        <span class="n">best_score</span><span class="p">,</span> <span class="n">best_id</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="o">...</span><span class="p">:</span>               <span class="c1"># TODO: truth ids overlapping this prediction</span>
+            <span class="o">...</span>                      <span class="c1"># TODO: keep the best-scoring one</span>
+        
+        <span class="k">if</span> <span class="o">...</span><span class="p">:</span>                      <span class="c1"># TODO: accept if it clears min_iou and is unclaimed</span>
+            <span class="n">true_positives</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">matched_truth</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">best_id</span><span class="p">)</span>
 
     <span class="n">false_positives</span> <span class="o">=</span> <span class="n">prediction</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">true_positives</span>
     <span class="n">false_negatives</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">true_positives</span>
@@ -529,10 +529,10 @@ claim the same cell.</p>
 
 
 <span class="c1"># --- your turn ---</span>
-<span class="c1"># for name, result in results.items():</span>
-<span class="c1">#     tp, fp, fn = ...        # TODO</span>
-<span class="c1">#     p, r, f1 = scores(tp, fp, fn)</span>
-<span class="c1">#     print(...)              # TODO: one row per method</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="o">...</span>        <span class="c1"># TODO</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">scores</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>              <span class="c1"># TODO: one row per method</span>
 </pre></div>
 </div>
 </div>
@@ -552,14 +552,14 @@ collect the F1 values, and use <code class="docutils literal notranslate"><span 
 </details><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- your turn ---</span>
-<span class="c1"># thresholds = [0.3, 0.5, 0.7, 0.9]</span>
-<span class="c1">#</span>
-<span class="c1"># plt.figure(figsize=(7, 4))</span>
-<span class="c1"># for name, result in results.items():</span>
-<span class="c1">#     f1s = ...    # TODO: F1 at each threshold</span>
-<span class="c1">#     plt.plot(...)</span>
-<span class="c1"># plt.xlabel("matching IoU threshold"); plt.ylabel("F1")</span>
-<span class="c1"># plt.ylim(0, 1); plt.legend(); plt.show()</span>
+<span class="n">thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">f1s</span> <span class="o">=</span> <span class="o">...</span>    <span class="c1"># TODO: F1 at each threshold</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"matching IoU threshold"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"F1"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

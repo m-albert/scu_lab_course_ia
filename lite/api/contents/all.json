@@ -2,11 +2,11 @@
   "content": [
     {
       "content": null,
-      "created": "2026-09-15T07:23:50.630839Z",
+      "created": "2026-09-16T11:54:30.583091Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2026-09-15T07:23:33.633142Z",
+      "last_modified": "2026-09-16T11:54:14.909764Z",
       "mimetype": null,
       "name": "00_python_basics.ipynb",
       "path": "00_python_basics.ipynb",
@@ -16,11 +16,11 @@
     },
     {
       "content": null,
-      "created": "2026-09-15T07:23:50.631504Z",
+      "created": "2026-09-16T11:54:30.583811Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2026-09-15T07:23:33.633142Z",
+      "last_modified": "2026-09-16T11:54:14.909764Z",
       "mimetype": null,
       "name": "00_python_basics_ex.ipynb",
       "path": "00_python_basics_ex.ipynb",
@@ -29,11 +29,11 @@
       "writable": true
     }
   ],
-  "created": "2026-09-15T07:23:50.631504Z",
+  "created": "2026-09-16T11:54:30.583811Z",
   "format": "json",
   "hash": null,
   "hash_algorithm": null,
-  "last_modified": "2026-09-15T07:23:50.631504Z",
+  "last_modified": "2026-09-16T11:54:30.583811Z",
   "mimetype": null,
   "name": "",
   "path": "",
