@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -380,7 +381,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-is-here">Why this is here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical">Practical</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>
@@ -398,17 +399,14 @@
   <section class="tex2jax_ignore mathjax_ignore" id="e2-registration">
 <h1>E2: Registration<a class="headerlink" href="#e2-registration" title="Link to this heading">#</a></h1>
 <p><strong>~25 min.</strong> Making channels line up.</p>
-<section id="why-this-is-here">
-<h2>Why this is here<a class="headerlink" href="#why-this-is-here" title="Link to this heading">#</a></h2>
-<p>Your homework will use images you acquire yourselves on a microscope you built
-yourselves. On that setup you change the filter by hand between channels, and the
-sample moves a little every time. So the DAPI, GFP and Cy3 images of the <em>same
-cells</em> will not overlap, and if they do not overlap, you cannot ask “how bright
-is the GFP inside this nucleus?”, because the nucleus is not where the binary image says
-it is.</p>
+<section id="context">
+<h2>Context<a class="headerlink" href="#context" title="Link to this heading">#</a></h2>
+<p>In the microscopy module, you will acquire DAPI, GFP and Cy3 images with
+manual filter changes. The sample may shift between channels. If the channels
+are misaligned, a mask drawn on DAPI may select the wrong pixels in GFP.</p>
 <p>Fixing that is called <strong>registration</strong>: finding the transform that brings one
 image onto another.</p>
-<p>This exercise is a rehearsal with a known answer.</p>
+<p>This exercise uses images with known shifts, so you can check your result.</p>
 </section>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
@@ -458,8 +456,8 @@ different, look at whether it was allowed to rotate and scale.</p>
 <li><p>SIFT works by finding distinctive little patches in each image and matching
 them up. <strong>What would happen if you gave it two channels that stain completely
 different structures</strong>: say, nuclei in one and the cytoskeleton in the other?</p></li>
-<li><p>In your homework you will have exactly that problem: DAPI marks nuclei, Cy3
-marks actin, and they genuinely do not look alike. <strong>Which of your three
+<li><p>In the homework, DAPI marks nuclei and Cy3 marks actin. These channels show
+different structures. <strong>Which of your three
 channels would you use as the reference, and why?</strong></p>
 <p><em>There is no single right answer, but there is a good argument to be made.
 Hold onto it: the homework asks you this directly.</em></p>
@@ -540,7 +538,7 @@ one line.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-is-here">Why this is here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical">Practical</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-it">Think about it</a></li>

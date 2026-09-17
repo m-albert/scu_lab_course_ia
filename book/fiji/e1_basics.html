@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -398,8 +399,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="e1-fiji-basics">
 <h1>E1: Fiji basics<a class="headerlink" href="#e1-fiji-basics" title="Link to this heading">#</a></h1>
-<p><strong>~40 min.</strong> Getting comfortable with what an image <em>is</em> before doing anything
-clever with it.</p>
+<p><strong>~40 min.</strong> Inspect pixel values, image types, calibration and channels.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
 <p>Open <code class="docutils literal notranslate"><span class="pre">data/bbbc020/images/2h_1_nuclei.tif</span></code> and
@@ -408,8 +408,7 @@ clever with it.</p>
 </section>
 <section id="part-1-what-is-in-this-image">
 <h2>Part 1: what is in this image?<a class="headerlink" href="#part-1-what-is-in-this-image" title="Link to this heading">#</a></h2>
-<p>Answer each of these using Fiji. The answer matters less than knowing where to
-look.</p>
+<p>Use Fiji to find each answer. Note which command or window provides it.</p>
 <ol class="arabic simple">
 <li><p><strong>What are the dimensions of the image, in pixels?</strong>
 <em>Hint: the title bar of the image window shows them, along with the data type.</em></p></li>
@@ -444,10 +443,9 @@ your analysis on images from a different objective?</p></li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>An uncalibrated image will still give you numbers. They just will not mean what
-you think they mean. This is not hypothetical: the macro used for the day-2
-challenge filters objects by <code class="docutils literal notranslate"><span class="pre">size=0-409</span></code> in <strong>calibrated</strong> units, and quietly
-does something completely different if the calibration is missing or wrong.</p>
+<p>Fiji can measure an uncalibrated image, but lengths and areas will be reported
+in pixels and square pixels. Check the units before interpreting a measurement.
+A size filter in a macro also changes meaning when the calibration changes.</p>
 </div>
 <ol class="arabic" start="10">
 <li><p>Set the calibration yourself: in <code class="docutils literal notranslate"><span class="pre">Image</span> <span class="pre">▸</span> <span class="pre">Properties…</span></code>, set the pixel width

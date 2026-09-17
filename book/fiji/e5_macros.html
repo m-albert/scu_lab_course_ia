@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -400,12 +401,9 @@
 ground more thoroughly.</p>
 <section id="why-this-is-optional">
 <h2>Why this is optional<a class="headerlink" href="#why-this-is-optional" title="Link to this heading">#</a></h2>
-<p>Fiji can record what you click and replay it. That is genuinely useful for
-repeating a fixed pipeline over a folder. But the macro language is peculiar to
-ImageJ, the tooling is thin, and once you want to plot the results or do anything
-conditional you will wish you were somewhere else.</p>
-<p>That somewhere else is the Python notebooks. Treat this as a look at what the recorder
-can do, not as a language to learn.</p>
+<p>Fiji’s recorder can turn a sequence of menu commands into a macro. You can then
+run the same steps on a folder of images. This exercise introduces the recorder
+and a simple batch macro; the Python notebooks cover larger analysis workflows.</p>
 </section>
 <section id="practical">
 <h2>Practical<a class="headerlink" href="#practical" title="Link to this heading">#</a></h2>
@@ -431,8 +429,8 @@ long did it take you compared with doing it by hand?</strong></p></li>
 <li><p>The macro processes every file in the folder. <code class="docutils literal notranslate"><span class="pre">data/bbbc020/images/</span></code> contains
 both <code class="docutils literal notranslate"><span class="pre">_nuclei</span></code> and <code class="docutils literal notranslate"><span class="pre">_cells</span></code> images. <strong>Did it treat them the same? Should it
 have?</strong></p></li>
-<li><p><strong>What would you have to change to save a plot of the results?</strong> This is the
-point where a macro stops being the right tool.</p></li>
+<li><p><strong>What would you have to change to plot the results?</strong> Consider which parts
+of that task are easier to express in Python.</p></li>
 </ol>
 </section>
 </section>

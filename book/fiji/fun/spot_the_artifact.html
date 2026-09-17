@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -396,7 +397,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="spot-the-artifact">
 <h1>Spot the artifact<a class="headerlink" href="#spot-the-artifact" title="Link to this heading">#</a></h1>
-<p><strong>~15 min.</strong> Three images. Each has had exactly one thing done to it.</p>
+<p><strong>~15 min.</strong> Compare three processed images with an unmodified reference.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
 <p>Open all four images in <code class="docutils literal notranslate"><span class="pre">data/misc/artifacts/</span></code>:</p>
@@ -408,7 +409,7 @@
 <section id="the-task">
 <h2>The task<a class="headerlink" href="#the-task" title="Link to this heading">#</a></h2>
 <p>For each of A, B and C, work out <strong>what was done and how you can tell</strong>.</p>
-<p>Some things worth trying:</p>
+<p>Use these checks:</p>
 <ul class="simple">
 <li><p>Look at the histogram of each (Ctrl/Cmd+H) and compare with the original.
 A histogram often shows what your eye does not.</p></li>
@@ -428,10 +429,10 @@ survives this; anything about size, shape or edges does not, and two nearby
 nuclei can be merged into one by it.</p>
 <p><strong>B: saturated.</strong> The brightness was pushed up until the bright nuclei clipped.
 The giveaway is a <strong>spike at 255</strong> in the histogram: many pixels stacked at the
-maximum value, which does not happen naturally. Counting still works. Any
+maximum value. Counting may still work, depending on the threshold. Any
 intensity measurement is now meaningless for the bright objects, because you
-cannot tell “bright” from “brighter” once they all read 255. This one is
-dangerous precisely because the image looks <em>better</em>.</p>
+cannot tell “bright” from “brighter” once they all read 255. The display may look clearer even though the bright intensity values have been
+lost.</p>
 <p><strong>C: salt-and-pepper noise.</strong> Isolated pure-black and pure-white pixels, as from
 a failing detector. The clearest histogram signature is the <strong>spike at 255</strong>;
 the black pixels are harder to spot there, because a third of this image is
@@ -444,13 +445,10 @@ filter removes it almost perfectly, as the Python notebooks show.</p>
 </section>
 <section id="why-this-matters">
 <h2>Why this matters<a class="headerlink" href="#why-this-matters" title="Link to this heading">#</a></h2>
-<p>The reason to be able to spot these is that <strong>you will be handed images someone
-else processed</strong>, often without being told what they did. A saturated image and a
-well-exposed one look similar on screen; only the histogram gives it away.</p>
-<p>Adjusting the <em>display</em> of an image is fine and necessary. Adjusting the <em>data</em>
-and then measuring it is not. The rule of thumb: keep the raw file, do your
-processing in a script, and be able to say exactly what happened between the
-microscope and the number in your paper.</p>
+<p>Processed images may arrive without a complete record of the processing. Check
+the histogram and pixel values before measuring them, and keep the raw image so
+you can trace each result back to the data. Display adjustments leave pixel
+values unchanged; processing operations can change the measurements.</p>
 </section>
 </section>
 

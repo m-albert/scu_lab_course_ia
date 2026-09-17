@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Further reading" href="further_reading.html" />
-    <link rel="prev" title="Homework: quantifying transfection efficiency" href="homework.html" />
+    <link rel="prev" title="Homework" href="homework.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="current nav bd-sidenav">
@@ -387,7 +388,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring">Measuring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting">Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-two-pairs-that-are-easy-to-confuse">A note on two pairs that are easy to confuse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#easy-to-confuse">Easy to confuse</a></li>
 </ul>
             </nav>
         </div>
@@ -401,12 +402,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="vocabulary">
 <h1>Vocabulary<a class="headerlink" href="#vocabulary" title="Link to this heading">#</a></h1>
-<p>Bioimage analysis has a fairly settled vocabulary, and using it makes it much
-easier to search for help, read a methods section, or ask a question on the
-<a class="reference external" href="https://forum.image.sc/">image.sc forum</a>. The terms below are the ones this
-course uses, defined the way they are used in the wider field.</p>
-<p>The right-hand column says where each one first appears, so this page also works
-as an index.</p>
+<p>This page defines the terms used in the course.</p>
 <section id="images">
 <h2>Images<a class="headerlink" href="#images" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -675,10 +671,6 @@ as an index.</p>
 <td><p>How much overlap is required before a predicted object counts as matching a real one. Conventionally an IoU of 0.5, and worth reporting.</p></td>
 <td><p><a class="reference internal" href="../notebooks/04_segmentation_metrics.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">04</span></code> §5</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Cross-validation</strong></p></td>
-<td><p>Measuring accuracy on data that was not used to choose the model, so the number is not optimistic.</p></td>
-<td><p><a class="reference internal" href="#../notebooks/05_detective_game_ex.ipynb"><span class="xref myst">Detective game</span></a></p></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -713,13 +705,13 @@ as an index.</p>
 </table>
 </div>
 </section>
-<section id="a-note-on-two-pairs-that-are-easy-to-confuse">
-<h2>A note on two pairs that are easy to confuse<a class="headerlink" href="#a-note-on-two-pairs-that-are-easy-to-confuse" title="Link to this heading">#</a></h2>
+<section id="easy-to-confuse">
+<h2>Easy to confuse<a class="headerlink" href="#easy-to-confuse" title="Link to this heading">#</a></h2>
 <p><strong>Binary image and label image.</strong> A binary image says <em>whether</em> a pixel is
-foreground. A label image says <em>which object</em> it belongs to. A binary image
-covering twenty nuclei and one covering a single large nucleus are
-indistinguishable as data.</p>
-<p><strong>Feature, twice.</strong> In pixel classification a feature is a property of a <em>pixel</em>,
+foreground (True) or background (False). A label image says <em>which object</em> it belongs to (e.g. 1, 2, 3 for object IDs 1, 2, 3). Where there’s no object at all, the label image has a value of 0.</p>
+<p>Binary image: “Semantic segmentation” (what category is this pixel?)
+Label image: “Instance segmentation” (which object is this pixel part of?)</p>
+<p><strong>Feature</strong> In pixel classification a feature is a property of a <em>pixel</em>,
 computed from its neighbourhood. In measurement a feature is a property of an
 <em>object</em>. Both are standard, and the context makes clear which is meant.</p>
 </section>
@@ -761,7 +753,7 @@ computed from its neighbourhood. In measurement a feature is a property of an
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Homework: quantifying transfection efficiency</p>
+        <p class="prev-next-title">Homework</p>
       </div>
     </a>
     <a class="right-next"
@@ -798,7 +790,7 @@ computed from its neighbourhood. In measurement a feature is a property of an
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring">Measuring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting">Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-two-pairs-that-are-easy-to-confuse">A note on two pairs that are easy to confuse</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#easy-to-confuse">Easy to confuse</a></li>
 </ul>
   </nav></div>
 

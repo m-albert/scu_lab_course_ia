@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -380,11 +381,10 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-the-course">Before the course</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-0-theory-introduction-and-computer-setup">Day 0: Theory introduction and computer setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-1-image-analysis-basics">Day 1: Image analysis basics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-2-workflows-and-analysis">Day 2: Workflows and analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-the-course">After the course</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-material-is-written">How the material is written</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-after-the-course">Homework (after the course)</a></li>
 </ul>
             </nav>
         </div>
@@ -399,15 +399,29 @@
   <section class="tex2jax_ignore mathjax_ignore" id="schedule">
 <h1>Schedule<a class="headerlink" href="#schedule" title="Link to this heading">#</a></h1>
 <p>Two days, in <em>Room BSS E 21</em>, 9:00–17:30 with a break from 12:30 to 14:00.</p>
-<section id="before-the-course">
-<h2>Before the course<a class="headerlink" href="#before-the-course" title="Link to this heading">#</a></h2>
-<p>Everything in <a class="reference internal" href="setup/index.html"><span class="std std-doc">Setup</span></a>, and the
-<a class="reference internal" href="python_basics.html"><span class="std std-doc">Python primer</span></a>. The primer needs no data,
-so it can be done anywhere; the environment install cannot, so do not leave it
-to the first day.</p>
+<section id="day-0-theory-introduction-and-computer-setup">
+<h2>Day 0: Theory introduction and computer setup<a class="headerlink" href="#day-0-theory-introduction-and-computer-setup" title="Link to this heading">#</a></h2>
+<p><em>Friday, 18.9.2026</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Lecture</p></td>
+<td><p>Lecture: Introduction to the fundamentals of biological image analysis.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Setup</p></td>
+<td><p>Guided setup of the software environment used in the course</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="day-1-image-analysis-basics">
 <h2>Day 1: Image analysis basics<a class="headerlink" href="#day-1-image-analysis-basics" title="Link to this heading">#</a></h2>
+<p><em>Monday, 21.9.2026</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -416,20 +430,18 @@ to the first day.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Fiji practical</p></td>
-<td><p>Lecture, then <a class="reference internal" href="fiji/index.html"><span class="std std-doc">Fiji</span></a>: intensities, channels, thresholding, cleaning up a binary image, measuring objects, and pixel classification with Weka</p></td>
+<td><p>Recap of Day 0, then <a class="reference internal" href="fiji/index.html"><span class="std std-doc">Fiji</span></a>: Getting famililar with scientific images and establishing a simple image analysis workflow.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Python notebooks</p></td>
-<td><p>The same analysis in Python: <a class="reference internal" href="../notebooks/01_image_handling.html"><span class="std std-doc">image handling</span></a> and <a class="reference internal" href="../notebooks/02_image_processing.html"><span class="std std-doc">image processing</span></a></p></td>
+<td><p>Using Python for automating reproducible image analysis and Machine Learning tools.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The Python notebooks deliberately repeat the Fiji practical on the same images.
-Fiji is faster to start; Python is the tool of choice when there are four hundred
-images, or when the analysis has to be described exactly six months later.</p>
 </section>
 <section id="day-2-workflows-and-analysis">
 <h2>Day 2: Workflows and analysis<a class="headerlink" href="#day-2-workflows-and-analysis" title="Link to this heading">#</a></h2>
+<p><em>Tuesday, 22.9.2026</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -438,25 +450,18 @@ images, or when the analysis has to be described exactly six months later.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Python notebooks</p></td>
-<td><p><a class="reference internal" href="../notebooks/03_ml_segmentation.html"><span class="std std-doc">Machine learning for segmentation</span></a>, <a class="reference internal" href="../notebooks/04_segmentation_metrics.html"><span class="std std-doc">measuring how good a segmentation is</span></a>, <a class="reference internal" href="../notebooks/05_features.html"><span class="std std-doc">features</span></a> and <a class="reference internal" href="../notebooks/06_curve_fitting.html"><span class="std std-doc">curve fitting</span></a></p></td>
+<td><p>Measuring how good a segmentation is, extracting features from images and performing data analysis with curve fitting.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Challenge</p></td>
-<td><p>A drug dose-response screen, start to finish</p></td>
+<td><p>Independent work: Analysing a drug screening dataset.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="after-the-course">
-<h2>After the course<a class="headerlink" href="#after-the-course" title="Link to this heading">#</a></h2>
-<p>The homework, using images you acquire yourself on the microscope you build in
-the microscopy module.</p>
-</section>
-<section id="how-the-material-is-written">
-<h2>How the material is written<a class="headerlink" href="#how-the-material-is-written" title="Link to this heading">#</a></h2>
-<p>Each topic has a <strong>walkthrough</strong> to work through together, and an <strong>exercise</strong>
-to do afterwards. The exercises have laddered hints: take the first one before
-the second.</p>
+<section id="homework-after-the-course">
+<h2>Homework (after the course)<a class="headerlink" href="#homework-after-the-course" title="Link to this heading">#</a></h2>
+<p>See <a class="reference internal" href="homework.html"><span class="std std-doc">homework</span></a> for the details.</p>
 </section>
 </section>
 
@@ -526,11 +531,10 @@ the second.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-the-course">Before the course</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-0-theory-introduction-and-computer-setup">Day 0: Theory introduction and computer setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-1-image-analysis-basics">Day 1: Image analysis basics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-2-workflows-and-analysis">Day 2: Workflows and analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-the-course">After the course</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-material-is-written">How the material is written</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-after-the-course">Homework (after the course)</a></li>
 </ul>
   </nav></div>
 

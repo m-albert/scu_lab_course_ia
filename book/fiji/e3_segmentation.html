@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -458,18 +459,16 @@ before seeing the fix.</p>
 </section>
 <section id="part-4-measuring-the-other-channel">
 <h2>Part 4: measuring the <em>other</em> channel<a class="headerlink" href="#part-4-measuring-the-other-channel" title="Link to this heading">#</a></h2>
-<p>Here is the step that makes this a real workflow rather than an exercise.</p>
-<p>You have masks of the nuclei, made from the DAPI channel. But the interesting
-question is usually about a <em>different</em> channel: how much CD11b is there, in
-each cell?</p>
+<p>You have masks of nuclei from the DAPI channel. Fiji can use those masks to
+measure intensities in another channel. Here you will measure CD11b signal
+within the nuclear regions; that differs from measuring the whole cell.</p>
 <ol class="arabic simple" start="12">
 <li><p>Re-run <code class="docutils literal notranslate"><span class="pre">Analyze</span> <span class="pre">▸</span> <span class="pre">Set</span> <span class="pre">Measurements…</span></code> and set <strong>Redirect to:</strong> to
 <code class="docutils literal notranslate"><span class="pre">2h_1_cells.tif</span></code> (it must be open).</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">Analyze</span> <span class="pre">▸</span> <span class="pre">Analyze</span> <span class="pre">Particles…</span></code> again on your mask.</p></li>
 <li><p><strong>The areas are the same as before, but the mean gray values have changed.
-Why?</strong> Make sure you can explain this to your neighbour: “redirect” is the
-single most useful checkbox in this dialog, and it is the thing you will do
-in your homework to measure GFP inside DAPI-defined nuclei.</p></li>
+Why?</strong> Explain what <strong>Redirect to</strong> changes. You will use the same approach
+in the homework to measure GFP within DAPI-defined nuclei.</p></li>
 </ol>
 </section>
 <section id="part-5-the-hard-channel">
@@ -486,7 +485,7 @@ that reassure you. Look at the outlines. Some honest questions:</p>
 </ul>
 </li>
 </ol>
-<p>If that felt unsatisfying, good. That is what <a class="reference internal" href="e4_weka.html"><span class="std std-doc">E4</span></a> is for.</p>
+<p>In <a class="reference internal" href="e4_weka.html"><span class="std std-doc">E4</span></a>, you will train a pixel classifier for this channel.</p>
 </section>
 </section>
 

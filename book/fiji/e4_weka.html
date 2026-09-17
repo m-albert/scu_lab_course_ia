@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -398,7 +399,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="e4-segmentation-using-machine-learning">
 <h1>E4: Segmentation using machine learning<a class="headerlink" href="#e4-segmentation-using-machine-learning" title="Link to this heading">#</a></h1>
-<p><strong>~50 min.</strong> When you cannot write down the rule, show examples instead.</p>
+<p><strong>~50 min.</strong> Train and apply a pixel classifier in Fiji.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This exercise produces files that the day 2 notebooks read back
@@ -407,14 +408,11 @@ in. Do part 3 even if you are running short of time.</p>
 <section id="why">
 <h2>Why<a class="headerlink" href="#why" title="Link to this heading">#</a></h2>
 <p>In <a class="reference internal" href="e3_segmentation.html"><span class="std std-doc">E3</span></a> the nuclei thresholded well and the cells did not.
-That is not because you chose badly: it is because a threshold can only ask one
-question, <em>is this pixel brighter than X?</em>, and for the CD11b channel the answer
-simply does not separate cell from background.</p>
-<p>A human looking at the same image does much better, using things a threshold has
-no access to: texture, whether a pixel sits near an edge, how the neighbourhood
-varies. <strong>Trainable Weka Segmentation</strong> lets you supply those extra questions.
-You paint a few examples of “this is cell” and “this is background”, and it fits
-a classifier that labels every remaining pixel.</p>
+The CD11b signal varies within cells and some cell edges are faint, so one
+intensity threshold does not separate cells from background well. <strong>Trainable
+Weka Segmentation</strong> uses image features such as texture and local edges. You
+mark example pixels as cell or background, then train a classifier to label the
+rest of the image.</p>
 </section>
 <section id="part-1-train-a-classifier">
 <h2>Part 1: train a classifier<a class="headerlink" href="#part-1-train-a-classifier" title="Link to this heading">#</a></h2>
@@ -447,8 +445,7 @@ threshold from E3? Where is it still wrong?</strong></p></li>
 </section>
 <section id="part-2-apply-a-classifier-you-did-not-train">
 <h2>Part 2: apply a classifier you did not train<a class="headerlink" href="#part-2-apply-a-classifier-you-did-not-train" title="Link to this heading">#</a></h2>
-<p>Training on every image is not a workflow. The point of saving a classifier is to
-reuse it.</p>
+<p>Save the trained classifier so you can apply it to other images.</p>
 <ol class="arabic simple" start="10">
 <li><p>Close the plugin and reopen it on a <em>different</em> image:
 <code class="docutils literal notranslate"><span class="pre">data/bbbc020/images/15min_1_cells.tif</span></code>.</p></li>
@@ -462,11 +459,10 @@ a different field.</p></li>
 images where it struggles?</p></li>
 </ol>
 <div class="note admonition">
-<p class="admonition-title">The question worth arguing about</p>
-<p>A classifier trained on one field and applied to twenty others is exactly what
-you want: it is reproducible, and it is fast. But it has now seen the data it
-was trained on and nothing else. What could change about your imaging between
-Monday and Friday that would silently break it?</p>
+<p class="admonition-title">Applying a classifier to new images</p>
+<p>A saved classifier applies the same learned rule to each image. Its performance
+may change if the illumination, staining or imaging settings change. Which of
+these could differ between two acquisition days?</p>
 </div>
 </section>
 <section id="part-3-export-for-day-2">
@@ -487,9 +483,8 @@ probability map.</p></li>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you run out of time or something goes wrong, the day 2 notebook falls back to
-a reference copy in <code class="docutils literal notranslate"><span class="pre">data/bbbc020/weka/</span></code>. You will get more out of it using your
-own, though: comparing <em>your</em> classifier against a deep-learning model is more
-interesting than comparing someone else’s.</p>
+a reference copy in <code class="docutils literal notranslate"><span class="pre">data/bbbc020/weka/</span></code>. Using your own exports lets you compare the classifier you trained with the
+other methods on day 2.</p>
 </div>
 </section>
 <section id="think-about-it">

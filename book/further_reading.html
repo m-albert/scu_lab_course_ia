@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="current nav bd-sidenav">
@@ -381,9 +382,8 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-more-image-analysis">Learning more image analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-we-did-not-have-time-for">Tools we did not have time for</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-doing-it-properly">On doing it properly</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-images-themselves">On the images themselves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-useful-tools">Further useful tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#good-scientific-practice">Good Scientific Practice</a></li>
 </ul>
             </nav>
         </div>
@@ -397,59 +397,42 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="further-reading">
 <h1>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h1>
-<p>Two days is not long. These are the places worth going next, chosen for being
-genuinely useful rather than merely comprehensive.</p>
+<p>These resources cover topics you may want to explore after the course.</p>
 <section id="learning-more-image-analysis">
 <h2>Learning more image analysis<a class="headerlink" href="#learning-more-image-analysis" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong><a class="reference external" href="https://bioimagebook.github.io/">Introduction to Bioimage Analysis</a></strong>: Pete
-Bankhead. Free, online, and the best single thing to read after this course.
-It covers what we covered, more carefully, with the same insistence on
-understanding what a number means before reporting it.</p></li>
+Bankhead. A free online textbook covering image formation, segmentation and
+measurement, with worked examples.</p></li>
 <li><p><strong><a class="reference external" href="https://haesleinhuepf.github.io/BioImageAnalysisNotebooks/">Bio-image Analysis Notebooks</a></strong>
-: Robert Haase. A very large collection of worked Python notebooks. Good for
-“how do I do <em>X</em>”, and the closest thing to a reference for the
-scikit-image-based approach used here.</p></li>
-<li><p><strong><a class="reference external" href="https://forum.image.sc/">image.sc forum</a></strong>, where to actually ask
-questions. The developers of Fiji, napari, CellProfiler, QuPath and
-scikit-image all read and answer there. Post the image and the code; you will
-usually get a better answer than you expected.</p></li>
+by Robert Haase: worked examples of image analysis workflows with Python and
+scikit-image.</p></li>
+<li><p><strong><a class="reference external" href="https://forum.image.sc/">image.sc forum</a></strong>: a community forum for
+bioimage analysis questions. Include a representative image, the steps you
+tried and any relevant code when asking for help.</p></li>
 </ul>
 </section>
-<section id="tools-we-did-not-have-time-for">
-<h2>Tools we did not have time for<a class="headerlink" href="#tools-we-did-not-have-time-for" title="Link to this heading">#</a></h2>
+<section id="further-useful-tools">
+<h2>Further useful tools<a class="headerlink" href="#further-useful-tools" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="https://napari.org">napari</a></strong>: the viewer we used in passing. Worth
-learning properly if you work with 3D or time-lapse data.</p></li>
 <li><p><strong><a class="reference external" href="https://qupath.github.io/">QuPath</a></strong>: for whole-slide and histology images,
 where the images are far too large for the approach taken here.</p></li>
 <li><p><strong><a class="reference external" href="https://cellprofiler.org/">CellProfiler</a></strong>: pipeline-based analysis without
 writing code. A reasonable middle ground between Fiji and Python for batch
 work.</p></li>
-<li><p><strong><a class="reference external" href="https://www.ilastik.org/">Ilastik</a></strong>: interactive pixel classification, the
-same idea as Trainable Weka but considerably more capable.</p></li>
+<li><p><strong><a class="reference external" href="https://www.ilastik.org/">Ilastik</a></strong>: interactive pixel classification,
+similar in purpose to Trainable Weka Segmentation.</p></li>
 </ul>
 </section>
-<section id="on-doing-it-properly">
-<h2>On doing it properly<a class="headerlink" href="#on-doing-it-properly" title="Link to this heading">#</a></h2>
+<section id="good-scientific-practice">
+<h2>Good Scientific Practice<a class="headerlink" href="#good-scientific-practice" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="https://www.nature.com/collections/qghhqm">Points of Significance</a></strong>:
-<em>Nature Methods</em>’ statistics column. Short, readable, and directly relevant:
-the columns on replication, error bars and <em>p</em>-values address the mistakes
-quantitative imaging makes most often.</p></li>
 <li><p><strong>Lee, Kitaoka (2018), <em>A beginner’s guide to rigor and reproducibility in
-fluorescence imaging experiments</em>, Mol. Biol. Cell.</strong> What to record, what to
-report, and what not to adjust.</p></li>
+fluorescence imaging experiments</em>, Mol. Biol. Cell.</strong> What to record, what to report, and what not to adjust.</p></li>
 <li><p><strong>Schmied <em>et al.</em> (2024), <em>Community-developed checklists for publishing
 images and image analyses</em>, Nature Methods.</strong> A checklist to run through before
 submitting a figure.</p></li>
 </ul>
-</section>
-<section id="on-the-images-themselves">
-<h2>On the images themselves<a class="headerlink" href="#on-the-images-themselves" title="Link to this heading">#</a></h2>
-<p>If you want to understand where the pixel values come from, including sampling,
-the point spread function, and why a filament measures 400 nm, the imaging half
-of this lab course covers it, and Bankhead’s book has a good chapter on it too.</p>
 </section>
 </section>
 
@@ -520,9 +503,8 @@ of this lab course covers it, and Bankhead’s book has a good chapter on it too
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-more-image-analysis">Learning more image analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-we-did-not-have-time-for">Tools we did not have time for</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-doing-it-properly">On doing it properly</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-images-themselves">On the images themselves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-useful-tools">Further useful tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#good-scientific-practice">Good Scientific Practice</a></li>
 </ul>
   </nav></div>
 

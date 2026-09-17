@@ -227,8 +227,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Independent work</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../challenge.html">Challenge: a drug dose-response curve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../homework.html">Homework: quantifying transfection efficiency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../challenge.html">Challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../homework.html">Homework</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further information</span></p>
 <ul class="nav bd-sidenav">
@@ -396,7 +397,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="how-wide-is-a-filament">
 <h1>How wide is a filament?<a class="headerlink" href="#how-wide-is-a-filament" title="Link to this heading">#</a></h1>
-<p><strong>~15 min.</strong> A small exercise with a surprisingly deep answer.</p>
+<p><strong>~15 min.</strong> Measure a filament profile and consider the resolution limit.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
 <p>Open <code class="docutils literal notranslate"><span class="pre">data/misc/actin.tif</span></code>: actin filaments, 200×200 pixels.</p>
@@ -415,7 +416,7 @@ your line, with a peak where it crossed the filament.</p></li>
 <li><p><strong>How wide is that peak?</strong> Click <strong>List</strong> in the plot window to see the
 numbers.</p></li>
 </ol>
-<p>Now the real question: <strong>what do you mean by “wide”?</strong></p>
+<p>A width depends on where you place the boundaries of the peak.</p>
 <ol class="arabic simple" start="4">
 <li><p>Try each of these and write down the number you get:</p>
 <ul class="simple">
@@ -436,7 +437,7 @@ angled, or a bit further along. <strong>How reproducible is your answer?</strong
 <li><p>Draw a line across the <em>background</em>: no filament. <strong>Is the profile flat?</strong>
 Whatever wobble you see there is the noise floor, and it sets a limit on how
 precisely any of the above can be measured.</p></li>
-<li><p>Finally, the uncomfortable one. This image is uncalibrated, so your answer is
+<li><p>Finally, consider the resolution limit. This image is uncalibrated, so your answer is
 in pixels. Suppose a pixel is 100 nm, and your filament measures 4 pixels
 FWHM: 400 nm. <strong>An actin filament is about 7 nm across.</strong> So what did you
 actually measure?</p></li>
@@ -448,10 +449,9 @@ than roughly half the wavelength of light, about 200-250 nm for visible light,
 is imaged as a blur of that size regardless of how small it really is.</p>
 <p>A single actin filament is fifty times finer than that. What you measured was the
 optics, not the filament.</p>
-<p>This is why “how wide is it?” is a question you should be suspicious of whenever
-the answer comes out near the resolution limit. Counting filaments, comparing
-intensities, measuring things much larger than the PSF: all fine. Measuring the
-width of something you cannot resolve: not fine.</p>
+<p>When the measured width is close to the resolution limit, it mainly reflects
+the microscope’s response rather than the filament’s physical width. State that
+limit when reporting the measurement.</p>
 </div>
 </section>
 </section>
