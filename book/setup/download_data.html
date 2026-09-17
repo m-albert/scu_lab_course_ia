@@ -400,8 +400,19 @@ needed for the Fiji exercises or the day 2 notebooks.</p>
 <section id="the-challenge-dataset">
 <h2>The challenge dataset<a class="headerlink" href="#the-challenge-dataset" title="Link to this heading">#</a></h2>
 <p>The day 2 challenge uses a separate dataset that is <strong>too large to
-ship in the course repository</strong>.</p>
-<p>Download the challenge dataset using the following link: https://u.ethz.ch/BgsSv+.</p>
+ship in the course repository</strong>. From inside the repository folder, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>download-challenge-data
+</pre></div>
+</div>
+<p>This downloads the archive (2.2 GB) and unpacks it to
+<code class="docutils literal notranslate"><span class="pre">data/challenge/plate01.nd2</span></code> (3.5 GB). If the connection drops, run the same
+command again and it continues where it left off.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, download <code class="docutils literal notranslate"><span class="pre">plate01.zip</span></code> by hand from https://u.ethz.ch/BgsSv+,
+unzip it, and place <code class="docutils literal notranslate"><span class="pre">plate01.nd2</span></code> in the <code class="docutils literal notranslate"><span class="pre">data/challenge/</span></code> folder of the
+repository.</p>
+</div>
 </section>
 </section>
 
