@@ -381,8 +381,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git">2. Install git</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-course-material">3. Get the course material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-a-terminal">1. Open a terminal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pixi">2. Install pixi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git">3. Install git</a></li>
 </ul>
             </nav>
         </div>
@@ -406,56 +407,39 @@ virtualenv, but it is designed to be simpler and more reproducible. It reads a
 description of the environment from a file and installs the packages in a
 single command. It also provides a way to run commands inside the environment
 without having to activate it first.</p>
-<h2 class="rubric" id="install-pixi">1. Install pixi</h2>
+</div>
+<section id="open-a-terminal">
+<h2>1. Open a terminal<a class="headerlink" href="#open-a-terminal" title="Link to this heading">#</a></h2>
+<p>** macOS**: open the Terminal app (in Applications → Utilities).</p>
+<p><strong>Linux</strong>: open a terminal (Ctrl+Alt+T).</p>
+<p><strong>Windows</strong>: open PowerShell (press Win+R, type <code class="docutils literal notranslate"><span class="pre">powershell</span></code>, and press Enter).</p>
+</section>
+<section id="install-pixi">
+<h2>2. Install pixi<a class="headerlink" href="#install-pixi" title="Link to this heading">#</a></h2>
 <p><strong>macOS / Linux</strong>: in a terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pixi.sh/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 </pre></div>
-</div>
 </div>
 <p><strong>Windows</strong>: in PowerShell:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">powershell</span> <span class="n">-ExecutionPolicy</span> <span class="n">ByPass</span> <span class="n">-c</span> <span class="s2">"irm -useb https://pixi.sh/install.ps1 | iex"</span>
 </pre></div>
 </div>
 <p>Then <strong>close the terminal and open a new one</strong>, so the change to your PATH takes
-effect, and check:</p>
+effect, and check that the following command works:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>--version
 </pre></div>
 </div>
 <p>If you already had pixi installed from before, bring it up to date with
 <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">self-update</span></code>: the course needs a recent version.</p>
-<section id="install-git">
-<h2>2. Install git<a class="headerlink" href="#install-git" title="Link to this heading">#</a></h2>
-<p>Check whether you already have it with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>. If not:</p>
-<ul class="simple">
-<li><p><strong>macOS</strong>: <code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code></p></li>
-<li><p><strong>Windows</strong>: <a class="reference external" href="https://git-scm.com/download/win">git-scm.com/download/win</a></p></li>
-<li><p><strong>Linux</strong>: your package manager, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git</span></code></p></li>
-</ul>
-<p>Or let pixi do it: <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">global</span> <span class="pre">install</span> <span class="pre">git</span></code>.</p>
 </section>
-<section id="get-the-course-material">
-<h2>3. Get the course material<a class="headerlink" href="#get-the-course-material" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/m-albert/scu_lab_course_ia_test.git
-<span class="nb">cd</span><span class="w"> </span>scu_lab_course_ia_test
+<section id="install-git">
+<h2>3. Install git<a class="headerlink" href="#install-git" title="Link to this heading">#</a></h2>
+<p>Check whether you already have it with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>.</p>
+<p>If not, type the following command in the terminal, which can take a minute:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>global<span class="w"> </span>install<span class="w"> </span>git
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Clone into a folder that is <strong>not synced to the cloud</strong>: not <code class="docutils literal notranslate"><span class="pre">Documents</span></code> or
-<code class="docutils literal notranslate"><span class="pre">Desktop</span></code> if those live in OneDrive or iCloud, and not a Dropbox folder. The
-environment is several gigabytes in many thousands of files, and a sync client
-can interrupt installation or make it much slower. Your home folder is a suitable
-location.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Use a plain <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>, <strong>not</strong> <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">--recurse-submodules</span></code>. The repository
-references a <code class="docutils literal notranslate"><span class="pre">.course/solutions/</span></code> submodule that only instructors can read. If you clone
-with <code class="docutils literal notranslate"><span class="pre">--recurse-submodules</span></code> you will see an error about <em>“Could not read from
-remote repository”</em>: the student notebooks and data are still available. The instructor-only
-<code class="docutils literal notranslate"><span class="pre">.course/solutions/</span></code> folder may remain empty.</p>
-</div>
-<p>Next: <a class="reference internal" href="setup_environment.html"><span class="std std-doc">set up the environment</span></a>.</p>
+<p>Next: <a class="reference internal" href="setup_environment.html"><span class="std std-doc">set up the course Python environment</span></a>.</p>
 </section>
 </section>
 
@@ -525,8 +509,9 @@ remote repository”</em>: the student notebooks and data are still available. T
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git">2. Install git</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-course-material">3. Get the course material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-a-terminal">1. Open a terminal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pixi">2. Install pixi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git">3. Install git</a></li>
 </ul>
   </nav></div>
 

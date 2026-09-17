@@ -381,14 +381,16 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-segmentation-models">Download the segmentation models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyterlab">Start JupyterLab</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">1) Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-api-key-in-your-environment">2) Set the API key in your environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-course-material">1. Get the course material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment">2. Install the environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-lab">3. Start Jupyter Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">4. Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">4.1 Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-api-key-in-your-environment">4.2 Set the API key in your environment</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-jupyterlab">Stop JupyterLab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-jupyter-lab">5. Stop Jupyter Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-lab-again">6. Start Jupyter Lab again</a></li>
 </ul>
             </nav>
         </div>
@@ -402,48 +404,66 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="set-up-the-environment">
 <h1>Set up the environment<a class="headerlink" href="#set-up-the-environment" title="Link to this heading">#</a></h1>
-<p>From inside the repository folder:</p>
+<section id="get-the-course-material">
+<h2>1. Get the course material<a class="headerlink" href="#get-the-course-material" title="Link to this heading">#</a></h2>
+<p>Download (or “clone”) the course repository (meaning “course folder”) from GitHub. In a terminal, navigate to a folder where you want to put the course folder. You can use <code class="docutils literal notranslate"><span class="pre">cd</span></code> to change the current folder, for example <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code> to go to your home folder. Then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bsse-scf/scu_lab_course_ia.git
+</pre></div>
+</div>
+<p>Now you have a folder <code class="docutils literal notranslate"><span class="pre">scu_lab_course_ia</span></code> with the course material. Change into that folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>scu_lab_course_ia
+</pre></div>
+</div>
+<div class="admonition-what-is-a-repository admonition">
+<p class="admonition-title">What is a repository?</p>
+<p>A repository is a folder that contains files and a history of changes to those files. It is usually hosted on a service like GitHub, and for this course, it contains the course material, including notebooks, scripts, and data. You can think of it as a “course folder” that you can download and update.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Clone into a folder that is <strong>not synced to the cloud</strong>: not <code class="docutils literal notranslate"><span class="pre">Documents</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Desktop</span></code> if those live in OneDrive or iCloud, and not a Dropbox folder. The
+environment is several gigabytes in many thousands of files, and a sync client
+can interrupt installation or make it much slower. Your home folder is a suitable
+location.</p>
+</div>
+</div>
+</section>
+<section id="install-the-environment">
+<h2>2. Install the environment<a class="headerlink" href="#install-the-environment" title="Link to this heading">#</a></h2>
+<p>From inside the repository folder, run the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>install
 </pre></div>
 </div>
-<p>That reads <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">pixi.lock</span></code> and builds the environment. It downloads
-around <strong>3.5 GB</strong> and takes anywhere from a few minutes to half an hour depending
-on your connection.</p>
-<section id="download-the-segmentation-models">
-<h2>Download the segmentation models<a class="headerlink" href="#download-the-segmentation-models" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>fetch-models
-</pre></div>
+<p>This builds the environment. It downloads around <strong>3 GB</strong> and takes some minutes to complete. If the connection drops, run the same command again and it continues where it left off.</p>
+<div class="admonition-already-have-conda admonition">
+<p class="admonition-title">Already have conda?</p>
+<p>If you already have Anaconda or Miniconda installed, leave it as is — pixi does not interact with it. Just make sure you run the course from a plain terminal, not from within an activated conda environment, and in JupyterLab always pick the <strong>Python 3 (ipykernel)</strong> kernel that appears by default rather than any other kernel you may have registered before.</p>
 </div>
-<p>The day 2 notebooks use pretrained cellpose models, which cellpose downloads
-(about 50 MB) the first time they are used. Using the command above we pre-download the models now.</p>
 </section>
-<section id="start-jupyterlab">
-<h2>Start JupyterLab<a class="headerlink" href="#start-jupyterlab" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>lab
+<section id="start-jupyter-lab">
+<h2>3. Start Jupyter Lab<a class="headerlink" href="#start-jupyter-lab" title="Link to this heading">#</a></h2>
+<p>JupyterLab is the main interface for the course. From inside the repository folder, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </span>lab
 </pre></div>
 </div>
-<p>This opens JupyterLab in your browser, already using the course environment. Open
-<code class="docutils literal notranslate"><span class="pre">notebooks/00_python_basics.ipynb</span></code> and run the first few cells.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">&lt;something&gt;</span></code> always runs inside the environment. You never need to
-“activate” anything, and you should not <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> into it: if a package is
-missing, it belongs in <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">&lt;something&gt;</span></code> always runs the command inside the environment defined in the current directory. For those who are used to using conda, this is similar to running commands in an activated environment. You never need to
+“activate” anything, and you should not <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> into it: if a package is missing, it belongs in the pixi configuration.</p>
 </div>
 </section>
 <section id="set-up-the-jupyter-ai-course-tutor">
-<h2>Set up the Jupyter AI course tutor<a class="headerlink" href="#set-up-the-jupyter-ai-course-tutor" title="Link to this heading">#</a></h2>
+<h2>4. Set up the Jupyter AI course tutor<a class="headerlink" href="#set-up-the-jupyter-ai-course-tutor" title="Link to this heading">#</a></h2>
 <p>The course environment includes an optional AI-based <strong>Course Tutor</strong> chat in
 JupyterLab. It can read the selected notebook cell and its output to help you
 understand an error or interactively explain details about the contained code. This chat might be more useful than a general-purpose AI chat, because it knows about the course material and computational environment.</p>
 <p>The tutor uses a model hosted by the Swiss AI Research Platform. To enable it, follow these steps:</p>
 <section id="obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">
-<h3>1) Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)<a class="headerlink" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch" title="Link to this heading">#</a></h3>
+<h3>4.1 Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)<a class="headerlink" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch" title="Link to this heading">#</a></h3>
 <p>Sign in with your ETH Zurich account. Open <strong>API Keys</strong> and copy your key. It
 should start with <code class="docutils literal notranslate"><span class="pre">sk-</span></code>.</p>
 </section>
 <section id="set-the-api-key-in-your-environment">
-<h3>2) Set the API key in your environment<a class="headerlink" href="#set-the-api-key-in-your-environment" title="Link to this heading">#</a></h3>
+<h3>4.2 Set the API key in your environment<a class="headerlink" href="#set-the-api-key-in-your-environment" title="Link to this heading">#</a></h3>
 <p>In JupyterLab:</p>
 <ol class="arabic simple">
 <li><p>Open <strong>Settings → Jupyternaut settings</strong>.</p></li>
@@ -456,10 +476,17 @@ Check that the tutor responds about the selected cell.</p></li>
 </ol>
 </section>
 </section>
-<section id="stop-jupyterlab">
-<h2>Stop JupyterLab<a class="headerlink" href="#stop-jupyterlab" title="Link to this heading">#</a></h2>
+<section id="stop-jupyter-lab">
+<h2>5. Stop Jupyter Lab<a class="headerlink" href="#stop-jupyter-lab" title="Link to this heading">#</a></h2>
 <p>When you are done, press <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code> in the terminal where you started JupyterLab.
 Confirm with <code class="docutils literal notranslate"><span class="pre">y</span></code> and <strong>Enter</strong>, then close the browser tab.</p>
+</section>
+<section id="start-jupyter-lab-again">
+<h2>6. Start Jupyter Lab again<a class="headerlink" href="#start-jupyter-lab-again" title="Link to this heading">#</a></h2>
+<p><em>On subsequent days</em>, you do not need to run <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">install</span></code> again. Just open a terminal, change into the repository folder, and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -529,14 +556,16 @@ Confirm with <code class="docutils literal notranslate"><span class="pre">y</spa
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-segmentation-models">Download the segmentation models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyterlab">Start JupyterLab</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">1) Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-api-key-in-your-environment">2) Set the API key in your environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-course-material">1. Get the course material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment">2. Install the environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-lab">3. Start Jupyter Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-jupyter-ai-course-tutor">4. Set up the Jupyter AI course tutor</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-an-api-key-from-the-swiss-ai-research-platform-https-swissai-svc-cscs-ch">4.1 Obtain an API key from the Swiss AI Research Platform (https://swissai.svc.cscs.ch/)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-api-key-in-your-environment">4.2 Set the API key in your environment</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-jupyterlab">Stop JupyterLab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-jupyter-lab">5. Stop Jupyter Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-lab-again">6. Start Jupyter Lab again</a></li>
 </ul>
   </nav></div>
 
