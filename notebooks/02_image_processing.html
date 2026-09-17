@@ -390,7 +390,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#morphology-cleaning-up-a-binary-image">4. Morphology: cleaning up a binary image</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-together">5. Putting it together</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-a-second-route-from-semantic-to-instance">6. Watershed: a second route from semantic to instance</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-obvious-way-to-find-the-seeds">The obvious way to find the seeds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-seeds-from-local-maxima">Finding seeds from local maxima</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-1-keep-only-the-cores-by-thresholding-the-distance">Fix 1: keep only the cores, by thresholding the distance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-2-smooth-the-landscape-then-find-peaks">Fix 2: smooth the landscape, then find peaks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-whole-image">On the whole image</a></li>
@@ -411,10 +411,10 @@
   <section class="tex2jax_ignore mathjax_ignore" id="image-processing">
 <h1>Image processing<a class="headerlink" href="#image-processing" title="Link to this heading">#</a></h1>
 <p><strong>Duration</strong> ~50 min  ·  <strong>Session</strong> Day 1, Python notebooks</p>
-<p>Last notebook ended badly on purpose. We thresholded the nuclei, counted <strong>34</strong>
-objects, and the expert annotation said <strong>39</strong>. This notebook is about closing
-that gap, and about the general habit it stands for: <em>almost no image is ready
-to be thresholded as it comes off the microscope.</em></p>
+<p>In the previous notebook, thresholding gave <strong>34</strong> nuclei while the annotation
+contains <strong>39</strong>. Here you will examine why the counts differ, then try
+preprocessing and watershed segmentation. You will also work with an image that
+has uneven illumination.</p>
 <p><strong>This notebook covers</strong></p>
 <ul class="simple">
 <li><p>recognising uneven illumination, and correcting it</p></li>
@@ -533,8 +533,7 @@ right everywhere at once</strong>.</p>
 </div>
 <p>Look at the bottom of that mask: whole grains are missing, because down there
 even a grain is darker than the threshold. Meanwhile the bright top has merged
-background into the foreground. The count, <strong>151</strong>, is nonsense; the image has
-somewhere around 95–100 grains.</p>
+background into the foreground. The count is <strong>151</strong>, although the image contains roughly 95–100 grains.</p>
 <section id="estimating-the-background-and-removing-it">
 <h3>Estimating the background and removing it<a class="headerlink" href="#estimating-the-background-and-removing-it" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
@@ -754,9 +753,9 @@ the <em>shape</em> of a binary image. The four used constantly are:</p>
 <p>The count has not moved: 34 before, 34 after. Smoothing and hole-filling tidied
 the shapes, and the size filter had nothing to remove: exactly as the size
 distribution predicted.</p>
-<p>That is worth seeing rather than being told. <strong>A cleanup step is not automatically
-an improvement</strong>, and three of the four operations above earned nothing on this
-particular image. The one problem this image actually has is still untouched.</p>
+<p>Compare each intermediate result with the starting image. Smoothing and
+hole-filling changed the shapes, but they did not improve this count. The
+remaining error comes from touching nuclei.</p>
 <p>The one that is left is a pair of nuclei that touch, and no amount of
 threshold-tuning will separate them, as far as intensity is concerned they
 really are one connected region. That needs a different idea.</p>
@@ -804,8 +803,8 @@ middle of an object is far from any edge, so it becomes a peak.</p>
 <img alt="../_images/85ba5bd480e3d734a6540cb5b66f09a7035abbc98f0103eac1898dc4bf3450c5.png" src="../_images/85ba5bd480e3d734a6540cb5b66f09a7035abbc98f0103eac1898dc4bf3450c5.png" />
 </div>
 </div>
-<section id="the-obvious-way-to-find-the-seeds">
-<h3>The obvious way to find the seeds<a class="headerlink" href="#the-obvious-way-to-find-the-seeds" title="Link to this heading">#</a></h3>
+<section id="finding-seeds-from-local-maxima">
+<h3>Finding seeds from local maxima<a class="headerlink" href="#finding-seeds-from-local-maxima" title="Link to this heading">#</a></h3>
 <p>Two hills, so: find the local maxima and use those as seeds. <code class="docutils literal notranslate"><span class="pre">peak_local_max</span></code>
 does exactly that, and needs nothing but the landscape.</p>
 <div class="cell docutils container">
@@ -849,8 +848,8 @@ objects after watershed: 6  (we wanted 2)
 <img alt="../_images/27e67aa6cfc34e756898ad6d929e830fc07f451c2c7e14b6ff8859141c2ebc42.png" src="../_images/27e67aa6cfc34e756898ad6d929e830fc07f451c2c7e14b6ff8859141c2ebc42.png" />
 </div>
 </div>
-<p>Six objects where there are two. The watershed did nothing wrong: it was handed
-six seeds and dutifully grew six regions.</p>
+<p>The watershed produced six regions from two nuclei because it received six
+seeds.</p>
 <p>The problem is the seeds. A distance transform is not smooth: every small
 irregularity in the binary image boundary pushes the distance up or down a little, so a
 single nucleus has several local maxima a pixel or two apart. <code class="docutils literal notranslate"><span class="pre">peak_local_max</span></code>
@@ -885,9 +884,8 @@ distance &gt; 7  -&gt;  2 seed(s)  -&gt;  2 object(s)
 </div>
 </div>
 <p>At <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">4</span></code> the two nuclei still share a single core and stay merged; from <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">5</span></code>
-upward the answer settles at two and stays there. <strong>A parameter with a plateau
-like that is one to trust</strong>; if the answer changes every time it is nudged, the
-result is not really saying anything.</p>
+upward the answer settles at two and stays there. A stable range is useful evidence that the count does not depend on one precise
+choice of threshold. Check the boundaries as well as the count.</p>
 </section>
 <section id="fix-2-smooth-the-landscape-then-find-peaks">
 <h3>Fix 2: smooth the landscape, then find peaks<a class="headerlink" href="#fix-2-smooth-the-landscape-then-find-peaks" title="Link to this heading">#</a></h3>
@@ -1026,14 +1024,10 @@ segmentation, and they fail differently:</p>
 </tbody>
 </table>
 </div>
-<p>Three of our five cleanup steps did nothing on this image, the watershed did the
-real work, and we are still a few nuclei short. Every result <em>looks</em>
-plausible, the count moves in the right direction, and there is still no way to
-say how good any of it actually is: a count of 40 could be 40 correct nuclei, or
-34 correct ones plus 6 mistakes.</p>
-<p><strong>Day 2 fixes that.</strong> There are proper measures for comparing a
-segmentation against a ground truth, and they show immediately what the count is
-hiding.</p>
+<p>On this image, the watershed changed the count most, but some nuclei remain
+merged. A count alone cannot show whether the right objects were found: 40
+predictions could include both missed nuclei and false detections. On day 2, we
+will compare segmentations with annotations using pixel and object metrics.</p>
 </section>
 </section>
 <section id="recap">
@@ -1079,9 +1073,8 @@ image before looking at the threshold.</strong></p>
 segmentation, and there is more than one way to turn that into <em>instances</em>.
 Connected components is the simple one; the watershed is the one that copes with
 objects that touch.</p>
-<p>Next: day 2, where guessing whether these results are good gives way to
-start measuring it, and where a model learns the rules instead of us writing
-them.</p>
+<p>Next: on day 2, we will compare these results with learned segmentation methods
+and measure their accuracy.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -1162,7 +1155,7 @@ them.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#morphology-cleaning-up-a-binary-image">4. Morphology: cleaning up a binary image</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-together">5. Putting it together</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-a-second-route-from-semantic-to-instance">6. Watershed: a second route from semantic to instance</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-obvious-way-to-find-the-seeds">The obvious way to find the seeds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-seeds-from-local-maxima">Finding seeds from local maxima</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-1-keep-only-the-cores-by-thresholding-the-distance">Fix 1: keep only the cores, by thresholding the distance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-2-smooth-the-landscape-then-find-peaks">Fix 2: smooth the landscape, then find peaks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-the-whole-image">On the whole image</a></li>

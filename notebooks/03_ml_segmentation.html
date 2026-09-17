@@ -402,14 +402,10 @@
   <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-for-segmentation">
 <h1>Machine learning for segmentation<a class="headerlink" href="#machine-learning-for-segmentation" title="Link to this heading">#</a></h1>
 <p><strong>Duration</strong> ~50 min  ·  <strong>Session</strong> Day 2, Python notebooks</p>
-<p>Day 1 ended in a stalemate. The nuclei segmented fine with a threshold. The
-cell channel did not, and no amount of parameter-tuning fixed it, because a
-threshold can only ask <em>is this pixel bright enough?</em>, and for that channel the
-answer does not separate cell from background.</p>
-<p>Weka took a different route: examples were painted by hand, and it learned a rule
-that is hard to write down explicitly. This notebook picks those results back up in Python, looks
-at what a pixel classifier can and cannot do, and then try a model that was
-trained by someone else on a hundred thousand cells.</p>
+<p>On day 1, a threshold worked reasonably well for nuclei but struggled with the
+cell channel. In Fiji, you trained a pixel classifier from pixels marked as cell or background.
+Here we will inspect its output in Python and compare it with Cellpose, a model
+trained on a larger collection of cell images.</p>
 <p><strong>This notebook covers</strong></p>
 <ul class="simple">
 <li><p>loading and interpreting a Weka probability map</p></li>
@@ -459,7 +455,7 @@ classified   : (348, 512) uint8 values [0 1]
 <p>The probability map has an <strong>extra first axis of length 2</strong>: one map per class.
 Weka reports, for every pixel, its confidence that the pixel belongs to each
 class. The classified image is just that, argmaxed: whichever class won.</p>
-<p>Now the question that trips everyone up: <strong>which index is which class?</strong></p>
+<p>Before using the probability map, check <strong>which index represents which class</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do NOT assume index 0 is the class you care about. Check it against something</span>
@@ -506,9 +502,8 @@ the file records which is which. <strong>It has to be checked against something 
 </div>
 </div>
 <p>The probability map is the more informative of the two. Bright means “confident
-this is cell”, dark means “confident this is background”, and the mid-gray band
-around every cell edge is the classifier reporting that <em>it is not sure</em>, which is
-honest, and which a plain threshold could never express.</p>
+this is cell”, dark means “confident this is background”, and values around 0.5 near cell edges indicate uncertainty. A binary mask no longer
+shows that uncertainty.</p>
 <p>The classified image throws that away by taking whichever class scored above
 0.5. Keeping the probability leaves the cut-off open to be chosen later.</p>
 <div class="cell docutils container">
@@ -617,11 +612,9 @@ above the annotation rather than below it.</p>
 gave the same answer; here the count swings between 15 and 40 as the cut-off
 moves, and not even monotonically. <strong>There is no plateau to sit on</strong>, which means
 any value chosen here is a choice rather than something the data supports.</p>
-<p>That is the honest state of this pipeline. A pixel classifier plus a
-hand-tuned watershed can be pushed to roughly the right number, but the
-“roughly” is doing a lot of work and the parameter has no obviously correct
-value.</p>
-<p>Which raises the question: is there a method that produces instances <em>directly</em>?</p>
+<p>A pixel classifier followed by a watershed can give a plausible count, but here
+the result depends strongly on the seed parameter. We will now try a method that
+produces object labels directly.</p>
 <div class="admonition-shallow-vs-deep-in-one-paragraph admonition">
 <p class="admonition-title">Shallow vs deep, in one paragraph</p>
 <p>Weka is <em>shallow</em> learning: <strong>the features are chosen by hand</strong> (Gaussian blur, edges,
@@ -696,8 +689,8 @@ for opposite responses:</p>
 incomplete: on this field about 83% of the nuclei have a corresponding cell
 outline, and the rest of the cells are simply unlabelled. So some of that excess
 is real.</p>
-<p>This is worth internalising: <strong>“more objects than the ground truth” is not
-automatically an error.</strong> It might be the ground truth.</p>
+<p>A prediction without a matching annotation is not necessarily a false
+detection when annotations are incomplete. Inspect such objects in the image.</p>
 </section>
 <section id="the-one-parameter-that-matters">
 <h2>4. The one parameter that matters<a class="headerlink" href="#the-one-parameter-that-matters" title="Link to this heading">#</a></h2>
@@ -786,15 +779,11 @@ Cellpose                     28
 </div>
 <p>Three plausible-looking results and three different counts, none of them equal to
 the annotation.</p>
-<p><strong>So which is best?</strong> The pictures support an opinion: Cellpose separates
-neighbours more convincingly, and the threshold result is speckled. But an
-opinion is not a measurement, and the object counts alone are clearly not enough
-either. The count would happily call a method perfect that found the right
-<em>number</em> of completely wrong objects.</p>
-<p>This is where eyeballing finally runs out, and it is exactly what the next
-notebook is for. <code class="docutils literal notranslate"><span class="pre">04_segmentation_metrics</span></code> introduces the measures that answer
-this question properly, and then puts these same three results through them. Some
-of the answers are surprising.</p>
+<p>Cellpose appears to separate neighbouring cells better, while the threshold
+result contains small specks. Object counts cannot establish which segmentation
+is better: two results can have the same count and label different cells.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">04_segmentation_metrics</span></code>, you will compare these results with annotations
+using pixel and object scores.</p>
 </section>
 <section id="does-the-hard-channel-need-all-this">
 <h2>6. Does the hard channel need all this?<a class="headerlink" href="#does-the-hard-channel-need-all-this" title="Link to this heading">#</a></h2>
@@ -824,23 +813,13 @@ cells channel                  19         28      23
 </div>
 </div>
 </div>
-<p>On the nuclei the two methods land in much the same place. On the cells they do
-not.</p>
-<p>That is the shape of the answer, and it is worth carrying forward even before we
-can put a number on it:</p>
-<ul class="simple">
-<li><p>The nuclei are compact, bright and well separated. The problem is easy, so a
-simple method already solves most of it and a complicated one has little left
-to add.</p></li>
-<li><p>The cells touch, fade at the edges and vary in brightness. The problem is hard,
-and that is where the learned methods earn their place.</p></li>
-</ul>
-<p><strong>Reach for the simple thing first.</strong> Six lines of scikit-image run instantly,
-are easy to explain in a paper, and have no model weights to go stale. Move up
-when it visibly fails, and day 1 showed exactly what that looks like.</p>
-<p>The corollary matters just as much: <strong>do not assume the fancy method is better,
-measure it.</strong> The next notebook does precisely that, on these three
-results.</p>
+<p>The methods give similar counts for nuclei but differ on the cell channel.
+Nuclei are compact and bright against the background, so thresholding already
+works reasonably well. Cell boundaries are less distinct, and neighbouring
+cells often touch.</p>
+<p>Start with a method you can explain and check. If it misses objects or gives
+poor boundaries, try another method and compare the results with annotations.
+The next notebook makes that comparison.</p>
 </section>
 <section id="recap">
 <h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
@@ -871,11 +850,8 @@ results.</p>
 </tbody>
 </table>
 </div>
-<p>Note what this notebook deliberately did <strong>not</strong> do: put a number on which
-result is best. Counting objects is not enough, and every comparison here was
-either a count or a picture.</p>
-<p>Next: <code class="docutils literal notranslate"><span class="pre">04_segmentation_metrics</span></code>, which supplies the missing measures and applies
-them to exactly these three results.</p>
+<p>These comparisons used images and object counts. Next, <code class="docutils literal notranslate"><span class="pre">04_segmentation_metrics</span></code>
+applies pixel and object metrics to the same results.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>

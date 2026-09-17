@@ -410,10 +410,9 @@
   <section class="tex2jax_ignore mathjax_ignore" id="basic-image-handling">
 <h1>Basic image handling<a class="headerlink" href="#basic-image-handling" title="Link to this heading">#</a></h1>
 <p><strong>Duration</strong> ~45 min  ·  <strong>Session</strong> Day 1, Python notebooks</p>
-<p>The Fiji practical was a complete analysis, done by clicking. This
-notebook repeats <em>the same analysis, on the same images</em>, in Python. Nothing new
-is being measured. The point is to see what the clicking was actually doing, and
-to arrive at a workflow that runs on 400 images as easily as on 4.</p>
+<p>In the Fiji practical, you analysed these images through the interface. Here you
+will repeat the main steps in Python. This makes the operations explicit and
+allows the same code to run on several images.</p>
 <p><strong>This notebook covers</strong></p>
 <ul class="simple">
 <li><p>what an image <em>is</em> to a computer, and how to read its shape and data type</p></li>
@@ -584,12 +583,10 @@ object.</p>
 <img alt="../_images/d1e703aed085cef55cbb72ca4aa5d316fba69c474beb201a90527107071faa09.png" src="../_images/d1e703aed085cef55cbb72ca4aa5d316fba69c474beb201a90527107071faa09.png" />
 </div>
 </div>
-<p>Two images of the <em>same cells</em>, taken through different filters. Look at them
-side by side and the rest of the day is already predictable: the nuclei are
-compact, well separated and clearly brighter than their surroundings.
-The CD11b channel is patchy, the cells touch, and the edges fade out. One of
-these will threshold cleanly. The other will not, which is exactly why Weka came
-up in the Fiji practical.</p>
+<p>These channels show the same field of cells. The nuclei are compact and bright
+against the background. The CD11b signal is less even: cells touch and some
+edges are faint. Compare the channels before choosing a segmentation method.
+A threshold is more likely to work well on the nuclei than on the cell channel.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A composite: put each channel in a colour and stack them into an RGB image.</span>
@@ -806,8 +803,8 @@ annotated truth     : 39 nuclei
 </div>
 </div>
 </div>
-<p>Not the same number, and note the direction. We found <strong>fewer</strong> objects than
-there are nuclei, which is not what most people expect a threshold to get wrong.</p>
+<p>The automated count is <strong>lower</strong> than the annotated count. Inspect the labels
+to see where objects have merged.</p>
 <p>The reason is built into the rule we just used. “Pixels that touch belong to the
 same object” is a good definition right up until two nuclei touch each other.
 Then every pixel between them is foreground, the two form one connected region,
@@ -817,8 +814,7 @@ fixes this, because as far as the binary image is concerned they really are one 
 That is a limitation of the <em>method</em>, not a mistake in the parameters, and it is
 why <code class="docutils literal notranslate"><span class="pre">02_image_processing</span></code> introduces a second way of getting from a semantic
 segmentation to an instance segmentation.</p>
-<p>There is a habit worth taking from this too: the first number a pipeline produces
-is rarely right, and the only way to find out is to check it against something.</p>
+<p>Check a count against the image or an annotation before using it in an analysis.</p>
 </section>
 <section id="viewing-images-interactively">
 <h2>8. Viewing images interactively<a class="headerlink" href="#viewing-images-interactively" title="Link to this heading">#</a></h2>
@@ -867,7 +863,7 @@ is rarely right, and the only way to find out is to check it against something.<
 </section>
 <section id="recap">
 <h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
-<p>That is the whole Fiji practical, in about twenty lines:</p>
+<p>These steps correspond to operations from the Fiji practical:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Fiji</p></th>
@@ -902,9 +898,8 @@ is rarely right, and the only way to find out is to check it against something.<
 </tbody>
 </table>
 </div>
-<p>Nothing here was more powerful than Fiji. What changed is that all of it is now
-<em>text</em>, which means it can be repeated, version-controlled, and applied to a
-whole folder unattended.</p>
+<p>The Python version records each operation as code. You can rerun it, review the
+parameters and apply it to a folder of images.</p>
 <p>Two ideas to carry forward, because everything from here builds on them:</p>
 <ul class="simple">
 <li><p><strong>semantic</strong> segmentation labels pixels by class; <strong>instance</strong> segmentation
@@ -912,9 +907,8 @@ labels them by object;</p></li>
 <li><p><strong>connected component labeling</strong> turns the first into the second, and fails
 exactly when objects touch.</p></li>
 </ul>
-<p>Next: <code class="docutils literal notranslate"><span class="pre">02_image_processing</span></code>, where we clean images up before thresholding them,
-meet a second route from semantic to instance that handles touching objects:
-and see what to do about that CD11b channel.</p>
+<p>Next: <code class="docutils literal notranslate"><span class="pre">02_image_processing</span></code> covers preprocessing and watershed segmentation for
+touching objects.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>

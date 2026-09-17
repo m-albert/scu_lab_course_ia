@@ -522,11 +522,9 @@ threshold-and-cleanup on each.</p>
 <p>Hint if you need it: think about what division does to a dim corner where there
 was almost no signal, and what happens to the noise that was sitting there.
 <em>(edit this cell)</em></p>
-<p>This is worth remembering alongside the walkthrough’s top-hat: <strong>correcting an
-image and improving a segmentation are not the same thing</strong>. The illumination is
-genuinely fixed, and the naive count genuinely got worse, because flattening
-amplifies noise wherever the signal was weak. You would follow this with
-smoothing and a size filter, which is exactly task 4.</p>
+<p>The illumination correction makes brightness more even across the image, but
+the object count gets worse. Division also amplifies noise in dim areas, creating
+false objects. In task 4, try smoothing and a size filter before counting.</p>
 </section>
 <section id="task-3-which-filter-for-which-noise">
 <h2>Task 3: which filter for which noise?<a class="headerlink" href="#task-3-which-filter-for-which-noise" title="Link to this heading">#</a></h2>
@@ -716,9 +714,9 @@ walkthrough, so any distance cut-off has to be much larger too.</p>
 </div>
 </div>
 </div>
-<p>The naive seeding over-splits badly, exactly as it did in the walkthrough. Both
-remedies pull it back. Pick whichever gave you the most stable answer and look at
-the result.</p>
+<p>Using every local maximum as a seed splits many cells into fragments. Compare
+the two alternative seed methods, choose the one that is more stable across
+parameter values, and inspect its boundaries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoothed</span> <span class="o">=</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
